@@ -80,6 +80,14 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: junit-results-node-${{matrix.node-version}}-${{matrix.os}}
+          path: ./reports/junit.xml
+
       - name: Test Report
         uses: dorny/test-reporter@v3
         if: ${{ !cancelled() }}
@@ -134,7 +142,7 @@ jobs:
       - name: Extract package
         run: tar -xvf *.tgz
       - name: Archive build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: package
           path: "./package"
