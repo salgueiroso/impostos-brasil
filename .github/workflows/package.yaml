@@ -81,12 +81,12 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v7
-        if: ${{ !cancelled() }}
-        with:
-          name: junit-results-node-${{matrix.node-version}}-${{matrix.os}}
-          path: ./reports/junit.xml
+      # - name: Upload test results
+      #   uses: actions/upload-artifact@v7
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: junit-results-node-${{matrix.node-version}}-${{matrix.os}}
+      #     path: ./reports/junit.xml
 
       - name: Test Report
         uses: dorny/test-reporter@v3
