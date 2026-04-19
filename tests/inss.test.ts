@@ -1,10 +1,10 @@
 
-import { AliquotasTetoFaixas, calcularINSS, vigenciaFaixasInss } from "../src";
+import { AliquotasTetoFaixas, calcularINSS, getAliquotasVigentes, Meses, vigenciaFaixasInss } from "../src";
 import { describe, test, expect } from "@jest/globals";
 
 describe('INSS - Impostos', () => {
 
-    const faixas: AliquotasTetoFaixas = vigenciaFaixasInss.get(2026) ?? new Map();
+    const faixas: AliquotasTetoFaixas = getAliquotasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss) ?? new Map();
 
     test('Inicializar', () => {
         const vlSalarioBrutoMensal = 12530.49;
@@ -98,7 +98,7 @@ describe('INSS - Impostos', () => {
 
 describe('INSS - Aliquotas efetivas', () => {
 
-    const faixas: AliquotasTetoFaixas = vigenciaFaixasInss.get(2026) ?? new Map();
+    const faixas: AliquotasTetoFaixas = getAliquotasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss) ?? new Map();
 
     test('Inicializar', () => {
         const vlSalarioBrutoMensal = 12530.49;
