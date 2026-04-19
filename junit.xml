@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="58" failures="36" errors="0" time="0.293">
+  <testsuite name="IRPF - Impostos" errors="0" failures="15" skipped="0" timestamp="2026-04-19T16:42:08" time="0.113" tests="25">
+    <testcase classname="IRPF - Impostos Inicializar" name="IRPF - Impostos Inicializar" time="0.001">
+    </testcase>
+    <testcase classname="IRPF - Impostos Valor bruto" name="IRPF - Impostos Valor bruto" time="0.001">
+    </testcase>
+    <testcase classname="IRPF - Impostos Valor base de calculo" name="IRPF - Impostos Valor base de calculo" time="0">
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 1 salario" name="IRPF - Impostos Imposto para 1 salario" time="0">
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 2 salario" name="IRPF - Impostos Imposto para 2 salario" time="0.001">
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 3 salario" name="IRPF - Impostos Imposto para 3 salario" time="0">
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 4 salario" name="IRPF - Impostos Imposto para 4 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 569.6172675
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:60:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 5 salario" name="IRPF - Impostos Imposto para 5 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 1068.2915874999999
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:68:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 6 salario" name="IRPF - Impostos Imposto para 6 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 1512.0488025000004
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:76:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 7 salario" name="IRPF - Impostos Imposto para 7 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 1957.8238025
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:84:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 8 salario" name="IRPF - Impostos Imposto para 8 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 2403.5988025
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:92:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 9 salario" name="IRPF - Impostos Imposto para 9 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 2849.3738025000002
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:100:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Impostos Imposto para 10 salario" name="IRPF - Impostos Imposto para 10 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 3295.1488025000003
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:108:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Inicializar" name="IRPF - Aliquotas efetivas Inicializar" time="0">
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota efetiva" name="IRPF - Aliquotas efetivas Aliquota efetiva" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.18221821752381592
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:128:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 1 salario" name="IRPF - Aliquotas efetivas Aliquota para 1 salario" time="0">
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 2 salario" name="IRPF - Aliquotas efetivas Aliquota para 2 salario" time="0">
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 3 salario" name="IRPF - Aliquotas efetivas Aliquota para 3 salario" time="0">
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 4 salario" name="IRPF - Aliquotas efetivas Aliquota para 4 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.08784967111351018
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:160:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 5 salario" name="IRPF - Aliquotas efetivas Aliquota para 5 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.1318064882788402
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:168:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 6 salario" name="IRPF - Aliquotas efetivas Aliquota para 6 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.155464610579889
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:176:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 7 salario" name="IRPF - Aliquotas efetivas Aliquota para 7 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.17254109478276197
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:184:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 8 salario" name="IRPF - Aliquotas efetivas Aliquota para 8 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.18534845793491672
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:192:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 9 salario" name="IRPF - Aliquotas efetivas Aliquota para 9 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.19530974038659266
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:200:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="IRPF - Aliquotas efetivas Aliquota para 10 salario" name="IRPF - Aliquotas efetivas Aliquota para 10 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.2032787663479334
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/irpf.test.ts:208:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="INSS - Impostos" errors="0" failures="21" skipped="0" timestamp="2026-04-19T16:42:08" time="0.055" tests="25">
+    <testcase classname="INSS - Impostos Inicializar" name="INSS - Impostos Inicializar" time="0.001">
+    </testcase>
+    <testcase classname="INSS - Impostos Valor bruto" name="INSS - Impostos Valor bruto" time="0">
+    </testcase>
+    <testcase classname="INSS - Impostos Valor base de calculo" name="INSS - Impostos Valor base de calculo" time="0">
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 1 salario" name="INSS - Impostos Imposto para 1 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 121.57499999999999
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:31:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 2 salario" name="INSS - Impostos Imposto para 2 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 267.4641
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:38:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 3 salario" name="INSS - Impostos Imposto para 3 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 461.9829
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:45:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 4 salario" name="INSS - Impostos Imposto para 4 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 688.9214999999999
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:52:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 5 salario" name="INSS - Impostos Imposto para 5 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 915.8615
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:59:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 6 salario" name="INSS - Impostos Imposto para 6 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 923.1989
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:66:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 7 salario" name="INSS - Impostos Imposto para 7 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 923.1989
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:73:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 8 salario" name="INSS - Impostos Imposto para 8 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 923.1989
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:80:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 9 salario" name="INSS - Impostos Imposto para 9 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 923.1989
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:87:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Impostos Imposto para 10 salario" name="INSS - Impostos Imposto para 10 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 923.1989
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:94:32)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Inicializar" name="INSS - Aliquotas efetivas Inicializar" time="0">
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota efetiva" name="INSS - Aliquotas efetivas Aliquota efetiva" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.0736762010104952
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:112:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 1 salario" name="INSS - Aliquotas efetivas Aliquota para 1 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.075
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:119:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 2 salario" name="INSS - Aliquotas efetivas Aliquota para 2 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.0824997223935842
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:126:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 3 salario" name="INSS - Aliquotas efetivas Aliquota para 3 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.09499956816779764
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:133:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 4 salario" name="INSS - Aliquotas efetivas Aliquota para 4 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.10624946020974706
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:140:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 5 salario" name="INSS - Aliquotas efetivas Aliquota para 5 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.11299956816779766
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:147:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 6 salario" name="INSS - Aliquotas efetivas Aliquota para 6 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.09492071766399342
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:154:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 7 salario" name="INSS - Aliquotas efetivas Aliquota para 7 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.08136061514056579
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:161:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 8 salario" name="INSS - Aliquotas efetivas Aliquota para 8 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.07119053824799507
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:168:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 9 salario" name="INSS - Aliquotas efetivas Aliquota para 9 salario" time="0.001">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.06328047844266228
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:175:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+    <testcase classname="INSS - Aliquotas efetivas Aliquota para 10 salario" name="INSS - Aliquotas efetivas Aliquota para 10 salario" time="0">
+      <failure>Error: expect(received).toEqual(expected) // deep equality
+
+Expected: 0.05695243059839605
+Received: 0
+    at Object.&lt;anonymous&gt; (/Users/acaciosalgueiro/Projetos/impostos-brasil/tests/inss.test.ts:182:38)
+    at Promise.finally.completed (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at async _runTest (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at async /private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at async _runTestsForDescribeBlock (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at async run (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at async runAndTransformResultsToJestFormat (/private/tmp/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at async jestAdapter (/private/tmp/node_modules/jest-circus/build/runner.js:101:19)
+    at async runTestInternal (/private/tmp/node_modules/jest-runner/build/index.js:275:16)
+    at async runTest (/private/tmp/node_modules/jest-runner/build/index.js:343:7)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="toBRL" errors="0" failures="0" skipped="0" timestamp="2026-04-19T16:42:08" time="0.027" tests="8">
+    <testcase classname="toBRL R$ 1123,45" name="toBRL R$ 1123,45" time="0.001">
+    </testcase>
+    <testcase classname="toBRL R$ 123,45" name="toBRL R$ 123,45" time="0">
+    </testcase>
+    <testcase classname="toBRL R$ 23,45" name="toBRL R$ 23,45" time="0">
+    </testcase>
+    <testcase classname="toBRL R$ 3,45" name="toBRL R$ 3,45" time="0">
+    </testcase>
+    <testcase classname="toPercent 112.345,0457%" name="toPercent 112.345,0457%" time="0.001">
+    </testcase>
+    <testcase classname="toPercent 123,45%" name="toPercent 123,45%" time="0">
+    </testcase>
+    <testcase classname="toPercent 2.345%" name="toPercent 2.345%" time="0">
+    </testcase>
+    <testcase classname="toPercent 345%" name="toPercent 345%" time="0">
+    </testcase>
+  </testsuite>
+</testsuites>
