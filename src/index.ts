@@ -5,4 +5,4 @@ export * from "./irpf";
 export * from "./anual";
 export * from "./types";
 export * from './values';
-export * from './teste';
+// export * from './teste';
