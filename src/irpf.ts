@@ -1,10 +1,7 @@
-import { AliquotasTetoFaixas, DeducaoFaixa, Imposto } from "./types";
+import { AliquotasTetoFaixas, Ano, DeducaoFaixa, Imposto, Meses } from "./types";
 import { vigenciaFaixasIrpf } from "./values";
 
-/* istanbul ignore next */
-const vigenciaAtual = Math.max(...[...vigenciaFaixasIrpf.keys()].filter(v => v <= new Date().getFullYear()));
-/* istanbul ignore next */
-const faixasIrpf = vigenciaFaixasIrpf.get(vigenciaAtual) ?? new Map();
+const faixasIrpf = vigenciaFaixasIrpf.get({ Ano: new Date().getFullYear() as Ano, Mes: Meses.Janeiro }) ?? new Map();
 
 /**
  * Calcula o IRPF com base em uma unica receita/mes

@@ -1,8 +1,9 @@
 import { DadosDoMes, ImpostoAcumulado, PartialDadosDosMeses } from "./types/imposto-acumulado";
 import { calcularINSS } from "./inss";
 import { calcularIRPF } from "./irpf";
-import { AliquotasTetoFaixas, Meses, TipoRecorrencia } from "./types/types";
-import { deducaoMaximaInstrucao, getAliquotasVigentes, vigenciaFaixasInss, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR } from "./values";
+import { AliquotasTetoFaixas, Ano, Meses, TipoRecorrencia } from "./types/types";
+import { deducaoMaximaInstrucao, vigenciaFaixasInss, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR } from "./values";
+import { getAliquotasVigentes } from "./utils";
 
 /**
  * Opções para a simulação de uma série
@@ -72,15 +73,27 @@ export interface OpcoesSimulacaoAnual {
      * Mapas das aliquotas e faixas do irpf e inss a serem considerados para o calculo. 
      */
     mapasDeFaixas?: null | {
+
+        /**
+         * Faixas do INSS
+         */
         faixasInss?: AliquotasTetoFaixas,
+
+        /**
+         * Faixas do IRPF
+         */
         faixasIrpf?: AliquotasTetoFaixas,
+
+        /**
+         * Faixas do IRPF PLR
+         */
         faixasIrpfPLR?: AliquotasTetoFaixas
     }
 
     /**
      * Ano da vigencia das faixas
      */
-    vigenciaAno?: number,
+    vigenciaAno?: Ano,
 
     /**
      * Mês de vigência das faixas
@@ -88,6 +101,19 @@ export interface OpcoesSimulacaoAnual {
     vigenciaMes?: Meses
 
 }
+
+
+function Contar13(qtdMeses: number): number {
+    let qtd12 = Math.floor(qtdMeses / 12);
+    return qtd12;
+}
+
+export function toMes(qtdMeses: number): Meses {
+    let mes = qtdMeses % 13;
+    mes = qtdMeses > 0 && mes === 0 ? 13 : mes;
+    return mes as Meses;
+}
+
 
 /**
  * Executa a simulação temporal/serial/anual de INSS e IRPF
@@ -144,12 +170,12 @@ export const simulacaoSerie = function (
         mapasDeFaixas.faixasIrpfPLR ??= getAliquotasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasIrpfPLR) ?? new Map();
     }
 
-    let impostosMensais = Array.from({ length: qtdSeries + (incluir13 ? 1 : 0) }, (_, index) => index + 1)
+    let impostosMensais = Array.from({ length: qtdSeries + (incluir13 ? Contar13(qtdSeries) : 0) }, (_, index) => index + 1)
         .map(numeroMes =>
         ({
             mes: numeroMes,
             vlSalarioBruto:
-                (incluirFerias && numeroMes === mesDasFerias ? vlBrutoMensal * percentualFerias : 0)
+                (incluirFerias && toMes(numeroMes) === mesDasFerias ? vlBrutoMensal * percentualFerias : 0)
                 // + (numeroMes === mesPLR ? vlPLR : 0)
                 + vlBrutoMensal
         } as PartialDadosDosMeses))

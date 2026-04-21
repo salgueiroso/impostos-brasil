@@ -1,12 +1,10 @@
 import { DeducaoFaixa } from "./types/deducao-faixa";
 import { Imposto } from "./types/imposto";
-import { AliquotasTetoFaixas } from "./types/types";
+import { AliquotasTetoFaixas, Ano, Meses } from "./types/types";
 import { vigenciaFaixasInss } from "./values";
 
-/* istanbul ignore next */
-const vigenciaAtual = Math.max(...[...vigenciaFaixasInss.keys()].filter(v => v <= new Date().getFullYear()));
-/* istanbul ignore next */
-const faixasInss = vigenciaFaixasInss.get(vigenciaAtual) ?? new Map();
+
+const faixasInss = vigenciaFaixasInss.get({ Ano: new Date().getFullYear() as Ano, Mes: Meses.Janeiro }) ?? new Map();
 
 /**
  * Calcula o INSS com base em uma unica receita/mes

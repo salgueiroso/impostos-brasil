@@ -1,6 +1,6 @@
 {
   "name": "impostos-brasil",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Esta biblioteca simplifica os calculos dos impostos INSS e IR do Brasil",
   "author": "Acacio Salgueiro",
   "license": "MIT",
@@ -37,7 +37,7 @@
     "build": "tsup",
     "postbuild": "typedoc",
     "watch": "tsup --watch",
-    "start": "node dist/",
+    "start": "node -e \"import('./dist/index.js').then(m => m.exemplo())\"",
     "start:watch": "nodemon --watch src --ext js,ts --exec \"npm run build && npm run start\"",
     "test": "jest --ci --coverage",
     "test:watch": "jest --ci --watchAll --coverage",
