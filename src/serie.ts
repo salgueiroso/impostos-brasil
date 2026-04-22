@@ -187,7 +187,7 @@ export const simulacaoSerie = function (
             };
         })
         .map(mes => ({ ...mes, irpf: calcularIRPF(mes.vlSalarioBruto ?? 0, (mes.vlSalarioBruto ?? 0) - mes.vlDeducoes, true, mapasDeFaixas?.faixasIrpf) }))
-        .map(mes => ({ ...mes, irpfPLR: mes.mes === mesPLR && vlPLR > 0 ? calcularIRPF(vlPLR, vlPLR, false, mapasDeFaixas!.faixasIrpfPLR) : null }))
+        .map(mes => ({ ...mes, irpfPLR: mes.numeroMes === mesPLR && vlPLR > 0 ? calcularIRPF(vlPLR, vlPLR, false, mapasDeFaixas!.faixasIrpfPLR) : null }))
 
         .map(mes => ({ ...mes, vlSalarioBruto: (mes.vlSalarioBruto ?? 0) + (mes.irpfPLR?.vlBruto ?? 0) }))
         .map(mes => ({ ...mes, vlSalarioLiquido: mes.vlSalarioBruto - mes.inss.vlImposto - mes.irpf.vlImposto - (mes.irpfPLR?.vlImposto ?? 0) }))

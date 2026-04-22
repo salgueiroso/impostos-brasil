@@ -18,9 +18,9 @@ export interface DadosDoMes {
     inss: Imposto;
 
     /**
-     * Número do mês entre 1 e 12
+     * Número do mês
      */
-    mes: number;
+    numeroMes: number;
 
     /**
      * Valor bruto do mês

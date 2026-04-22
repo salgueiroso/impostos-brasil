@@ -11,7 +11,7 @@ export const exemplo = () => {
     const incluirFerias = true;
 
     const resultadoAnual = simulacaoSerie({
-        qtdSeries: 12 * 5,
+        qtdSeries: 12,
         vlBrutoMensal: salarioBruto,
         incluir13: incluir13,
         incluirFerias: incluirFerias,
@@ -38,7 +38,7 @@ export const exemplo = () => {
 
     for (let mes of resultadoAnual.meses) {
         // if (mes.mes !== 4) continue;
-        console.log(`Mês ${toMes(mes.mes)} (${mes.mes}):`);
+        console.log(`Mês ${toMes(mes.numeroMes)} (${mes.numeroMes}):`);
         console.log(`  Salário Bruto: ${mes.vlSalarioBruto.toBRL()}`);
         console.log(`  INSS: ${mes.inss.vlImposto.toBRL()}`);
         console.log(`  Base de calculo IRPF: ${mes.irpf.vlBaseDeCalculo.toBRL()}`);
