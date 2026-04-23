@@ -1,5 +1,5 @@
-import { simulacaoSerie, toMes } from "./serie";
-import { toAno, Ano, TipoRecorrencia } from "./types/types";
+import { calcularSerie, toMes } from "./serie";
+import { Meses, TipoRecorrencia, toAno } from "./types/types";
 
 /**
  * Metodo de implementação de exemplo 
@@ -10,20 +10,20 @@ export const exemplo = () => {
     const incluir13 = true;
     const incluirFerias = true;
 
-    const resultadoAnual = simulacaoSerie({
+    const resultadoAnual = calcularSerie({
         qtdSeries: 12,
         vlBrutoMensal: salarioBruto,
         incluir13: incluir13,
         incluirFerias: incluirFerias,
         // percentualFerias: 0.3,
-        mesDasFerias: 9,
+        mesFerias: Meses.Setembro,
         deducaoSaude: 0,
         deducaoSaudeTipo: TipoRecorrencia.Mensal,
         deducaoInstrucao: 0,
         deducaoInstrucaoTipo: TipoRecorrencia.Anual,
-        mesPLR: 4,
+        mesPLR: Meses.Abril,
         vlPLR: 5000,
-        vigenciaAno: 2026 as Ano,
+        vigenciaAno: toAno(2026),
         vigenciaMes: 1
     });
 

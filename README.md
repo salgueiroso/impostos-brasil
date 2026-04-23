@@ -54,17 +54,17 @@ console.log(`Imposto Retido: R$ ${resultado.vlImposto}`);
 
 ### 3. Simulação de Série Anual (Cenário Completo)
 
-A função `simulacaoSerie` permite projetar o ganho anual completo, incluindo variáveis como férias e 13º salário.
+A função `calcularSerie` permite projetar o ganho anual completo, incluindo variáveis como férias e 13º salário.
 
 ```typescript
-import { simulacaoSerie } from 'impostos-brasil';
-import { TipoRecorrencia, Meses } from 'impostos-brasil/types';
+import { calcularSerie } from 'impostos-brasil';
+import { TipoRecorrencia, Meses } from 'impostos-brasil';
 
-const resultadoAnual = simulacaoSerie({
+const resultadoAnual = calcularSerie({
     vlBrutoMensal: 10000,
     incluir13: true,
     incluirFerias: true,
-    mesDasFerias: Meses.Junho,
+    mesFerias: Meses.Junho,
     deducaoSaude: 200,
     deducaoSaudeTipo: TipoRecorrencia.Mensal,
     vlPLR: 5000,
