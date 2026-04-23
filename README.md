@@ -7,7 +7,7 @@ Uma biblioteca TypeScript robusta e fácil de usar para calcular impostos sobre 
 
 ## 🎯 Propósito
 
-O objetivo desta biblioteca é simplificar o cálculo complexo de impostos brasileiros, que envolvem faixas progressivas, deduções específicas e variações temporais de alíquotas. Ela é ideal para sistemas de RH, calculadoras financeiras ou qualquer aplicação que precise simular o salário líquido e encargos de um trabalhador.
+O objetivo desta biblioteca é simplificar o cálculo complexo dos principais impostos brasileiros no contexto do pagador de impostos, que envolvem faixas progressivas, deduções específicas e variações temporais de alíquotas. Ela é ideal para sistemas de RH, calculadoras financeiras ou qualquer aplicação que precise simular o salário líquido e encargos de um trabalhador.
 
 ### Diferenciais:
 - **Cálculo por Faixas:** Implementação precisa do cálculo progressivo (fatiado por faixas).

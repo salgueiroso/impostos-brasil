@@ -158,7 +158,7 @@ jobs:
     needs: [ check-npm-version ]
     runs-on: ubuntu-latest
     environment:
-      name: Producao
+      name: npm
       url: https://www.npmjs.com/package/impostos-brasil
     permissions:
       contents: read
