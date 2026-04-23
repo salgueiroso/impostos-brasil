@@ -157,7 +157,9 @@ jobs:
   Deploy-NPM:
     needs: [ check-npm-version ]
     runs-on: ubuntu-latest
-    environment: Producao
+    environment:
+      name: Producao
+      url: https://www.npmjs.com/package/impostos-brasil
     permissions:
       contents: read
       packages: write
@@ -179,7 +181,7 @@ jobs:
   Deploy-docs:
     needs: [ Deploy-NPM ]
     environment:
-      name: github-pages
+      name: Producao
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     concurrency:
