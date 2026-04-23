@@ -177,7 +177,7 @@ jobs:
         run: npm publish --provenance --access public
 
   Deploy-docs:
-    needs: [ Build ]
+    needs: [ Deploy-NPM ]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
