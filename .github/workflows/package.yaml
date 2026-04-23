@@ -155,7 +155,7 @@ jobs:
           fi
 
   Deploy-NPM:
-    needs: [ Build, Definitions, check-npm-version ]
+    needs: [ check-npm-version ]
     runs-on: ubuntu-latest
     environment: Producao
     permissions:
