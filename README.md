@@ -70,7 +70,7 @@ const resultadoAnual = calcularSerie({
     vlPLR: 5000,
     mesPLR: Meses.Abril,
     vigenciaAno: 2026,
-    vigenciaMes: 1
+    vigenciaMes: Meses.Janeiro
 });
 
 console.log(`Total Bruto Anual: R$ ${resultadoAnual.vlBrutoTotal}`);
@@ -89,6 +89,12 @@ Tanto o INSS quanto o IRPF retornam uma interface detalhada:
 ## 📅 Vigências Suportadas
 
 A biblioteca mantém um registro de tabelas históricas em `src/values.ts`. Você pode consultar ou passar mapas personalizados de alíquotas se necessário.
+
+## ⚖️ Aviso Legal e Isenção de Responsabilidade
+
+Esta ferramenta é fornecida apenas para fins informativos e de simulação. Os cálculos gerados por esta biblioteca **não devem ser utilizados para fins legais, contábeis ou oficiais**. 
+
+Os resultados podem variar dependendo de interpretações específicas da legislação, benefícios variáveis ou convenções coletivas de trabalho. Para cálculos legalmente válidos, emissão de guias ou conformidade com a Receita Federal e eSocial, você deve sempre utilizar sistemas oficiais ou consultar um **profissional contador habilitado**.
 
 ## 📄 Licença
 
