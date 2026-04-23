@@ -33,8 +33,8 @@ import { calcularINSS } from 'impostos-brasil';
 
 const resultado = calcularINSS(5000);
 
-console.log(`Valor do INSS: R$ ${resultado.vlImposto}`);
-console.log(`Alíquota Efetiva: ${(resultado.aliquotaEfetiva * 100).toFixed(2)}%`);
+console.log(`Valor do INSS: ${resultado.vlImposto.toBRL()}`);
+console.log(`Alíquota Efetiva: ${resultado.aliquotaEfetiva.toPercent()}`);
 ```
 
 ### 2. Cálculo de IRPF
@@ -49,7 +49,7 @@ const baseCalculo = 4450; // Ex: Salário - INSS
 
 const resultado = calcularIRPF(salarioBruto, baseCalculo, true);
 
-console.log(`Imposto Retido: R$ ${resultado.vlImposto}`);
+console.log(`Imposto Retido: ${resultado.vlImposto.toBRL()}`);
 ```
 
 ### 3. Simulação de Série Anual (Cenário Completo)
@@ -57,8 +57,7 @@ console.log(`Imposto Retido: R$ ${resultado.vlImposto}`);
 A função `calcularSerie` permite projetar o ganho anual completo, incluindo variáveis como férias e 13º salário.
 
 ```typescript
-import { calcularSerie } from 'impostos-brasil';
-import { TipoRecorrencia, Meses } from 'impostos-brasil';
+import { Meses, TipoRecorrencia, toAno, calcularSerie } from 'impostos-brasil';
 
 const resultadoAnual = calcularSerie({
     vlBrutoMensal: 10000,
@@ -69,13 +68,13 @@ const resultadoAnual = calcularSerie({
     deducaoSaudeTipo: TipoRecorrencia.Mensal,
     vlPLR: 5000,
     mesPLR: Meses.Abril,
-    vigenciaAno: 2026,
+    vigenciaAno: toAno(2026),
     vigenciaMes: Meses.Janeiro
 });
 
-console.log(`Total Bruto Anual: R$ ${resultadoAnual.vlBrutoTotal}`);
-console.log(`Total Líquido Anual: R$ ${resultadoAnual.vlLiquidoTotal}`);
-console.log(`Total de Impostos: R$ ${resultadoAnual.vlImpostoTotal}`);
+console.log(`Total Bruto Anual: ${resultadoAnual.vlBrutoTotal.toBRL()}`);
+console.log(`Total Líquido Anual: ${resultadoAnual.vlLiquidoTotal.toBRL()}`);
+console.log(`Total de Impostos: ${resultadoAnual.vlImpostoTotal.toBRL()}`);
 ```
 
 ## 🛠️ Estrutura de Dados
