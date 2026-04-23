@@ -181,7 +181,7 @@ jobs:
   Deploy-docs:
     needs: [ Deploy-NPM ]
     environment:
-      name: Producao
+      name: Documentacao
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     concurrency:
