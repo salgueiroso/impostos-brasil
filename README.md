@@ -20,6 +20,9 @@ O objetivo desta biblioteca é simplificar o cálculo complexo de impostos brasi
 npm install impostos-brasil
 ```
 
+## 📚 Documentação da API
+- https://salgueiroso.github.io/impostos-brasil/
+
 ## 💻 Exemplos de Uso
 
 ### 1. Cálculo Simples de INSS
