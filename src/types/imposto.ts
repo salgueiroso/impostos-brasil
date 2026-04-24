@@ -31,4 +31,9 @@ export interface Imposto {
      * Valor de base de calculo para uso neste imposto
      */
     vlBaseDeCalculo: number;
+
+    /**
+     * Valor liquido apos desconto do imposto.
+     */
+    vlLiquido: number;
 }

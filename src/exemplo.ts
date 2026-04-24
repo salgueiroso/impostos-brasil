@@ -6,7 +6,7 @@ import { Meses, TipoRecorrencia, toAno } from "./types/types";
  */
 export const exemplo = () => {
 
-    const salarioBruto = 13031.71;
+    const salarioBruto = 10000;
     const incluir13 = true;
     const incluirFerias = true;
 
@@ -15,16 +15,15 @@ export const exemplo = () => {
         vlBrutoMensal: salarioBruto,
         incluir13: incluir13,
         incluirFerias: incluirFerias,
-        // percentualFerias: 0.3,
         mesFerias: Meses.Setembro,
         deducaoSaude: 0,
-        deducaoSaudeTipo: TipoRecorrencia.Mensal,
+        deducaoSaudeRecorrencia: TipoRecorrencia.Mensal,
         deducaoInstrucao: 0,
-        deducaoInstrucaoTipo: TipoRecorrencia.Anual,
+        deducaoInstrucaoRecorrencia: TipoRecorrencia.Anual,
         mesPLR: Meses.Abril,
         vlPLR: 5000,
         vigenciaAno: toAno(2026),
-        vigenciaMes: 1
+        vigenciaMes: Meses.Janeiro
     });
 
 

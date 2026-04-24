@@ -82,7 +82,7 @@ export interface OpcoesSerie {
      * Tipo da recorrencia da dedução dos gastos da saude.
      * @default {@link TipoRecorrencia.Anual}
      */
-    deducaoSaudeTipo?: TipoRecorrencia,
+    deducaoSaudeRecorrencia?: TipoRecorrencia,
 
     /**
      * Valor da dedução dos gastos com instrução.
@@ -94,7 +94,7 @@ export interface OpcoesSerie {
      * Tipo da recorrencia da dedução dos gastos dcom instrução/educação
      * @default {@link TipoRecorrencia.Anual}
      */
-    deducaoInstrucaoTipo?: TipoRecorrencia,
+    deducaoInstrucaoRecorrencia?: TipoRecorrencia,
 
     /**
      * Mes para o calculo da PLR
@@ -130,7 +130,7 @@ export interface OpcoesSerie {
 
 /**
  * Realiza a contagem de decimos terceiros de acordo com a quantidade de meses informada
- * @param qtdMeses A quantidade de meses a ser realizada a contagem de dcimos terceiros.
+ * @param qtdMeses A quantidade de meses a ser realizada a contagem de dcimos terceiros. 
  * @returns Retorna um numero com a quantidade de decimos terceiros existentes no periodo informado.
  */
 function Contar13(qtdMeses: number): number {
@@ -170,9 +170,9 @@ export const calcularSerie = function (
         percentualFerias = 1 / 3,
         mesFerias: mesDasFerias = mesAtual,
         deducaoSaude = 0,
-        deducaoSaudeTipo = TipoRecorrencia.Anual,
+        deducaoSaudeRecorrencia = TipoRecorrencia.Anual,
         deducaoInstrucao = 0,
-        deducaoInstrucaoTipo = TipoRecorrencia.Anual,
+        deducaoInstrucaoRecorrencia = TipoRecorrencia.Anual,
         mesPLR = mesAtual,
         vlPLR = 0,
         mapasDeFaixas = null,
@@ -181,7 +181,7 @@ export const calcularSerie = function (
     } = opcoes;
 
 
-    switch (deducaoSaudeTipo) {
+    switch (deducaoSaudeRecorrencia) {
         case TipoRecorrencia.Anual:
             deducaoSaude = deducaoSaude / 12;
             break;
@@ -190,7 +190,7 @@ export const calcularSerie = function (
             deducaoSaude = deducaoSaude;
     }
 
-    switch (deducaoInstrucaoTipo) {
+    switch (deducaoInstrucaoRecorrencia) {
         case TipoRecorrencia.Anual:
             deducaoInstrucao = Math.min(deducaoMaximaInstrucao, deducaoInstrucao)
             deducaoInstrucao = deducaoInstrucao / 12;

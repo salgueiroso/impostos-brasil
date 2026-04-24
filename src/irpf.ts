@@ -32,7 +32,8 @@ export const calcularIRPF = function (salarioBruto: number, baseDeCalculo: numbe
         vlImposto: 0,
         aliquotaEfetiva: 0,
         vlBruto: 0,
-        vlBaseDeCalculo: 0
+        vlBaseDeCalculo: 0,
+        vlLiquido: 0
     };
 
     imposto.faixas = faixas;
@@ -53,6 +54,8 @@ export const calcularIRPF = function (salarioBruto: number, baseDeCalculo: numbe
     imposto.aliquotaEfetiva = imposto.vlImposto / salarioBruto;
     imposto.vlBruto = salarioBruto;
     imposto.vlBaseDeCalculo = baseDeCalculo;
+    imposto.vlLiquido = imposto.vlBruto - imposto.vlImposto;
+
 
     return imposto;
 }

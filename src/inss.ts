@@ -36,7 +36,8 @@ export const calcularINSS = function (vlBruto: number, vlBaseDeCalculo: number |
         vlImposto: 0,
         aliquotaEfetiva: 0,
         vlBruto: 0,
-        vlBaseDeCalculo: 0
+        vlBaseDeCalculo: 0,
+        vlLiquido: 0
     };
 
     imposto.vlImposto = faixas
@@ -45,6 +46,8 @@ export const calcularINSS = function (vlBruto: number, vlBaseDeCalculo: number |
     imposto.aliquotaEfetiva = imposto.vlImposto / vlBruto;
     imposto.vlBruto = vlBruto;
     imposto.vlBaseDeCalculo = vlBaseDeCalculo;
+    imposto.vlLiquido = imposto.vlBruto - imposto.vlImposto;
+
 
     return imposto;
 
