@@ -36,7 +36,7 @@ const resultado = calcularINSS(5000);
 
 console.log(`Valor do INSS: ${resultado.vlImposto.toBRL()}`);
 console.log(`Alíquota Efetiva: ${resultado.aliquotaEfetiva.toPercent()}`);
-console.log(`Líquido: ${resultado.vlSalarioLiquido.toBRL()}`);
+console.log(`Líquido: ${resultado.vlLiquido.toBRL()}`);
 ```
 
 ### 2. Cálculo de IRPF
@@ -52,7 +52,7 @@ const baseCalculo = 4450; // Ex: Salário - INSS
 const resultado = calcularIRPF(salarioBruto, baseCalculo, true);
 
 console.log(`Imposto Retido: ${resultado.vlImposto.toBRL()}`);
-console.log(`Salário Líquido: ${resultado.vlSalarioLiquido.toBRL()}`);
+console.log(`Salário Líquido: ${resultado.vlLiquido.toBRL()}`);
 ```
 
 ### 3. Simulação de Série Anual (Cenário Completo)
