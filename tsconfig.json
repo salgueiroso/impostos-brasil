@@ -48,11 +48,12 @@
     // }
   },
   "include": [
-    "./src/**/*",
-    "./tests/**/*"
+    "./src/**/*"
   ],
-  "exclude": [
-    "./node_modules",
-    "./jest.config.ts"
-  ],
+  // "exclude": [
+  //   "./node_modules",
+  //   "./jest.config.ts",
+  //   "./dist",
+  //   "./tests"
+  // ],
 }
