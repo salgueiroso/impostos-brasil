@@ -37,13 +37,22 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "removeComments": true,
+    "resolveJsonModule": true,
+    // "paths": {
+    //   "@/app*": [
+    //     "./src/*"
+    //   ]
+    //   "@/tests*": [
+    //     "./tests/*"
+    //   ]
+    // }
   },
   "include": [
-    "src/**/*"
+    "./src/**/*",
+    "./tests/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "**/*.test.ts"
+    "./node_modules",
+    "./jest.config.ts"
   ],
 }

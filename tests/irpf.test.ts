@@ -1,11 +1,15 @@
 
-import { AliquotasTetoFaixas, calcularINSS, calcularIRPF, getAliquotasVigentes, Meses, vigenciaFaixasInss, vigenciaFaixasIrpf } from "../src";
 import { describe, test, expect } from "@jest/globals";
+import { AliquotasTetoFaixas, Meses } from "../src/tipos/tipos-basicos";
+import { getAliquotasVigentes } from "../src/utils/aliquotas";
+import { toAno } from "../src/utils/datas";
+import { calcularINSS, vigenciaFaixasInss } from "../src/inss";
+import { calcularIRPF, vigenciaFaixasIrpf } from "../src/irpf";
 
 describe('IRPF - Impostos', () => {
 
-    const faixasInss: AliquotasTetoFaixas = getAliquotasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss) ?? new Map();
-    const faixasIrpf: AliquotasTetoFaixas = getAliquotasVigentes(2026, Meses.Janeiro, vigenciaFaixasIrpf) ?? new Map();
+    const faixasInss: AliquotasTetoFaixas = getAliquotasVigentes(toAno(2026), Meses.Janeiro, vigenciaFaixasInss) ?? new Map();
+    const faixasIrpf: AliquotasTetoFaixas = getAliquotasVigentes(toAno(2026), Meses.Janeiro, vigenciaFaixasIrpf) ?? new Map();
 
     test('Inicializar', () => {
         const vlSalarioBrutoMensal = 12530.49;
@@ -112,8 +116,8 @@ describe('IRPF - Impostos', () => {
 
 describe('IRPF - Aliquotas efetivas', () => {
 
-    const faixasInss: AliquotasTetoFaixas = getAliquotasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss) ?? new Map();
-    const faixasIrpf: AliquotasTetoFaixas = getAliquotasVigentes(2026, Meses.Janeiro, vigenciaFaixasIrpf) ?? new Map();
+    const faixasInss: AliquotasTetoFaixas = getAliquotasVigentes(toAno(2026), Meses.Janeiro, vigenciaFaixasInss) ?? new Map();
+    const faixasIrpf: AliquotasTetoFaixas = getAliquotasVigentes(toAno(2026), Meses.Janeiro, vigenciaFaixasIrpf) ?? new Map();
 
     test('Inicializar', () => {
         const vlSalarioBrutoMensal = 12530.49;

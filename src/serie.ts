@@ -1,161 +1,21 @@
-import { DadosDoMes, ImpostoAcumulado, PartialDadosDosMeses } from "./types/imposto-acumulado";
-import { calcularINSS } from "./inss";
-import { calcularIRPF } from "./irpf";
-import { AliquotasTetoFaixas, Ano, Meses, TipoRecorrencia, toAno } from "./types/types";
-import { deducaoMaximaInstrucao, vigenciaFaixasInss, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR } from "./values";
-import { getAliquotasVigentes } from "./utils";
-
-
-
-/**
- * Opções com mapas de faixas a serem utilizadas 
- */
-export interface OpcoesMapasFaixas {
-
-    /**
-     * Faixas do INSS
-     * @default Faixas vigentes na data corrente
-     */
-    faixasInss?: AliquotasTetoFaixas,
-
-    /**
-     * Faixas do IRPF
-     * @default Faixas vigentes na data corrente
-     */
-    faixasIrpf?: AliquotasTetoFaixas,
-
-    /**
-     * Faixas do IRPF PLR
-     * @default Faixas vigentes na data corrente
-     */
-    faixasIrpfPLR?: AliquotasTetoFaixas
-}
-
-/**
- * Opções para a simulação de uma série
- */
-export interface OpcoesSerie {
-    /**
-     * Numero de series/meses a ser considerada na simulação.
-     * Se omitido o valor assumido será 12 (meses)
-     * @default 12 Meses
-     */
-    qtdSeries?: number,
-
-    /**
-     * Valor bruto mensal utilizaso na simulação da serie.
-     * @default R$ 1621.00
-     */
-    vlBrutoMensal: number,
-
-    /**
-     * Incluir o 13 na serie
-     * @default false
-     */
-    incluir13?: boolean,
-
-    /**
-     * Incluir o salario de ferias na simulação
-     * @default false
-     */
-    incluirFerias?: boolean,
-
-    /**
-     * Percentual do adicional de salario das ferias
-     * @default 1/3 ou (0.333...)
-     */
-    percentualFerias?: number,
-
-    /**
-     * Mes onde as ferias será calculada
-     * @default Mes Atual
-     */
-    mesFerias?: Meses,
-
-    /**
-     * Valor dos gastos com saude
-     * @default R$ 0.00
-     */
-    deducaoSaude?: number,
-
-    /**
-     * Tipo da recorrencia da dedução dos gastos da saude.
-     * @default {@link TipoRecorrencia.Anual}
-     */
-    deducaoSaudeRecorrencia?: TipoRecorrencia,
-
-    /**
-     * Valor da dedução dos gastos com instrução.
-     * @default R$ 0.00
-     */
-    deducaoInstrucao?: number,
-
-    /**
-     * Tipo da recorrencia da dedução dos gastos dcom instrução/educação
-     * @default {@link TipoRecorrencia.Anual}
-     */
-    deducaoInstrucaoRecorrencia?: TipoRecorrencia,
-
-    /**
-     * Mes para o calculo da PLR
-     * @default Mes Atual
-     */
-    mesPLR?: Meses,
-
-    /**
-     * Valor da PLR, se houver.
-     * @default R$ 0.00
-     */
-    vlPLR?: number,
-
-    /**
-     * Mapas das aliquotas e faixas do irpf e inss a serem considerados para o calculo. 
-     * Caso nao sejam informadas as faixas, serão utilizadas as faixas vigentes atualmente.
-     */
-    mapasDeFaixas?: null | OpcoesMapasFaixas;
-
-    /**
-     * Ano da vigencia das faixas. Se omitido, o ano atual será utilizado.
-     * @default Ano atual
-     */
-    vigenciaAno?: Ano,
-
-    /**
-     * Mês de vigência das faixas. Se omitido, o mês atual será utilizado.
-     * @default Mes atual
-     */
-    vigenciaMes?: Meses
-
-}
-
-/**
- * Realiza a contagem de decimos terceiros de acordo com a quantidade de meses informada
- * @param qtdMeses A quantidade de meses a ser realizada a contagem de dcimos terceiros. 
- * @returns Retorna um numero com a quantidade de decimos terceiros existentes no periodo informado.
- */
-function Contar13(qtdMeses: number): number {
-    let qtd12 = Math.floor(qtdMeses / 12);
-    return qtd12;
-}
-
-/**
- * Descobre o mes de acordo com a a posicao informada considerando os decimos terceiros.
- * @param posicaoNaSerie A posicao a ser extraido o mes.
- * @returns Retorna o mes relacionado a posicao informada.
- */
-export function toMes(posicaoNaSerie: number): Meses {
-    let mes = posicaoNaSerie % 13;
-    mes = posicaoNaSerie > 0 && mes === 0 ? 13 : mes;
-    return mes as Meses;
-}
-
+import { calcularINSS, vigenciaFaixasInss } from "./inss";
+import { calcularIRPF, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR } from "./irpf";
+import { DadosDoMes, PartialDadosDoMes } from "./tipos/dados-do-mes";
+import { ImpostoAcumulado } from "./tipos/imposto-acumulado";
+import { InformacaoAdicional } from "./tipos/informacao-adicional";
+import { OpcoesSerie } from "./tipos/opcoes-serie";
+import { Ferias, Meses, TipoRecorrencia } from "./tipos/tipos-basicos";
+import { getAliquotasVigentes } from "./utils/aliquotas";
+import { Contar13, toAno, toMes } from "./utils/datas";
+import { incrementarImposto } from "./utils/impostos";
+import { deducaoMaximaInstrucao } from "./valores";
 
 /**
  * Executa o calculo de uma série temporal.
  * @param opcoes Opções de entrada da série temporal
  * @returns Retorna um objeto {@link ImpostoAcumulado} com os dados da série temporal
  */
-export const calcularSerie = function (
+export function calcularSerie(
     opcoes: OpcoesSerie
 ): ImpostoAcumulado {
 
@@ -166,9 +26,9 @@ export const calcularSerie = function (
         qtdSeries = 12,
         vlBrutoMensal,
         incluir13 = false,
-        incluirFerias = false,
+        incluirFerias = Ferias.Nao,
         percentualFerias = 1 / 3,
-        mesFerias: mesDasFerias = mesAtual,
+        mesFerias = mesAtual,
         deducaoSaude = 0,
         deducaoSaudeRecorrencia = TipoRecorrencia.Anual,
         deducaoInstrucao = 0,
@@ -207,27 +67,70 @@ export const calcularSerie = function (
         mapasDeFaixas.faixasIrpfPLR ??= getAliquotasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasIrpfPLR) ?? new Map();
     }
 
-    let impostosMensais = Array.from({ length: qtdSeries + (incluir13 ? Contar13(qtdSeries) : 0) }, (_, index) => index + 1)
-        .map(numeroMes =>
-        ({
-            mes: numeroMes,
-            vlSalarioBruto:
-                (incluirFerias && toMes(numeroMes) === mesDasFerias ? vlBrutoMensal * percentualFerias : 0) + vlBrutoMensal
-        } as PartialDadosDosMeses))
-        .map(mes => ({ ...mes, inss: calcularINSS(mes.vlSalarioBruto ?? 0, mes.vlSalarioBruto ?? 0, mapasDeFaixas?.faixasInss) }))
-        .map(mes => {
-            return {
-                ...mes,
-                vlDeducoes: mes.inss.vlImposto + deducaoSaude + deducaoInstrucao
-            };
-        })
-        .map(mes => ({ ...mes, irpf: calcularIRPF(mes.vlSalarioBruto ?? 0, (mes.vlSalarioBruto ?? 0) - mes.vlDeducoes, true, mapasDeFaixas?.faixasIrpf) }))
-        .map(mes => ({ ...mes, irpfPLR: mes.numeroMes === mesPLR && vlPLR > 0 ? calcularIRPF(vlPLR, vlPLR, false, mapasDeFaixas!.faixasIrpfPLR) : null }))
+    let itemsSerie: PartialDadosDoMes[] = Array
+        .from({ length: qtdSeries }, (_, index) => index)
+        .map(indice => ({ indice }));
 
-        .map(mes => ({ ...mes, vlSalarioBruto: (mes.vlSalarioBruto ?? 0) + (mes.irpfPLR?.vlBruto ?? 0) }))
-        .map(mes => ({ ...mes, vlSalarioLiquido: mes.vlSalarioBruto - mes.inss.vlImposto - mes.irpf.vlImposto - (mes.irpfPLR?.vlImposto ?? 0) }))
+    for (let item of itemsSerie) {
 
-        .map(mes => mes as DadosDoMes);
+        let informacoesAdicionais = new Set<InformacaoAdicional>();
+        informacoesAdicionais.add(InformacaoAdicional.Salario);
+
+        item.mes = toMes(item.indice!)
+
+        item.vlSalarioBruto = vlBrutoMensal;
+
+        if (incluirFerias === Ferias.Sim && item.mes === mesFerias) {
+            // Inclui ferias desde o primeiro ano
+            item.vlSalarioBruto += vlBrutoMensal * percentualFerias;
+            informacoesAdicionais.add(InformacaoAdicional.Ferias);
+        } else if (incluirFerias === Ferias.IgnorarPrimeiroAno && item.indice! >= 12 && item.mes === mesFerias) {
+            // Inclui ferias somente a partir do segundo ano (periodo aquisitivo)
+            item.vlSalarioBruto += vlBrutoMensal * percentualFerias;
+            informacoesAdicionais.add(InformacaoAdicional.Ferias);
+        }
+
+
+        item.inss = calcularINSS(item.vlSalarioBruto ?? 0, item.vlSalarioBruto ?? 0, mapasDeFaixas?.faixasInss);
+        item.vlDeducoes = item.inss.vlImposto + deducaoSaude + deducaoInstrucao;
+        item.irpf = calcularIRPF(item.vlSalarioBruto ?? 0, (item.vlSalarioBruto ?? 0) - item.vlDeducoes, true, mapasDeFaixas?.faixasIrpf);
+
+        if (item.mes === mesPLR && vlPLR > 0) {
+            item.irpfPLR = calcularIRPF(vlPLR, vlPLR, false, mapasDeFaixas!.faixasIrpfPLR);
+            informacoesAdicionais.add(InformacaoAdicional.PLR);
+        }
+        item.vlSalarioBruto = (item.vlSalarioBruto ?? 0) + (item.irpfPLR?.vlBruto ?? 0);
+        item.vlSalarioLiquido = item.vlSalarioBruto - item.inss.vlImposto - item.irpf.vlImposto - (item.irpfPLR?.vlImposto ?? 0)
+
+
+
+        if (incluir13 && item.mes === Meses.Dezembro) {
+            informacoesAdicionais.add(InformacaoAdicional.DecimoTerceiro);
+            const decimoTerceiro = calcularSerie({
+                vlBrutoMensal,
+                qtdSeries: 1,
+                incluir13: false,
+                incluirFerias: Ferias.Nao,
+                mapasDeFaixas,
+                vigenciaAno,
+                vigenciaMes
+            });
+
+            const mes13 = decimoTerceiro.meses[0]!;
+
+            item.vlSalarioBruto += mes13.vlSalarioBruto;
+            item.vlSalarioLiquido += mes13.vlSalarioLiquido;
+            item.vlDeducoes += mes13.vlDeducoes;
+            incrementarImposto(mes13.inss, item.inss);
+            incrementarImposto(mes13.irpf, item.irpf);
+
+        }
+
+
+        item.informacoesAdicionais = Array.from(informacoesAdicionais);
+    }
+
+    let impostosMensais = itemsSerie as DadosDoMes[];
 
     let anual: ImpostoAcumulado = {
         meses: impostosMensais,

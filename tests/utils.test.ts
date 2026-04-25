@@ -1,6 +1,6 @@
 
-import { toBRL, toPercent } from "../src";
 import { describe, test, expect } from "@jest/globals";
+import { toBRL, toPercent } from "../src/utils/formatacoes";
 
 describe('toBRL', () => {
 

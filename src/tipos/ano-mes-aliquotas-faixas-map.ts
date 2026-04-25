@@ -1,75 +1,5 @@
-/**
- * Representa o valor da aliquota
- */
-export type Aliquota = number;
-
-/**
- * Representa o valor teto da faixa
- */
-export type TetoFaixa = number;
-
-/**
- * Mapa com a relação do teto de cada faixa e sua aliquota
- */
-export type AliquotasTetoFaixas = Map<Aliquota, TetoFaixa>;
-
-export type Ano = number & { __toAno: true };
-export function toAno(valor: number): Ano {
-    if (valor < 2010) throw new Error(`Ano informado tem que ser maior que 2010`);
-    return valor as Ano;
-}
-
-/**
- * Meses do ano
- */
-export enum Meses {
-    Janeiro = 1,
-    Fevereiro = 2,
-    Marco = 3,
-    Abril = 4,
-    Maio = 5,
-    Junho = 6,
-    Julho = 7,
-    Agosto = 8,
-    Setembro = 9,
-    Outubro = 10,
-    Novembro = 11,
-    Dezembro = 12
-}
-
-export type AnoMes = { Ano: Ano, Mes: Meses };
-
-/**
- * Tipo de recorrencia. Este item é utilizado na seção de deduções de saude, educação, ....
- */
-export enum TipoRecorrencia {
-    Mensal = 'Mensal',
-    Anual = 'Anual'
-};
-
-/**
- * Converte um objeto {@link AnoMes} em um valor inteiro.
- * @param anoMes Objeto com ano e mes
- * @returns Retorna um valor inteiro que representa o objeto {@link AnoMes} informado.
- */
-export function toValorCronologico(anoMes: AnoMes): number {
-    return toAno(anoMes.Ano) * 100 + anoMes.Mes;
-}
-
-/**
- * Converte um inteiro para sua representação {@link AnoMes}.
- * @param valor Numero inteiro a ser convertido
- * @returns Retorna um objeto {@link AnoMes} gerado a partir do numero inteiro informado.
- */
-export function fromValorCronologico(valor: number): AnoMes {
-    let ano = Math.trunc(valor / 100);
-    let mes = valor % 100;
-
-    return {
-        Ano: toAno(ano),
-        Mes: mes
-    };
-}
+import { fromValorCronologico, toValorCronologico } from "../utils/datas";
+import { AliquotasTetoFaixas, Ano, AnoMes } from "./tipos-basicos";
 
 
 /**
@@ -139,5 +69,9 @@ export class AnoMesAliquotasFaixasMap<K extends AnoMes = AnoMes, V extends Aliqu
             yield [fromValorCronologico(k) as K, v];
         }
     }
+    *anos(): MapIterator<Ano> {
+        for (const k of this.mapa.keys()) {
+            yield fromValorCronologico(k).Ano;
+        }
+    }
 }
-

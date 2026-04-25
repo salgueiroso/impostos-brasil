@@ -1,5 +1,6 @@
 import { DeducaoFaixa } from "./deducao-faixa";
 
+
 /**
  * Representa um imposto/dedução por faixas
  * 

@@ -1,10 +1,16 @@
-import { DeducaoFaixa } from "./types/deducao-faixa";
-import { Imposto } from "./types/imposto";
-import { AliquotasTetoFaixas, Ano, Meses } from "./types/types";
-import { vigenciaFaixasInss } from "./values";
+import { AnoMesAliquotasFaixasMap } from "./tipos/ano-mes-aliquotas-faixas-map";
+import { carregarDoJson } from "./utils/json";
+import { MapaVigencia as MapaVigenciaInss } from "./recursos/inss.json";
+import { AliquotasTetoFaixas, Meses } from "./tipos/tipos-basicos";
+import { Imposto } from "./tipos/imposto";
+import { toAno } from "./utils/datas";
+import { DeducaoFaixa } from "./tipos/deducao-faixa";
 
+/**
+ * Mapa preenchido com as vigencias de aliquotas e faixas INSS
+ */
+export const vigenciaFaixasInss: AnoMesAliquotasFaixasMap = carregarDoJson(MapaVigenciaInss);
 
-const faixasInss = vigenciaFaixasInss.get({ Ano: new Date().getFullYear() as Ano, Mes: Meses.Janeiro }) ?? new Map();
 
 /**
  * Calcula o INSS com base em uma unica receita/mes
@@ -13,7 +19,10 @@ const faixasInss = vigenciaFaixasInss.get({ Ano: new Date().getFullYear() as Ano
  * @param aliquotasTetoFaixas Aliquotas e faixas a serem utilizadas para o calculo
  * @returns Retorna um objeto {@link Imposto} com informações do calculo de um item único da série
  */
-export const calcularINSS = function (vlBruto: number, vlBaseDeCalculo: number | null = null, aliquotasTetoFaixas: AliquotasTetoFaixas = faixasInss): Imposto {
+export function calcularINSS(vlBruto: number, vlBaseDeCalculo: number | null = null, aliquotasTetoFaixas?: AliquotasTetoFaixas | null): Imposto {
+
+    aliquotasTetoFaixas ??= vigenciaFaixasInss.get({ Ano: toAno(new Date().getFullYear()), Mes: Meses.Janeiro }) ?? new Map();
+
     let vlinicialAtual = 0.0;
     vlBaseDeCalculo ??= vlBruto;
     let faixas: DeducaoFaixa[] = [];
@@ -27,7 +36,7 @@ export const calcularINSS = function (vlBruto: number, vlBaseDeCalculo: number |
         dadosFaixa.aliquota = aliquota;
         dadosFaixa.deducao = dadosFaixa.vlBaseFaixa * dadosFaixa.aliquota;
         faixas.push(dadosFaixa);
-        vlinicialAtual = dadosFaixa.vlFinal + 0.01;
+        vlinicialAtual = dadosFaixa.vlFinal + Number.EPSILON;
     }
 
 

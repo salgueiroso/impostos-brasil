@@ -1,40 +1,4 @@
-import { Imposto } from "./imposto";
-
-export interface DadosDoMes {
-
-    /**
-     * Imposto IRPF calculado do mês
-     */
-    irpf: Imposto;
-
-    /**
-     * Imposto IRPF PLR calculado do mês
-     */
-    irpfPLR?: Imposto
-
-    /**
-     * Imposto INSS calculado do mês
-     */
-    inss: Imposto;
-
-    /**
-     * Número do mês
-     */
-    numeroMes: number;
-
-    /**
-     * Valor bruto do mês
-     */
-    vlSalarioBruto: number;
-
-    /**
-     * Valor liquido do mes
-     */
-    vlSalarioLiquido: number;
-}
-
-
-export type PartialDadosDosMeses = Partial<DadosDoMes>;
+import { DadosDoMes } from "./dados-do-mes";
 
 /**
  * Informações de imposto acumulado de uma série temporal de meses

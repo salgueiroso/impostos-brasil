@@ -1,0 +1,173 @@
+{
+    "$schema": "./schemas/schema-mapas-aliquotas.json",
+    "MapaVigencia": [
+        {
+            "Chave": {
+                "Ano": 2026,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 2428.80
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 2826.65
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 3751.05
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 4664.68
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Chave": {
+                "Ano": 2025,
+                "Mes": 5
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 2428.80
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 2826.65
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 3751.05
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 4664.68
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Chave": {
+                "Ano": 2025,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 2259.20
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 2826.65
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 3751.05
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 4664.68
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Chave": {
+                "Ano": 2024,
+                "Mes": 2
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 2259.20
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 2826.65
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 3751.05
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 4664.68
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Chave": {
+                "Ano": 2023,
+                "Mes": 5
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 2112.00
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 2826.65
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 3751.05
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 4664.68
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Chave": {
+                "Ano": 2023,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 1903.98
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 2826.65
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 3751.05
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 4664.68
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        }
+    ]
+}

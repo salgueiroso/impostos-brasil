@@ -1,0 +1,33 @@
+{
+    "$schema": "./schemas/schema-mapas-aliquotas.json",
+    "MapaVigencia": [
+        {
+            "Chave": {
+                "Ano": 2025,
+                "Mes": 5
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 8214.40
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9922.28
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 13167.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 16380.38
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        }
+    ]
+}

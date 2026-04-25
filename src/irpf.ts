@@ -1,7 +1,21 @@
-import { AliquotasTetoFaixas, Ano, DeducaoFaixa, Imposto, Meses } from "./types";
-import { vigenciaFaixasIrpf } from "./values";
+import { MapaVigencia as MapaVigenciaIrpf } from "./recursos/irpf.json";
+import { MapaVigencia as MapaVigenciaIrpfPLR } from "./recursos/irpfPLR.json";
+import { AnoMesAliquotasFaixasMap } from "./tipos/ano-mes-aliquotas-faixas-map";
+import { DeducaoFaixa } from "./tipos/deducao-faixa";
+import { Imposto } from "./tipos/imposto";
+import { AliquotasTetoFaixas, Meses } from "./tipos/tipos-basicos";
+import { carregarDoJson } from "./utils/json";
+import { toAno } from "./utils/datas";
 
-const faixasIrpf = vigenciaFaixasIrpf.get({ Ano: new Date().getFullYear() as Ano, Mes: Meses.Janeiro }) ?? new Map();
+/**
+ * Mapa preenchido com as vigencias de aliquotas e faixas IRPF
+ */
+export const vigenciaFaixasIrpf: AnoMesAliquotasFaixasMap = carregarDoJson(MapaVigenciaIrpf);
+
+/**
+ * Mapa preenchido com as vigencias de aliquotas e faixas IRPF para PLR
+ */
+export const vigenciaFaixasIrpfPLR: AnoMesAliquotasFaixasMap = carregarDoJson(MapaVigenciaIrpfPLR);
 
 /**
  * Calcula o IRPF com base em uma unica receita/mes
@@ -11,7 +25,10 @@ const faixasIrpf = vigenciaFaixasIrpf.get({ Ano: new Date().getFullYear() as Ano
  * @param aliquotasTetoFaixas Aliquotas e faixas a serem utilizadas para o calculo
  * @returns Retorna um objeto {@link Imposto} com informações do calculo de um item único da série
  */
-export const calcularIRPF = function (salarioBruto: number, baseDeCalculo: number, usarIsencao5k7k: boolean = true, aliquotasTetoFaixas: AliquotasTetoFaixas = faixasIrpf): Imposto {
+export function calcularIRPF(salarioBruto: number, baseDeCalculo: number, usarIsencao5k7k: boolean = true, aliquotasTetoFaixas?: AliquotasTetoFaixas | null): Imposto {
+
+    aliquotasTetoFaixas ??= vigenciaFaixasIrpf.get({ Ano: toAno(new Date().getFullYear()), Mes: Meses.Janeiro }) ?? new Map();
+
     let vlinicialAtual = 0.0;
     let faixas: DeducaoFaixa[] = [];
     for (const [aliquota, vlFinal] of aliquotasTetoFaixas) {
@@ -24,7 +41,7 @@ export const calcularIRPF = function (salarioBruto: number, baseDeCalculo: numbe
         dadosFaixa.aliquota = aliquota;
         dadosFaixa.deducao = dadosFaixa.vlBaseFaixa * dadosFaixa.aliquota;
         faixas.push(dadosFaixa);
-        vlinicialAtual = dadosFaixa.vlFinal + 0.00000000000000000000000001;
+        vlinicialAtual = dadosFaixa.vlFinal + Number.EPSILON;
     }
 
     let imposto: Imposto = {

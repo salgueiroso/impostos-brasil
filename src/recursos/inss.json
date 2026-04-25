@@ -1,0 +1,77 @@
+{
+    "$schema": "./schemas/schema-mapas-aliquotas.json",
+    "MapaVigencia": [
+        {
+            "Chave": {
+                "Ano": 2026,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 1621.00
+                },
+                {
+                    "Aliquota": 0.09,
+                    "ValorTeto": 2902.84
+                },
+                {
+                    "Aliquota": 0.12,
+                    "ValorTeto": 4354.27
+                },
+                {
+                    "Aliquota": 0.14,
+                    "ValorTeto": 8475.55
+                }
+            ]
+        },
+        {
+            "Chave": {
+                "Ano": 2025,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 1518.00
+                },
+                {
+                    "Aliquota": 0.09,
+                    "ValorTeto": 2793.88
+                },
+                {
+                    "Aliquota": 0.12,
+                    "ValorTeto": 4190.83
+                },
+                {
+                    "Aliquota": 0.14,
+                    "ValorTeto": 8157.41
+                }
+            ]
+        },
+        {
+            "Chave": {
+                "Ano": 2024,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 1412.00
+                },
+                {
+                    "Aliquota": 0.09,
+                    "ValorTeto": 2666.68
+                },
+                {
+                    "Aliquota": 0.12,
+                    "ValorTeto": 4000.03
+                },
+                {
+                    "Aliquota": 0.14,
+                    "ValorTeto": 7786.02
+                }
+            ]
+        }
+    ]
+}
