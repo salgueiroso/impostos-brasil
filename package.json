@@ -36,9 +36,9 @@
   "scripts": {
     "validate:json": "ajv validate -s src/recursos/schemas/schema-mapas-aliquotas.json -d 'src/recursos/*.json'",
     "prebuild": "npm run validate:json",
-    "build": "tsup",
+    "build": "tsdown",
     "postbuild": "typedoc",
-    "watch": "tsup --watch",
+    "watch": "tsdown --watch",
     "start": "node -e \"import('./dist/index.js').then(m => m.exemplo())\"",
     "start:watch": "nodemon --watch src --ext js,ts --exec \"npm run build && npm run start\"",
     "test": "jest --ci --coverage",
@@ -59,7 +59,7 @@
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.10",
     "tsx": "^4.21.0",
     "typedoc": "^0.28.16",
     "typescript": "^5.9.3"
