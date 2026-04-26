@@ -10,11 +10,11 @@ Uma biblioteca TypeScript robusta e fácil de usar para calcular impostos sobre 
 
 O objetivo desta biblioteca é simplificar o cálculo complexo dos principais impostos brasileiros no contexto do pagador de impostos, que envolvem faixas progressivas, deduções específicas e variações temporais de alíquotas. Ela é ideal para sistemas de RH, calculadoras financeiras ou qualquer aplicação que precise simular o salário líquido e encargos de um trabalhador.
 
-### Diferenciais:
-- **Cálculo por Faixas:** Implementação precisa do cálculo progressivo (fatiado por faixas).
-- **Série Temporal:** Capacidade de simular um ano inteiro, considerando 13º, férias e PLR.
-- **Histórico de Vigência:** Suporte para diferentes tabelas de impostos baseadas no ano e mês.
-- **Novas Regras de Isenção:** Já preparado para as lógicas de isenção progressiva (ex: isenção de R$ 5k).
+### ✨ Diferenciais
+*   **Cálculo Progressivo:** Implementação precisa do cálculo "fatiado" por faixas, conforme a legislação vigente.
+*   **Série Temporal:** Simulação completa de 12 meses (ou mais) considerando 13º salário, terço de férias e PLR.
+*   **Gestão de Vigências:** Base de dados histórica (JSON) que permite calcular impostos retroativos ou futuros de acordo com a tabela da época.
+*   **Regras Modernas:** Suporte à nova lógica de isenção progressiva (Isenção de R$ 5k e desconto progressivo até R$ 7.350).
 
 ## 🚀 Instalação
 
@@ -30,13 +30,13 @@ npm install impostos-brasil
 ### 1. Cálculo Simples de INSS
 
 ```typescript
-import { calcularINSS } from 'impostos-brasil';
+import { calcularINSS, toBRL, toPercent } from 'impostos-brasil';
 
 const resultado = calcularINSS(5000);
 
-console.log(`Valor do INSS: ${resultado.vlImposto.toBRL()}`);
-console.log(`Alíquota Efetiva: ${resultado.aliquotaEfetiva.toPercent()}`);
-console.log(`Líquido: ${resultado.vlLiquido.toBRL()}`);
+console.log(`Valor do INSS: ${toBRL(resultado.vlImposto)}`);
+console.log(`Alíquota Efetiva: ${toPercent(resultado.aliquotaEfetiva)}`);
+console.log(`Líquido: ${toBRL(resultado.vlLiquido)}`);
 ```
 
 ### 2. Cálculo de IRPF
@@ -44,15 +44,15 @@ console.log(`Líquido: ${resultado.vlLiquido.toBRL()}`);
 Para o IRPF, é necessário informar a base de cálculo (geralmente o salário bruto menos o INSS e outras deduções).
 
 ```typescript
-import { calcularIRPF } from 'impostos-brasil';
+import { calcularIRPF, toBRL, toPercent } from 'impostos-brasil';
 
 const salarioBruto = 5000;
 const baseCalculo = 4450; // Ex: Salário - INSS
 
 const resultado = calcularIRPF(salarioBruto, baseCalculo, true);
 
-console.log(`Imposto Retido: ${resultado.vlImposto.toBRL()}`);
-console.log(`Salário Líquido: ${resultado.vlLiquido.toBRL()}`);
+console.log(`Imposto Retido: ${toBRL(resultado.vlImposto)}`);
+console.log(`Salário Líquido: ${toBRL(resultado.vlLiquido)}`);
 ```
 
 ### 3. Simulação de Série Anual (Cenário Completo)
