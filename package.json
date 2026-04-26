@@ -33,6 +33,9 @@
     "type": "git",
     "url": "git+https://github.com/salgueiroso/impostos-brasil.git"
   },
+  "ts-node": {
+    "files": true
+  },
   "scripts": {
     "validate:json": "ajv validate -s src/recursos/schemas/schema-mapas-aliquotas.json -d 'src/recursos/*.json' --spec=draft2019 -c ajv-formats",
     "prebuild": "npm run validate:json",

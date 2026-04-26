@@ -1,5 +1,7 @@
 import { Ano, AnoMes, Meses } from "../tipos/tipos-basicos";
-import { anoMinimo } from "../valores";
+import { MapaVigencia as MapaVigenciaInss } from "../recursos/inss.json";
+import { MapaVigencia as MapaVigenciaIrpf } from "../recursos/irpf.json";
+import { MapaVigencia as MapaVigenciaIrpfPLR } from "../recursos/irpfPLR.json";
 
 
 
@@ -24,9 +26,18 @@ export function toMes(posicaoNaSerie: number): Meses {
     return mes as Meses;
 }
 
+export function getAnoMinimo(): number {
+    return globalThis.anoMinimo ??= Math.min(...new Set<number>([
+        ...MapaVigenciaInss.map(m => m.Chave.Ano),
+        ...MapaVigenciaIrpf.map(m => m.Chave.Ano),
+        ...MapaVigenciaIrpfPLR.map(m => m.Chave.Ano)
+    ]));
+}
+
 
 export function toAno(valor: number): Ano {
-    if (valor < anoMinimo) throw new Error(`Ano informado tem que ser maior que ${anoMinimo}`);
+    const minimo = getAnoMinimo();
+    if (valor < minimo) throw new Error(`Ano informado tem que ser maior que ${minimo}`);
     return valor as Ano;
 }
 

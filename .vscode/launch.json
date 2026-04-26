@@ -11,6 +11,9 @@
                 "--eval",
                 "require('./src/exemplo.ts').exemplo()"
             ],
+            "env": {
+                "TS_NODE_FILES": "true" // ← equivalente ao "files": true
+            },
             "args": [
                 "${workspaceFolder}/src/exemplo.ts"
             ],

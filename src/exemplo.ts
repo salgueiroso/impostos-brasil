@@ -1,6 +1,6 @@
 import { calcularSerie } from "./serie";
 import { Ferias, Meses, TipoRecorrencia } from "./tipos/tipos-basicos";
-import { toAno, toMes } from "./utils/datas";
+import { toAno } from "./utils/datas";
 import { toBRL, toPercent } from "./utils/formatacoes";
 
 
