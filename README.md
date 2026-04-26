@@ -12,9 +12,11 @@ O objetivo desta biblioteca é simplificar o cálculo complexo dos principais im
 
 ### ✨ Diferenciais
 *   **Cálculo Progressivo:** Implementação precisa do cálculo "fatiado" por faixas, conforme a legislação vigente.
-*   **Série Temporal:** Simulação completa de 12 meses (ou mais) considerando 13º salário, terço de férias e PLR.
-*   **Gestão de Vigências:** Base de dados histórica (JSON) que permite calcular impostos retroativos ou futuros de acordo com a tabela da época.
+*   **Série Temporal Inteligente:** Projeção de múltiplos meses considerando 13º salário, regras de férias (período aquisitivo) e PLR.
+*   **Gestão de Vigências Cronológicas:** Utiliza um mapa especializado (`AnoMesAliquotasFaixasMap`) para lidar com tabelas históricas de forma precisa.
 *   **Regras Modernas:** Suporte à nova lógica de isenção progressiva (Isenção de R$ 5k e desconto progressivo até R$ 7.350).
+*   **Deduções Flexíveis:** Suporte a deduções de saúde e instrução com recorrência mensal ou anual (com aplicação automática de limites legais).
+*   **Injeção de Tabelas:** Permite sobrepor as tabelas oficiais com mapas de alíquotas customizados para simulações específicas.
 
 ## 🚀 Instalação
 
@@ -109,19 +111,30 @@ for (let mes of resultadoAnual.meses) {
 ### Imposto
 Tanto o INSS quanto o IRPF retornam uma interface detalhada:
 - `vlImposto`: O valor final a ser pago.
-- `vlLiquido`: O valor liquido apos o desconto do imposto sebre o valor bruto.
+- `vlLiquido`: O valor líquido após o desconto do imposto sobre o valor bruto.
 - `aliquotaEfetiva`: A porcentagem real paga sobre o bruto.
 - `faixas`: Detalhamento de quanto foi cobrado em cada faixa da tabela progressiva.
 > Para demais propriedades, consultar a interface Imposto na documentação de api em https://salgueiroso.github.io/impostos-brasil/interfaces/Imposto.html
 
 ## 📅 Vigências Suportadas
 
-A biblioteca mantém um registro de tabelas históricas em `src/values.ts`. Você pode consultar ou passar mapas personalizados de alíquotas se necessário.
+A biblioteca utiliza tabelas de alíquotas oficiais persistidas em arquivos JSON, permitindo que o motor de cálculo selecione a regra tributária exata de acordo com o ano e mês da simulação.
 
 ### As constantes com os mapas de faixas são as seguintes:
 - `vigenciaFaixasInss`
 - `vigenciaFaixasIrpf`
 - `vigenciaFaixasIrpfPLR`
+
+### Constantes de Vigência:
+Você pode consultar os mapas carregados ou verificar os anos disponíveis programaticamente:
+```typescript
+import { vigenciaFaixasIrpf } from 'impostos-brasil';
+
+// Lista todos os anos civis que possuem tabelas cadastradas
+const anosCobertos = Array.from(vigenciaFaixasIrpf.anos());
+```
+
+As constantes exportadas são: `vigenciaFaixasInss`, `vigenciaFaixasIrpf` e `vigenciaFaixasIrpfPLR`.
 
 ## ⚖️ Aviso Legal e Isenção de Responsabilidade
 
