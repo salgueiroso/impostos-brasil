@@ -2,6 +2,281 @@
     "$schema": "./schemas/schema-mapas-aliquotas.json",
     "MapaVigencia": [
         {
+            "Fonte": "https://gov.br#LeiInexistente",
+            "Chave": {
+                "Ano": 2010,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12832.htm",
+            "Chave": {
+                "Ano": 2013,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 6000.00
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9000.00
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 12000.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 15000.00
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2014",
+            "Chave": {
+                "Ano": 2014,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 6270.00
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9405.00
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 12540.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 15675.00
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2015",
+            "Chave": {
+                "Ano": 2015,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 6270.00
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9405.00
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 12540.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 15675.00
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2015",
+            "Chave": {
+                "Ano": 2015,
+                "Mes": 4
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 6677.55
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9922.28
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 13167.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 16380.38
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2016",
+            "Chave": {
+                "Ano": 2016,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 6677.55
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9922.28
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 13167.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 16380.38
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2023",
+            "Chave": {
+                "Ano": 2023,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 6677.55
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9922.28
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 13167.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 16380.38
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2023",
+            "Chave": {
+                "Ano": 2023,
+                "Mes": 5
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 7407.11
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9922.28
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 13167.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 16380.38
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/copy_of_2024",
+            "Chave": {
+                "Ano": 2024,
+                "Mes": 2
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 7640.80
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9922.28
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 13167.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 16380.38
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2025",
+            "Chave": {
+                "Ano": 2025,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.0,
+                    "ValorTeto": 7640.80
+                },
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 9922.28
+                },
+                {
+                    "Aliquota": 0.15,
+                    "ValorTeto": 13167.00
+                },
+                {
+                    "Aliquota": 0.225,
+                    "ValorTeto": 16380.38
+                },
+                {
+                    "Aliquota": 0.275,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2025",
             "Chave": {
                 "Ano": 2025,
                 "Mes": 5

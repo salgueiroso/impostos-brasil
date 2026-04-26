@@ -2,6 +2,70 @@
     "$schema": "./schemas/schema-mapas-aliquotas.json",
     "MapaVigencia": [
         {
+            "Fonte": "https://gov.br",
+            "Chave": {
+                "Ano": 2010,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0,
+                    "ValorTeto": "Infinity"
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/inss/pt-br/noticias/confira-as-aliquotas-de-contribuicao-ao-inss-com-o-aumento-do-salario-minimo#:~:text=TABELA%20DE%20CONTRIBUI%C3%87%C3%83O%20DOS%20SEGURADOS%20EMPREGADO%2C%20EMPREGADO%20DOM%C3%89STICO%20E%C2%A0TRABALHADOR%20AVULSO%2C%20PARA%20PAGAMENTO%20DE%20REMUNERA%C3%87%C3%83O%20A%20PARTIR%20DE%201%C2%BA%20DE%20JANEIRO%20DE%202024",
+            "Chave": {
+                "Ano": 2024,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 1412
+                },
+                {
+                    "Aliquota": 0.09,
+                    "ValorTeto": 2666.68
+                },
+                {
+                    "Aliquota": 0.12,
+                    "ValorTeto": 4000.03
+                },
+                {
+                    "Aliquota": 0.14,
+                    "ValorTeto": 7786.02
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/inss/pt-br/noticias/confira-como-ficaram-as-aliquotas-de-contribuicao-ao-inss#:~:text=TABELA%20DE%20CONTRIBUI%C3%87%C3%83O%20DOS%20SEGURADOS%20EMPREGADOS%2C%20EMPREGADO%20DOM%C3%89STICO%20E%20TRABALHADOR%20AVULSO%2C%20PARA%20PAGAMENTO%20DE%20REMUNERA%C3%87%C3%83O%20A%20PARTIR%20DE%201%C2%BA%20DE%20JANEIRO%20DE%202025",
+            "Chave": {
+                "Ano": 2025,
+                "Mes": 1
+            },
+            "Valor": [
+                {
+                    "Aliquota": 0.075,
+                    "ValorTeto": 1518
+                },
+                {
+                    "Aliquota": 0.09,
+                    "ValorTeto": 2793.88
+                },
+                {
+                    "Aliquota": 0.12,
+                    "ValorTeto": 4190.83
+                },
+                {
+                    "Aliquota": 0.14,
+                    "ValorTeto": 8157.41
+                }
+            ]
+        },
+        {
+            "Fonte": "https://www.gov.br/inss/pt-br/direitos-e-deveres/inscricao-e-contribuicao/tabela-de-contribuicao-mensal#:~:text=%C2%A01.%20Para%20Empregado%2C%20Empregado%20Dom%C3%A9stico%20e%20Trabalhador%20Avulso%3A%C2%A0",
             "Chave": {
                 "Ano": 2026,
                 "Mes": 1
@@ -22,54 +86,6 @@
                 {
                     "Aliquota": 0.14,
                     "ValorTeto": 8475.55
-                }
-            ]
-        },
-        {
-            "Chave": {
-                "Ano": 2025,
-                "Mes": 1
-            },
-            "Valor": [
-                {
-                    "Aliquota": 0.075,
-                    "ValorTeto": 1518.00
-                },
-                {
-                    "Aliquota": 0.09,
-                    "ValorTeto": 2793.88
-                },
-                {
-                    "Aliquota": 0.12,
-                    "ValorTeto": 4190.83
-                },
-                {
-                    "Aliquota": 0.14,
-                    "ValorTeto": 8157.41
-                }
-            ]
-        },
-        {
-            "Chave": {
-                "Ano": 2024,
-                "Mes": 1
-            },
-            "Valor": [
-                {
-                    "Aliquota": 0.075,
-                    "ValorTeto": 1412.00
-                },
-                {
-                    "Aliquota": 0.09,
-                    "ValorTeto": 2666.68
-                },
-                {
-                    "Aliquota": 0.12,
-                    "ValorTeto": 4000.03
-                },
-                {
-                    "Aliquota": 0.14,
-                    "ValorTeto": 7786.02
                 }
             ]
         }

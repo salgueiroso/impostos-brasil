@@ -34,7 +34,7 @@
     "url": "git+https://github.com/salgueiroso/impostos-brasil.git"
   },
   "scripts": {
-    "validate:json": "ajv validate -s src/recursos/schemas/schema-mapas-aliquotas.json -d 'src/recursos/*.json'",
+    "validate:json": "ajv validate -s src/recursos/schemas/schema-mapas-aliquotas.json -d 'src/recursos/*.json' --spec=draft2019 -c ajv-formats",
     "prebuild": "npm run validate:json",
     "build": "tsdown",
     "postbuild": "typedoc",
@@ -52,6 +52,7 @@
     "@types/node": "^25.0.3",
     "ajv": "^8.20.0",
     "ajv-cli": "^5.0.0",
+    "ajv-formats": "^3.0.1",
     "jest": "^30.2.0",
     "jest-junit": "^16.0.0",
     "nodemon": "^3.1.11",
