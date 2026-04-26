@@ -25,7 +25,6 @@ export function Contar13(qtdMeses: number): number {
  */
 export function toMes(posicaoNaSerie: number): Meses {
     let mes = (posicaoNaSerie % 12) + 1;
-    // mes = posicaoNaSerie > 0 && mes === 0 ? 13 : mes;
     return mes as Meses;
 }
 
