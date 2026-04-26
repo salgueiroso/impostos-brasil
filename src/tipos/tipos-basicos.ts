@@ -1,22 +1,27 @@
 /**
- * Representa o valor da aliquota
+ * Representa o valor percentual de uma alíquota de imposto.
+ * Deve ser utilizado em formato decimal (ex: 0.11 para 11%).
  */
 export type Aliquota = number;
 
 /**
- * Representa o valor teto da faixa
+ * Representa o valor monetário limite (teto) de uma faixa de tributação.
  */
 export type TetoFaixa = number;
 
 /**
- * Mapa com a relação do teto de cada faixa e sua aliquota
+ * Estrutura de mapa que associa uma {@link Aliquota} (chave) ao seu respectivo {@link TetoFaixa} (valor).
+ * Utilizado para definir tabelas progressivas de impostos.
  */
 export type AliquotasTetoFaixas = Map<Aliquota, TetoFaixa>;
 
-export type Ano = number & { __toAno: true };
+/**
+ * Representa um ano civil no formato de 4 dígitos (ex: 2024).
+ */
+export type Ano = number;
 
 /**
- * Meses do ano
+ * Enumeração dos meses do ano com mapeamento numérico (1 a 12).
  */
 export enum Meses {
     Janeiro = 1,
@@ -33,28 +38,35 @@ export enum Meses {
     Dezembro = 12
 }
 
+/**
+ * Define o comportamento do cálculo de férias na série temporal.
+ */
 export enum Ferias {
+    /** Não inclui pagamento de férias no período. */
     Nao = 1,
+    /** Ignora o pagamento no primeiro ano da série, simulando o período aquisitivo. */
     IgnorarPrimeiroAno = 2,
+    /** Aplica o pagamento de férias (1/3 constitucional) no mês definido. */
     Sim = 3
 }
 
+/**
+ * Interface para representação de uma data de vigência composta por Ano e Mês.
+ */
 export interface AnoMes {
+    /** Ano de vigência da tabela. */
     Ano: Ano;
+    /** Mês de vigência da tabela. */
     Mes: Meses;
 };
 
 /**
- * Tipo de recorrencia. Este item é utilizado na seção de deduções de saude, educação, ....
+ * Define como uma dedução ou valor deve ser interpretado pelo motor de cálculo.
+ * Utilizado principalmente para gastos com saúde e instrução.
  */
 export enum TipoRecorrencia {
+    /** O valor informado é aplicado integralmente a cada mês da série. */
     Mensal = 'Mensal',
+    /** O valor informado é considerado o total anual e será diluído pelos 12 meses. */
     Anual = 'Anual'
 };
-
-
-
-
-
-
-

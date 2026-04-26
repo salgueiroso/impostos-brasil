@@ -11,16 +11,31 @@ import { incrementarImposto } from "./utils/impostos";
 import { deducaoMaximaInstrucao } from "./valores";
 
 /**
- * Executa o calculo de uma série temporal.
- * @param opcoes Opções de entrada da série temporal
- * @returns Retorna um objeto {@link ImpostoAcumulado} com os dados da série temporal
+ * Projeta e calcula uma série temporal de impostos e rendimentos (fluxo mensal ou anual).
+ * 
+ * Esta função atua como o motor principal de projeção do sistema. Ela orquestra o cálculo 
+ * de múltiplos meses (séries), aplicando regras de negócio complexas como:
+ * - **Deduções:** Normalização de gastos com saúde e instrução (mensal vs anual).
+ * - **Férias:** Aplicação do terço constitucional com base no período aquisitivo.
+ * - **13º Salário:** Cálculo recursivo de impostos sobre a gratificação natalina.
+ * - **PLR:** Integração de tributação exclusiva sobre participação nos lucros.
+ * - **Consolidação:** Soma ponderada de alíquotas efetivas e totais acumulados.
+ * 
+ * @param opcoes - Configurações detalhadas da simulação, incluindo valores brutos, 
+ *                 regras de recorrência e tabelas de vigência tributária.
+ * @returns Um objeto {@link ImpostoAcumulado} contendo o somatório de todos os meses 
+ *          e o detalhamento individual de cada item da série.
+ * 
+ * @example
+ * const resultadoAnual = calcularSerie({ vlBrutoMensal: 10000, qtdSeries: 12, incluir13: true });
  */
 export function calcularSerie(
     opcoes: OpcoesSerie
 ): ImpostoAcumulado {
 
-    let anoAtual = toAno(new Date().getFullYear());
-    let mesAtual = new Date().getMonth() + 1 as Meses;
+    const dataAtual = new Date();
+    let anoAtual = toAno(dataAtual.getFullYear());
+    let mesAtual = dataAtual.getMonth() + 1 as Meses;
 
     let {
         qtdSeries = 12,

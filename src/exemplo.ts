@@ -3,17 +3,28 @@ import { Ferias, Meses, TipoRecorrencia } from "./tipos/tipos-basicos";
 import { toAno } from "./utils/datas";
 import { toBRL, toPercent } from "./utils/formatacoes";
 
-
-
-
 /**
- * Metodo de implementação de exemplo 
+ * Executa uma demonstração completa do motor de cálculo de impostos.
+ * 
+ * Esta função exemplifica como utilizar a função `calcularSerie` para projetar
+ * os custos e rendimentos líquidos em um cenário de 12 meses, cobrindo eventos como:
+ * - Provisão ou pagamento de 13º salário.
+ * - Regras de férias (ex: gozo após o primeiro ano).
+ * - Recebimento de PLR com tributação exclusiva.
+ * - Deduções mensais e anuais (saúde e instrução).
+ * 
+ * O resultado é impresso no console com formatação monetária brasileira (BRL).
  */
 export function exemplo() {
-
+    /** Valor base do salário bruto para a simulação */
     const salarioBruto = 10000;
+    /** Define se o cálculo deve considerar o pagamento do 13º salário */
     const incluir13 = true;
 
+    /** 
+     * Objeto contendo o consolidado do período (totais) e o 
+     * detalhamento individual de cada mês processado.
+     */
     const resultadoAnual = calcularSerie({
         qtdSeries: 12,
         vlBrutoMensal: salarioBruto,

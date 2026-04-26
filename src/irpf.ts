@@ -6,28 +6,50 @@ import { Imposto } from "./tipos/imposto";
 import { AliquotasTetoFaixas, Meses } from "./tipos/tipos-basicos";
 import { carregarDoJson } from "./utils/json";
 import { toAno } from "./utils/datas";
+import { getAliquotasVigentes } from "./utils/aliquotas";
 
 /**
- * Mapa preenchido com as vigencias de aliquotas e faixas IRPF
+ * Mapa global contendo o histórico de vigências de alíquotas e faixas do IRPF (Imposto de Renda Pessoa Física).
+ * 
+ * Os dados são carregados do recurso estático `irpf.json` e organizados em uma estrutura 
+ * indexada por Ano e Mês para facilitar a recuperação da tabela progressiva correta.
  */
 export const vigenciaFaixasIrpf: AnoMesAliquotasFaixasMap = carregarDoJson(MapaVigenciaIrpf);
 
 /**
- * Mapa preenchido com as vigencias de aliquotas e faixas IRPF para PLR
+ * Mapa global contendo o histórico de vigências de alíquotas e faixas do IRPF específico para PLR (Participação nos Lucros e Resultados).
+ * 
+ * A PLR possui uma tributação exclusiva na fonte e uma tabela de faixas distinta da tabela mensal padrão,
+ * carregada a partir do arquivo `irpfPLR.json`.
  */
 export const vigenciaFaixasIrpfPLR: AnoMesAliquotasFaixasMap = carregarDoJson(MapaVigenciaIrpfPLR);
 
 /**
- * Calcula o IRPF com base em uma unica receita/mes
- * @param salarioBruto Valor bruto da receita
- * @param baseDeCalculo Valor a ser utilizado como base de calculo do imposto
- * @param usarIsencao5k7k Informa se deve ser utilizada a insenção de 5k e o desconto progressivo até 7k
- * @param aliquotasTetoFaixas Aliquotas e faixas a serem utilizadas para o calculo
- * @returns Retorna um objeto {@link Imposto} com informações do calculo de um item único da série
+ * Calcula o Imposto de Renda Pessoa Física (IRPF) utilizando o método progressivo.
+ * 
+ * A função percorre as faixas de tributação vigentes, aplicando as alíquotas sobre a base de cálculo.
+ * Além do cálculo padrão, implementa regras de ajuste para faixas de isenção específicas.
+ * 
+ * @param salarioBruto - O valor bruto total recebido (usado para validar regras de isenção e calcular a alíquota efetiva).
+ * @param baseDeCalculo - O valor tributável líquido de deduções (como INSS, dependentes, pensão, etc).
+ * @param usarIsencao5k7k - Se verdadeiro, aplica a isenção total para salários até R$ 5.000,00 e o desconto progressivo para salários até R$ 7.350,00.
+ * @param aliquotasTetoFaixas - Tabela opcional com faixas customizadas. Se omitido, busca a tabela vigente para o mês e ano atual em {@link vigenciaFaixasIrpf}.
+ * 
+ * @returns Um objeto do tipo {@link Imposto} contendo:
+ * - `vlImposto`: O valor total do imposto retido.
+ * - `aliquotaEfetiva`: O percentual real pago sobre o valor bruto.
+ * - `faixas`: O detalhamento de quanto foi tributado em cada nível da tabela.
+ * - `vlLiquido`: O salário bruto menos o imposto calculado.
+ * 
+ * @example
+ * // Calcula o IRPF para um salário bruto de 10k com base de cálculo (após INSS) de 9k.
+ * const resultado = calcularIRPF(10000, 9000);
  */
 export function calcularIRPF(salarioBruto: number, baseDeCalculo: number, usarIsencao5k7k: boolean = true, aliquotasTetoFaixas?: AliquotasTetoFaixas | null): Imposto {
 
-    aliquotasTetoFaixas ??= vigenciaFaixasIrpf.get({ Ano: toAno(new Date().getFullYear()), Mes: Meses.Janeiro }) ?? new Map();
+    const dataAtual = new Date();
+
+    aliquotasTetoFaixas ??= getAliquotasVigentes(toAno(dataAtual.getFullYear()), dataAtual.getMonth() + 1, vigenciaFaixasIrpf) ?? new Map();
 
     let vlinicialAtual = 0.0;
     let faixas: DeducaoFaixa[] = [];

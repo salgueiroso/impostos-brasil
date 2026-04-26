@@ -1,5 +1,15 @@
 import { Imposto } from "../tipos/imposto";
 
+/**
+ * Incrementa e consolida os valores de um imposto de origem em um imposto acumulador.
+ * 
+ * Esta função realiza a soma dos valores monetários (base de cálculo, valor bruto, imposto e líquido)
+ * e recalcula a alíquota efetiva. Também consolida os valores detalhados por faixa.
+ * 
+ * @param origem - O objeto de imposto contendo os dados a serem somados.
+ * @param acumulador - O objeto de imposto que receberá o acréscimo dos valores. **Nota: Este objeto é modificado diretamente.**
+ * @throws {Error} Disparado se as estruturas de faixas (alíquotas ou limites) entre origem e acumulador forem divergentes.
+ */
 export function incrementarImposto(origem: Imposto, acumulador: Imposto): void {
 
     if (acumulador.faixas.length !== origem.faixas.length

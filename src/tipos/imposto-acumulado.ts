@@ -1,61 +1,67 @@
 import { DadosDoMes } from "./dados-do-mes";
 
 /**
- * Informações de imposto acumulado de uma série temporal de meses
+ * Representa o consolidado dos resultados de uma simulação ou série temporal de impostos.
+ * 
+ * Esta interface armazena o somatório de todos os valores financeiros processados
+ * (Bruto, Líquido, Impostos) e as alíquotas efetivas médias do período, além de
+ * manter o detalhamento individual de cada mês.
  */
 export interface ImpostoAcumulado {
 
     /**
-     * Array com informações de imposto de cada mes
+     * Listagem detalhada dos cálculos realizados para cada mês da série.
+     * @see {@link DadosDoMes}
      */
     meses: DadosDoMes[],
 
     /**
-     * Valor liquido total da série temporal
+     * Somatório de todos os rendimentos líquidos recebidos no período total da série.
      */
     vlLiquidoTotal: number;
+
     /**
-     * Valor bruto total da série temporal
+     * Somatório de todos os rendimentos brutos (incluindo salário, férias, 13º e PLR) do período.
      */
     vlBrutoTotal: number;
 
     /**
-     * Valor total do imposto INSS da série temporal
+     * Montante total retido para a Previdência Social (INSS) ao longo da série.
      */
     vlImpostoInssTotal: number,
+
     /**
-     * Aliquota efetiva do INSS na série temporal.
+     * Alíquota efetiva média do INSS em relação ao bruto total (vlImpostoInssTotal / vlBrutoTotal).
      */
     pAliquotaInssEfetiva: number,
 
     /**
-     * Valor total do imposto IRPF da série temporal
+     * Montante total de Imposto de Renda (IRPF) mensal retido ao longo da série.
      */
     vlImpostoIrpfTotal: number,
 
     /**
-     * Aliquota efetiva do IRPF na série temporal.
+     * Alíquota efetiva média do IRPF mensal (vlImpostoIrpfTotal / vlBrutoTotal).
      */
     pAliquotaIrpfEfetiva: number,
 
     /**
-     * Valor total do imposto IRPF PLR da série temporal
+     * Montante total de imposto retido especificamente sobre a Participação nos Lucros (PLR).
      */
     vlImpostoIrpfPLRTotal: number,
 
     /**
-     * Aliquota efetiva do IRPF PLR na série temporal.
+     * Alíquota efetiva média do imposto sobre PLR em relação ao bruto total.
      */
     pAliquotaIrpfPLREfetiva: number,
 
     /**
-     * Valor total dos impostos da série temporal
+     * Somatório de todos os impostos retidos (INSS + IRPF + IRPF PLR) no período.
      */
     vlImpostoTotal: number;
+
     /**
-     * Aliquota efetiva total da série temporal.
+     * Carga tributária real total do período (vlImpostoTotal / vlBrutoTotal).
      */
     pAliquotaEfetivaTotal: number;
-
 }
-

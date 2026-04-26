@@ -2,98 +2,96 @@ import { OpcoesMapasFaixas } from "./opcoes-mapas-faixas";
 import { Ano, Ferias, Meses, TipoRecorrencia } from "./tipos-basicos";
 
 /**
- * Opções para a simulação de uma série
+ * Define as configurações e parâmetros de entrada para o motor de cálculo de séries temporais.
+ * Esta interface orquestra como o salário, benefícios (férias, 13º) e deduções são projetados ao longo dos meses.
  */
 export interface OpcoesSerie {
     /**
-     * Numero de series/meses a ser considerada na simulação.
-     * Se omitido o valor assumido será 12 (meses)
-     * @default 12 Meses
+     * Quantidade de meses (iterações) a serem processados na simulação.
+     * @default 12
      */
     qtdSeries?: number,
 
     /**
-     * Valor bruto mensal utilizaso na simulação da serie.
-     * @default R$ 1621.00
+     * Valor do salário bruto base utilizado como referência mensal na série.
      */
     vlBrutoMensal: number,
 
     /**
-     * Incluir o 13 na serie
+     * Indica se a gratificação natalina (13º salário) deve ser incluída no cálculo.
+     * Quando ativo, o cálculo é disparado tipicamente no mês de Dezembro.
      * @default false
      */
     incluir13?: boolean,
 
     /**
-     * Incluir o salario de ferias na simulação
-     * @default false
+     * Configura a lógica de aplicação das férias (gozo e terço constitucional) na simulação.
+     * @default {@link Ferias.Nao}
      */
     incluirFerias?: Ferias,
 
     /**
-     * Percentual do adicional de salario das ferias
-     * @default 1/3 ou (0.333...)
+     * Percentual do adicional de férias aplicado sobre o valor bruto.
+     * @default 0.3333 (1/3 constitucional)
      */
     percentualFerias?: number,
 
     /**
-     * Mes onde as ferias será calculada
-     * @default Mes Atual
+     * Mês de referência em que o pagamento das férias será processado.
+     * @default Mês atual do sistema
      */
     mesFerias?: Meses,
 
     /**
-     * Valor dos gastos com saude
+     * Valor total das despesas com saúde passíveis de dedução na base de cálculo do IRPF.
      * @default R$ 0.00
      */
     deducaoSaude?: number,
 
     /**
-     * Tipo da recorrencia da dedução dos gastos da saude.
+     * Define se a dedução de saúde é interpretada como um valor fixo mensal ou um montante anual.
      * @default {@link TipoRecorrencia.Anual}
      */
     deducaoSaudeRecorrencia?: TipoRecorrencia,
 
     /**
-     * Valor da dedução dos gastos com instrução.
+     * Valor das despesas com instrução (educação). 
+     * Nota: O motor aplica o limite legal definido em {@link deducaoMaximaInstrucao}.
      * @default R$ 0.00
      */
     deducaoInstrucao?: number,
 
     /**
-     * Tipo da recorrencia da dedução dos gastos dcom instrução/educação
+     * Define a periodicidade da dedução de gastos com instrução.
      * @default {@link TipoRecorrencia.Anual}
      */
     deducaoInstrucaoRecorrencia?: TipoRecorrencia,
 
     /**
-     * Mes para o calculo da PLR
-     * @default Mes Atual
+     * Mês em que o pagamento da PLR será provisionado.
+     * @default Mês atual do sistema
      */
     mesPLR?: Meses,
 
     /**
-     * Valor da PLR, se houver.
+     * Valor bruto da Participação nos Lucros e Resultados (PLR) para cálculo de tributação exclusiva.
      * @default R$ 0.00
      */
     vlPLR?: number,
 
     /**
-     * Mapas das aliquotas e faixas do irpf e inss a serem considerados para o calculo. 
-     * Caso nao sejam informadas as faixas, serão utilizadas as faixas vigentes atualmente.
+     * Conjunto opcional de tabelas de alíquotas e faixas. 
+     * Se omitido, o sistema buscará as tabelas oficiais baseadas em `vigenciaAno` e `vigenciaMes`.
      */
     mapasDeFaixas?: null | OpcoesMapasFaixas;
 
     /**
-     * Ano da vigencia das faixas. Se omitido, o ano atual será utilizado.
-     * @default Ano atual
+     * Ano de referência para seleção das tabelas de impostos (IRPF/INSS) vigentes.
      */
     vigenciaAno?: Ano,
 
     /**
-     * Mês de vigência das faixas. Se omitido, o mês atual será utilizado.
-     * @default Mes atual
+     * Mês de referência para seleção das tabelas de impostos vigentes.
      */
     vigenciaMes?: Meses
-
 }
