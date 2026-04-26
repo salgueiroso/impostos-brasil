@@ -17,7 +17,10 @@ export function carregarDoJson(content: ItemMapaJson[]): AnoMesAliquotasFaixasMa
     let mapa = new AnoMesAliquotasFaixasMap([]);
 
     for (let item of content) {
-        mapa.set({ Ano: toAno(item.Chave.Ano), Mes: item.Chave.Mes as Meses }, new Map(item.Valor.map(v => [v.Aliquota, Number(v.ValorTeto)])));
+        mapa.set(
+            { Ano: toAno(item.Chave.Ano), Mes: item.Chave.Mes as Meses },
+            new Map(item.Valor.map(v => [v.Aliquota, Number(v.ValorTeto)]))
+        );
     }
 
     return mapa;

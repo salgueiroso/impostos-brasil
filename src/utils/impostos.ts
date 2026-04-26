@@ -25,9 +25,8 @@ export function incrementarImposto(origem: Imposto, acumulador: Imposto): void {
     acumulador.vlLiquido += origem.vlLiquido;
     acumulador.aliquotaEfetiva = (acumulador.vlImposto / acumulador.vlBruto);
     for (let [idx, faixaAcumulador] of acumulador.faixas.entries()) {
-        faixaAcumulador.deducao ??= 0;
-        faixaAcumulador.deducao += origem.faixas[idx]?.deducao ?? 0;
+        faixaAcumulador.deducao += origem.faixas[idx]!.deducao;
         faixaAcumulador.vlBaseFaixa ??= 0;
-        faixaAcumulador.vlBaseFaixa += origem.faixas[idx]?.vlBaseFaixa ?? 0;
+        faixaAcumulador.vlBaseFaixa += origem.faixas[idx]!.vlBaseFaixa ?? 0;
     }
 }

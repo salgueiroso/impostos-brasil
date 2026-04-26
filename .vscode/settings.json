@@ -1,13 +1,3 @@
 {
-    "json.schemas": [
-        {
-            "fileMatch": [
-                "./src/recursos/inss.json",
-                "./src/recursos/irrf.json",
-                "./src/recursos/irrf-plr.json"
-            ],
-            "url": "./src/recursos/schemas/schema-mapas-aliquotas.json"
-        }
-    ],
     "json.validate.enable": true
 }

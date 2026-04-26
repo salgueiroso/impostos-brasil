@@ -8,7 +8,7 @@ export interface DeducaoFaixa {
     /**
      * Limite inferior da faixa de tributação.
      */
-    vlInicial?: number;
+    vlInicial?: number | null;
 
     /**
      * Limite superior da faixa de tributação.
@@ -19,7 +19,7 @@ export interface DeducaoFaixa {
      * Alíquota nominal aplicada sobre o montante que incide nesta faixa específica.
      * Deve ser representada em formato decimal (ex: 0.075 para 7.5% ou 0.275 para 27.5%).
      */
-    aliquota?: number;
+    aliquota?: number | null;
 
     /**
      * O valor do imposto calculado exclusivamente para esta fatia (aliquota * vlBaseFaixa).
@@ -29,5 +29,5 @@ export interface DeducaoFaixa {
     /**
      * A base de cálculo parcial, ou seja, a porção do valor total que se enquadrou dentro desta faixa.
      */
-    vlBaseFaixa?: number;
+    vlBaseFaixa?: number | null;
 }

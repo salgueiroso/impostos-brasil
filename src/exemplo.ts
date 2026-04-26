@@ -15,6 +15,7 @@ import { toBRL, toPercent } from "./utils/formatacoes";
  * 
  * O resultado é impresso no console com formatação monetária brasileira (BRL).
  */
+/* istanbul ignore next */
 export function exemplo() {
     /** Valor base do salário bruto para a simulação */
     const salarioBruto = 10000;
