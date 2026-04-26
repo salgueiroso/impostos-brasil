@@ -2,7 +2,7 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   entry: ["src/index.ts"],
-  format: ["cjs", "esm", "iife", "umd"], // Build for commonJS and ESmodules
+  format: ["cjs", "esm", "iife"],
   dts: true, // Generate declaration file (.d.ts)
   sourcemap: true,
   clean: true,
@@ -23,5 +23,6 @@ export default defineConfig({
 
   // Para o formato iife, defina o nome global
   globalName: "ImpostosBrasil",// Configuração para remover consoles
+  unbundle: false,
 
 });

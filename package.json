@@ -18,12 +18,31 @@
   "bugs": {
     "url": "https://github.com/salgueiroso/impostos-brasil/issues"
   },
+  "sideEffects": false,
   "homepage": "https://github.com/salgueiroso/impostos-brasil",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "browser": {
+        "default": "./dist/index.iife.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
-    "/dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=22",
@@ -42,8 +61,8 @@
     "build": "tsdown",
     "postbuild": "typedoc",
     "watch": "tsdown --watch",
-    "start": "node -e \"import('./dist/index.js').then(m => m.exemplo())\"",
-    "start:watch": "nodemon --watch src --ext js,ts --exec \"npm run build && npm run start\"",
+    "start": "node -e \"import('./dist/index.mjs').then(m => m.exemplo())\"",
+    "start:watch": "nodemon --watch src --ext js,ts,json --exec \"npm run build && npm run start\"",
     "test": "jest --ci --coverage",
     "test:watch": "jest --ci --watchAll --coverage",
     "postinstall": "rm -Rf /tmp/node_modules && mv ./node_modules /tmp && ln -s /tmp/node_modules ./node_modules",
