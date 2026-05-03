@@ -13,8 +13,9 @@ O objetivo desta biblioteca é simplificar o cálculo complexo dos principais im
 ### ✨ Diferenciais
 *   **Cálculo Progressivo:** Implementação precisa do cálculo "fatiado" por faixas, conforme a legislação vigente.
 *   **Série Temporal Inteligente:** Projeção de múltiplos meses considerando 13º salário, regras de férias (período aquisitivo) e PLR.
-*   **Gestão de Vigências Cronológicas:** Utiliza um mapa especializado (`AnoMesAliquotasFaixasMap`) para lidar com tabelas históricas de forma precisa.
+*   **Gestão de Vigências Cronológicas:** Utiliza um mapa especializado (`MapaChaveAnoMes`) para lidar com tabelas históricas de forma precisa, resolvendo problemas de comparação de objetos por referência.
 *   **Regras Modernas:** Suporte à nova lógica de isenção progressiva (Isenção de R$ 5k e desconto progressivo até R$ 7.350).
+*   **Extensões de Utilitários:** Métodos integrados ao tipo `Number` para formatação (`toBRL`, `toPercent`) e normalização de precisão financeira.
 *   **Deduções Flexíveis:** Suporte a deduções de saúde e instrução com recorrência mensal ou anual (com aplicação automática de limites legais).
 *   **Injeção de Tabelas:** Permite sobrepor as tabelas oficiais com mapas de alíquotas customizados para simulações específicas.
 
@@ -32,13 +33,14 @@ npm install impostos-brasil
 ### 1. Cálculo Simples de INSS
 
 ```typescript
-import { calcularINSS, toBRL, toPercent } from 'impostos-brasil';
+import 'impostos-brasil'; // Importa as extensões de protótipo
+import { calcularINSS } from 'impostos-brasil';
 
 const resultado = calcularINSS(5000);
 
-console.log(`Valor do INSS: ${toBRL(resultado.vlImposto)}`);
-console.log(`Alíquota Efetiva: ${toPercent(resultado.aliquotaEfetiva)}`);
-console.log(`Líquido: ${toBRL(resultado.vlLiquido)}`);
+console.log(`Valor do INSS: ${resultado.vlImposto.toBRL()}`);
+console.log(`Alíquota Efetiva: ${resultado.aliquotaEfetiva.toPercent()}`);
+console.log(`Líquido: ${resultado.vlLiquido.toBRL()}`);
 ```
 
 ### 2. Cálculo de IRPF
@@ -126,10 +128,11 @@ Tanto o INSS quanto o IRPF retornam uma interface detalhada:
 
 A biblioteca utiliza tabelas de alíquotas oficiais persistidas em arquivos JSON, permitindo que o motor de cálculo selecione a regra tributária exata de acordo com o ano e mês da simulação.
 
-### As constantes com os mapas de faixas são as seguintes:
+### As constantes com os mapas de vigência são as seguintes:
 - `vigenciaFaixasInss`
 - `vigenciaFaixasIrpf`
 - `vigenciaFaixasIrpfPLR`
+- `vigenciaIrpfDescontoSimplificado`
 
 ### Constantes de Vigência:
 Você pode consultar os mapas carregados ou verificar os anos disponíveis programaticamente:
