@@ -2,6 +2,7 @@ import { Ano, AnoMes, Meses } from "../tipos/tipos-basicos";
 import { MapaVigencia as MapaVigenciaInss } from "../recursos/inss.json";
 import { MapaVigencia as MapaVigenciaIrpf } from "../recursos/irpf.json";
 import { MapaVigencia as MapaVigenciaIrpfPLR } from "../recursos/irpfPLR.json";
+import { MapaVigencia as MapaVigenciaIrpfDescontoSimplificado } from "../recursos/irpf-desconto-simplificado.json";
 import { ParametroInvalido } from "../tipos/erros";
 import { varName } from "./helper";
 
@@ -42,7 +43,8 @@ export function getAnoMinimo(): number {
     return globalThis.anoMinimo ??= Math.min(...new Set<number>([
         ...MapaVigenciaInss.map(m => m.Chave.Ano),
         ...MapaVigenciaIrpf.map(m => m.Chave.Ano),
-        ...MapaVigenciaIrpfPLR.map(m => m.Chave.Ano)
+        ...MapaVigenciaIrpfPLR.map(m => m.Chave.Ano),
+        ...MapaVigenciaIrpfDescontoSimplificado.map(m => m.Chave.Ano)
     ]));
 }
 
