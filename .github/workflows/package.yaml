@@ -37,10 +37,10 @@ jobs:
           [
             # "16.x",
             "20.x",
-            # "22.x",
-          # "24.x",
-            "${{ needs.Definitions.outputs.DEFAULT_NODE_VERSION }}",
           ]
+          # "22.x",
+          # "24.x",
+          # "${{ needs.Definitions.outputs.DEFAULT_NODE_VERSION }}",
     steps:
       - uses: actions/checkout@v6
         name: Checkout
@@ -167,7 +167,7 @@ jobs:
       - run: find .
         name: List package files
       - name: Run npm publish
-        run: npm publish --provenance --access public
+        run: npm publish --provenance --access public --ignore-scripts
 
   Deploy-docs:
     needs: [ Deploy-NPM ]
