@@ -63,12 +63,18 @@ A função `calcularSerie` permite projetar o ganho anual completo, incluindo va
 
 ```typescript
 import { calcularSerie, Ferias, Meses, TipoRecorrencia,toAno, toBRL, toPercent } from 'impostos-brasil';
-const salarioBruto = 10000;
+/** Valor base do salário bruto para a simulação */
+const salarioBruto = 8000;
+/** Define se o cálculo deve considerar o pagamento do 13º salário */
 const incluir13 = true;
 
+/** 
+ * Objeto contendo o consolidado do período (totais) e o 
+ * detalhamento individual de cada mês processado.
+ */
 const resultadoAnual = calcularSerie({
     qtdSeries: 12,
-    vlBrutoMensal: salarioBruto,
+    vlBruto: salarioBruto,
     incluir13: incluir13,
     incluirFerias: Ferias.IgnorarPrimeiroAno,
     mesFerias: Meses.Setembro,
@@ -83,26 +89,26 @@ const resultadoAnual = calcularSerie({
 });
 
 
-console.log(`Bruto Mensal: ${toBRL(salarioBruto)}`);
-console.log(`Bruto Periodo: ${toBRL(resultadoAnual.vlBrutoTotal)}`);
-console.log(`INSS Periodo: ${toBRL(resultadoAnual.vlImpostoInssTotal)}`);
-console.log(`IRPF Periodo: ${toBRL(resultadoAnual.vlImpostoIrpfTotal)}`);
-console.log(`Líquido Periodo: ${toBRL(resultadoAnual.vlLiquidoTotal)}`);
-console.log(`Aliquota Efetiva: ${toPercent(resultadoAnual.pAliquotaEfetivaTotal)}`);
-console.log(`Imposto Periodo: ${toBRL(resultadoAnual.vlImpostoTotal)}`);
+console.log(`Bruto Mensal: ${salarioBruto.toBRL()}`);
+console.log(`Bruto Periodo: ${resultadoAnual.vlBrutoTotal.toBRL()}`);
+console.log(`INSS Periodo: ${resultadoAnual.vlImpostoInssTotal.toBRL()}`);
+console.log(`IRPF Periodo: ${resultadoAnual.vlImpostoIrpfTotal.toBRL()}`);
+console.log(`Líquido Periodo: ${resultadoAnual.vlLiquidoTotal.toBRL()}`);
+console.log(`Aliquota Efetiva: ${resultadoAnual.pAliquotaEfetivaTotal.toPercent()}`);
+console.log(`Imposto Periodo: ${resultadoAnual.vlImpostoTotal.toBRL()}`);
 
 for (let mes of resultadoAnual.meses) {
     console.log(`Mês ${Meses[mes.mes]} (${mes.indice}):`);
-    console.log(`  Informacoes: ${mes.informacoesAdicionais}`);
-    console.log(`  Salário Bruto: ${toBRL(mes.vlSalarioBruto)}`);
-    console.log(`  INSS: ${toBRL(mes.inss.vlImposto)}`);
-    console.log(`  Base de calculo IRPF: ${toBRL(mes.irpf.vlBaseDeCalculo)}`);
-    console.log(`  IRPF: ${toBRL(mes.irpf.vlImposto)}`);
+    console.log(`  Informacoes: ${mes.informacoesAdicionais.join(', ')}`);
+    console.log(`  Salário Bruto: ${mes.vlBruto.toBRL()}`);
+    console.log(`  INSS: ${mes.inss.vlImposto.toBRL()}`);
+    console.log(`  Base de calculo IRPF: ${mes.irpf.vlBaseDeCalculo.toBRL()}`);
+    console.log(`  IRPF: ${mes.irpf.vlImposto.toBRL()}`);
     if (!!mes.irpfPLR) {
-        console.log(`  Base de calculo IRPF PLR: ${toBRL(mes.irpfPLR?.vlBaseDeCalculo ?? 0)}`);
-        console.log(`  IRPF PLR: ${toBRL(mes.irpfPLR?.vlImposto ?? 0)}`);
+        console.log(`  Base de calculo IRPF PLR: ${(mes.irpfPLR?.vlBaseDeCalculo ?? 0).toBRL()}`);
+        console.log(`  IRPF PLR: ${(mes.irpfPLR?.vlImposto ?? 0).toBRL()}`);
     }
-    console.log(`  Salário Líquido: ${toBRL(mes.vlSalarioLiquido)}`);
+    console.log(`  Salário Líquido: ${mes.vlLiquido.toBRL()}`);
 }
 ```
 
