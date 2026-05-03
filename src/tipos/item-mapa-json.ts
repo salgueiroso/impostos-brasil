@@ -1,24 +1,35 @@
 import { Aliquota, AnoMes, TetoFaixa } from "./tipos-basicos";
+import { MapaChaveAnoMes } from "./ano-mes-aliquotas-faixas-map";
+
 
 /**
- * Representa a estrutura bruta de um registro de vigência nos arquivos JSON de configuração (ex: inss.json, irpf.json).
+ * Representa a estrutura bruta de um registro de vigência nos arquivos JSON de configuração (recursos).
  * 
- * Esta interface é utilizada exclusivamente no processo de desserialização dos dados estáticos que alimentam 
- * as tabelas progressivas de impostos antes de serem convertidas para mapas indexados.
+ * Esta interface define o contrato para os dados estáticos (ex: `inss.json`, `irpf.json`) 
+ * antes de serem processados e convertidos para instâncias de {@link MapaChaveAnoMes}.
+ * 
+ * @internal Utilizada prioritariamente pelo motor de carregamento de dados da biblioteca.
  */
 export interface ItemMapaJson {
+
     /**
-     * Objeto de chave que define o início da vigência desta tabela.
+     * Referência oficial (URL ou descrição) que valida a origem legal dos dados (ex: site do Planalto).
+     */
+    Fonte: string;
+
+    /**
+     * Identificador de competência (Ano e Mês) que marca o início da validade desta configuração.
      */
     Chave: AnoMes;
 
     /**
-     * Lista de faixas tributárias que compõem a tabela progressiva.
+     * O conteúdo tributário da vigência. 
+     * Pode ser um valor escalar (como uma dedução única) ou uma lista de faixas para cálculos progressivos.
      */
-    Valor: Array<{
-        /** Alíquota aplicada à faixa (ex: 0.075 para 7.5%). */
+    Valor: number | Array<{
+        /** Alíquota nominal aplicada sobre a faixa em formato decimal (ex: 0.075 para 7.5%). */
         Aliquota: Aliquota;
-        /** Valor teto da faixa. Pode vir como string do JSON para suportar representações de infinito ou precisão. */
+        /** Limite superior da faixa. Suporta a string "Infinity" para representar a última faixa progressiva. */
         ValorTeto: TetoFaixa | string;
     }>;
 }

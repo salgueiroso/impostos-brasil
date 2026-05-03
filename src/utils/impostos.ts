@@ -1,14 +1,24 @@
 import { Imposto } from "../tipos/imposto";
 
 /**
- * Incrementa e consolida os valores de um imposto de origem em um imposto acumulador.
+ * Incrementa e consolida os montantes de um resultado de imposto em um objeto acumulador.
  * 
- * Esta função realiza a soma dos valores monetários (base de cálculo, valor bruto, imposto e líquido)
- * e recalcula a alíquota efetiva. Também consolida os valores detalhados por faixa.
+ * Esta função realiza a soma aritmética dos campos financeiros (base de cálculo, valor bruto, 
+ * valor do imposto e valor líquido) e atualiza a alíquota efetiva média do período acumulado. 
+ * Também processa a consolidação cumulativa dos valores detalhados por fatia da tabela progressiva.
  * 
- * @param origem - O objeto de imposto contendo os dados a serem somados.
- * @param acumulador - O objeto de imposto que receberá o acréscimo dos valores. **Nota: Este objeto é modificado diretamente.**
- * @throws {Error} Disparado se as estruturas de faixas (alíquotas ou limites) entre origem e acumulador forem divergentes.
+ * @param origem - O objeto {@link Imposto} contendo os novos dados a serem adicionados.
+ * @param acumulador - O objeto {@link Imposto} de destino que manterá o somatório. 
+ * **Nota: Este objeto é modificado diretamente (mutação).**
+ * 
+ * @throws {Error} Disparado se a definição das faixas (quantidade, alíquotas ou limites superiores) 
+ * entre a origem e o acumulador for divergente, impossibilitando a soma por índice.
+ * 
+ * @example
+ * ```typescript
+ * // Acumula o imposto calculado de um mês específico em um totalizador anual
+ * incrementarImposto(impostoMensal, impostoAnual);
+ * ```
  */
 export function incrementarImposto(origem: Imposto, acumulador: Imposto): void {
 
@@ -19,14 +29,14 @@ export function incrementarImposto(origem: Imposto, acumulador: Imposto): void {
     )
         throw new Error("Faixas dos impostos a serem incrementados não são iguais");
 
-    acumulador.vlBaseDeCalculo += origem.vlBaseDeCalculo;
-    acumulador.vlBruto += origem.vlBruto;
-    acumulador.vlImposto += origem.vlImposto;
-    acumulador.vlLiquido += origem.vlLiquido;
+    acumulador.vlBaseDeCalculo += origem.vlBaseDeCalculo.normalizarPrecisao();
+    acumulador.vlBruto += origem.vlBruto.normalizarPrecisao();
+    acumulador.vlImposto += origem.vlImposto.normalizarPrecisao();
+    acumulador.vlLiquido += origem.vlLiquido.normalizarPrecisao();
     acumulador.aliquotaEfetiva = (acumulador.vlImposto / acumulador.vlBruto);
     for (let [idx, faixaAcumulador] of acumulador.faixas.entries()) {
-        faixaAcumulador.deducao += origem.faixas[idx]!.deducao;
+        faixaAcumulador.deducao += origem.faixas[idx]!.deducao.normalizarPrecisao();
         faixaAcumulador.vlBaseFaixa ??= 0;
-        faixaAcumulador.vlBaseFaixa += origem.faixas[idx]!.vlBaseFaixa ?? 0;
+        faixaAcumulador.vlBaseFaixa += origem.faixas[idx]!.vlBaseFaixa?.normalizarPrecisao() ?? 0;
     }
 }

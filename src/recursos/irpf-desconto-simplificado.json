@@ -1,0 +1,21 @@
+{
+    "$schema": "./schemas/schema-mapas.json",
+    "MapaVigencia": [
+        {
+            "Fonte": "https://gov.br",
+            "Chave": {
+                "Ano": 2010,
+                "Mes": 1
+            },
+            "Valor": 0
+        },
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2026#:~:text=Limite%20mensal%20de%20desconto%20simplificado%3A%20R%24%20607%2C20",
+            "Chave": {
+                "Ano": 2026,
+                "Mes": 1
+            },
+            "Valor": 607.20
+        }
+    ]
+}

@@ -12,5 +12,7 @@ export enum InformacaoAdicional {
     /** Indica o pagamento da gratificação natalina (13º salário). */
     DecimoTerceiro = 'DecimoTerceiro',
     /** Indica o pagamento de férias ou do respectivo terço constitucional. */
-    Ferias = 'Ferias'
+    Ferias = 'Ferias',
+    /** Indica o que aplicou desconto simplificado no mes */
+    DescontoSimplificadoIRPF = 'DescontoSimplificadoIRPF'
 }

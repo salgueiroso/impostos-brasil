@@ -14,21 +14,10 @@ const config: Config = {
 
     coverageReporters: ["clover", "json", "lcov", "text"],
     maxConcurrency: 5,
-    // transform: {
-    //     "^.+\\.tsx?$": [
-    //         "ts-jest",
-    //         {
-    //             tsconfig: "./tsconfig.test.json"
-    //         }
-    //     ]
-    // },
-    // moduleNameMapper: {
-    //     "^@/app(.*)$": "<rootDir>/src$1",
-    //     "^@/tests(.*)$": "<rootDir>/tests$1"
-    // },
-    // testMatch: [
-    //     "**/tests/**/*.test.ts"
-    // ]
+
+    setupFiles: [
+        "./src/utils/extensoes.ts"
+    ]
 
 }
 

@@ -7,3 +7,11 @@
  * 
  */
 export const deducaoMaximaInstrucao = 3561.50;
+
+/**
+ * Define a quantidade padrão de casas decimais utilizada para arredondamentos monetários.
+ * 
+ * Este valor é utilizado pelo motor de cálculo para garantir a precisão em centavos
+ * e evitar erros de truncamento em somas acumuladas de impostos.
+ */
+export const precisao = 3;

@@ -31,10 +31,10 @@ describe('toBRL', () => {
 
 describe('toPercent', () => {
 
-    test('1123.450456 deve retornar 112.345,0457%', () => {
+    test('1123.450456 deve retornar 112.345,04%', () => {
         const brlString = toPercent(1123.450456);
         expect(brlString).not.toBeNull();
-        expect(brlString).toEqual('112.345,046%');
+        expect(brlString).toEqual('112.345,045%');
     });
 
     test('1.2345 deve retornar 123,45%', () => {
@@ -53,5 +53,11 @@ describe('toPercent', () => {
         const brlString = toPercent(3.45);
         expect(brlString).not.toBeNull();
         expect(brlString).toEqual('345%');
+    });
+
+    test('0.09557 deve retornar 9,55%', () => {
+        const brlString = toPercent(0.09557);
+        expect(brlString).not.toBeNull();
+        expect(brlString).toEqual('9,557%');
     });
 });

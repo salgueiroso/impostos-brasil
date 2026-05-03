@@ -14,7 +14,15 @@ export default defineConfig({
   minify: true,
 
   // Tree-shaking nativo do rolldown (já ativo por padrão, mas explícito)
-  treeshake: true,
+  // treeshake: true,
+  treeshake: {
+    // Função com controle granular
+    moduleSideEffects: (id, external) => {
+      if (id.includes("extensoes")) return true;
+      if (external) return false;
+      return true;
+    }
+  },
 
   // Target do ambiente — false desativa transformação de sintaxe
   // Defina explicitamente se quiser garantir compatibilidade:

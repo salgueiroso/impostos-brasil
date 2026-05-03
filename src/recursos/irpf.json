@@ -1,5 +1,5 @@
 {
-    "$schema": "./schemas/schema-mapas-aliquotas.json",
+    "$schema": "./schemas/schema-mapas.json",
     "MapaVigencia": [
         {
             "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2010",

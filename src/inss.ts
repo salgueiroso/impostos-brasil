@@ -1,62 +1,86 @@
-import { AnoMesAliquotasFaixasMap } from "./tipos/ano-mes-aliquotas-faixas-map";
+import { MapaChaveAnoMes } from "./tipos/ano-mes-aliquotas-faixas-map";
 import { carregarDoJson } from "./utils/json";
 import { MapaVigencia as MapaVigenciaInss } from "./recursos/inss.json";
-import { AliquotasTetoFaixas, Meses } from "./tipos/tipos-basicos";
+import { AliquotasTetoFaixas, Ano, Meses } from "./tipos/tipos-basicos";
 import { Imposto } from "./tipos/imposto";
 import { toAno } from "./utils/datas";
 import { DeducaoFaixa } from "./tipos/deducao-faixa";
-import { getAliquotasVigentes } from "./utils/aliquotas";
+import { getFaixasVigentes } from "./utils/aliquotas";
+import { ParametroInvalido } from "./tipos/erros";
 
 /**
- * Mapa global contendo o histórico de vigências de alíquotas e faixas do INSS (Previdência Social).
+ * Mapa global indexado por vigência (Ano/Mês) contendo as alíquotas e faixas do INSS (Previdência Social).
  * 
- * Esta constante é inicializada a partir do arquivo estático `inss.json` e serve como a base
- * de dados padrão para as buscas de tabelas progressivas indexadas por ano e mês.
+ * Os dados são carregados do recurso estático `inss.json`. Este mapa é a fonte primária 
+ * para o cálculo progressivo, permitindo a recuperação automática da tabela correta 
+ * conforme a data de competência informada ou atual.
+ * 
+ * @see {@link MapaChaveAnoMes}
  */
-export const vigenciaFaixasInss: AnoMesAliquotasFaixasMap = carregarDoJson(MapaVigenciaInss);
+export const vigenciaFaixasInss: MapaChaveAnoMes<AliquotasTetoFaixas> = carregarDoJson(MapaVigenciaInss);
 
 /**
- * Calcula a contribuição previdenciária (INSS) utilizando o método de cálculo progressivo.
+ * Calcula a contribuição previdenciária (INSS) seguindo as regras de tributação progressiva.
  * 
- * O cálculo percorre cada faixa da tabela de alíquotas, aplicando a porcentagem correspondente
- * apenas sobre o montante que se enquadra naquela faixa específica. Se a base de cálculo
- * ultrapassar o teto máximo da última faixa, a contribuição é limitada ao valor máximo permitido.
+ * O motor percorre as faixas da tabela de alíquotas vigentes, tributando apenas a parcela do valor 
+ * que se enquadra em cada nível. O cálculo respeita automaticamente o teto máximo da Previdência Social, 
+ * garantindo que a contribuição não exceda o limite legal estabelecido para o período.
  * 
  * @param vlBruto - O valor bruto total (utilizado como denominador para o cálculo da alíquota efetiva).
- * @param vlBaseDeCalculo - O valor sobre o qual o imposto será calculado (ex: Salário de Contribuição).
+ * @param opcoes - Configurações opcionais para o cálculo.
+ * @param opcoes.vlBaseDeCalculo - O valor sobre o qual o imposto será calculado (ex: Salário de Contribuição).
  * Se for `null`, utiliza o valor de `vlBruto`.
- * @param aliquotasTetoFaixas - Tabela opcional com faixas e alíquotas customizadas.
+ * @param opcoes.aliquotasTetoFaixas - Tabela opcional com faixas e alíquotas customizadas.
  * Caso seja `null` ou `undefined`, a função tentará buscar a tabela vigente para o **mês e ano atual** 
  * do sistema em {@link vigenciaFaixasInss}.
  * 
  * @returns Um objeto do tipo {@link Imposto} contendo:
- * - `faixas`: Detalhamento de cada faixa de tributação processada.
- * - `vlImposto`: O somatório total do imposto a ser retido.
- * - `aliquotaEfetiva`: Percentual real pago sobre o valor bruto.
- * - `vlLiquido`: Valor bruto subtraído do imposto calculado.
+ * o detalhamento por faixas, valor total do imposto, alíquota efetiva e valor líquido resultante.
  * 
  * @example
  * // Calcula o INSS para um salário de R$ 5.000,00 usando a tabela vigente.
  * const resultado = calcularINSS(5000);
  */
-export function calcularINSS(vlBruto: number, vlBaseDeCalculo: number | null = null, aliquotasTetoFaixas?: AliquotasTetoFaixas | null): Imposto {
+export function calcularINSS(
+    vlBruto: number,
+    opcoes?: null | {
+        vlBaseDeCalculo?: number | null,
+        aliquotasTetoFaixas?: AliquotasTetoFaixas | null,
+        vigenciaAno?: Ano,
+        vigenciaMes?: Meses
+    }
+): Imposto {
 
     const dataAtual = new Date();
 
-    aliquotasTetoFaixas ??= getAliquotasVigentes(toAno(dataAtual.getFullYear()), dataAtual.getMonth() + 1, vigenciaFaixasInss) ?? new Map();
+    if (opcoes?.aliquotasTetoFaixas && (opcoes.vigenciaAno || opcoes.vigenciaMes))
+        throw new ParametroInvalido("opcoes.aliquotasTetoFaixas", "opcoes.aliquotasTetoFaixas não pode ser utilizado com opcoes.vigenciaAno ou opcoes.vigenciaMes, pois são mutuamente exclusivos.");
+
+    let {
+        vlBaseDeCalculo = null,
+        aliquotasTetoFaixas = null,
+        vigenciaAno = toAno(dataAtual.getFullYear()),
+        vigenciaMes = (dataAtual.getMonth() + 1) as Meses
+    } = opcoes ?? {};
+
+    vlBruto = vlBruto.normalizarPrecisao();
+    vlBaseDeCalculo = vlBaseDeCalculo?.normalizarPrecisao() ?? null;
+    vlBaseDeCalculo ??= vlBruto;
+
+    aliquotasTetoFaixas ??= getFaixasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasInss) ?? new Map();
 
     let vlinicialAtual = 0.0;
-    vlBaseDeCalculo ??= vlBruto;
+
     let faixas: DeducaoFaixa[] = [];
     for (const [aliquota, vlFinal] of aliquotasTetoFaixas) {
         if (vlinicialAtual > vlBaseDeCalculo)
             break;
         const dadosFaixa: DeducaoFaixa = { vlFinal, deducao: 0 };
         dadosFaixa.vlInicial = vlinicialAtual;
-        dadosFaixa.vlFinal = Math.min(dadosFaixa.vlFinal, vlBaseDeCalculo);
-        dadosFaixa.vlBaseFaixa = dadosFaixa.vlFinal - dadosFaixa.vlInicial;
+        dadosFaixa.vlFinal = Math.min(dadosFaixa.vlFinal, vlBaseDeCalculo).normalizarPrecisao();
+        dadosFaixa.vlBaseFaixa = (dadosFaixa.vlFinal - dadosFaixa.vlInicial).normalizarPrecisao();
         dadosFaixa.aliquota = aliquota;
-        dadosFaixa.deducao = dadosFaixa.vlBaseFaixa * dadosFaixa.aliquota;
+        dadosFaixa.deducao = (dadosFaixa.vlBaseFaixa * dadosFaixa.aliquota).normalizarPrecisao();
         faixas.push(dadosFaixa);
         vlinicialAtual = dadosFaixa.vlFinal + Number.EPSILON;
     }
@@ -73,11 +97,12 @@ export function calcularINSS(vlBruto: number, vlBaseDeCalculo: number | null = n
 
     imposto.vlImposto = faixas
         .map(faixa => faixa.deducao)
-        .reduce((a, b) => a + b, 0);
+        .reduce((a, b) => a + b, 0)
+        .normalizarPrecisao();
     imposto.aliquotaEfetiva = imposto.vlImposto / vlBruto;
     imposto.vlBruto = vlBruto;
     imposto.vlBaseDeCalculo = vlBaseDeCalculo;
-    imposto.vlLiquido = imposto.vlBruto - imposto.vlImposto;
+    imposto.vlLiquido = (imposto.vlBruto - imposto.vlImposto).normalizarPrecisao();
 
 
     return imposto;

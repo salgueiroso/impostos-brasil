@@ -24,7 +24,6 @@ describe("incrementarImposto", () => {
             aliquotaEfetiva: 0,
             vlBaseDeCalculo: 0
         };
-
         incrementarImposto(origem, acumulador);
 
         expect(acumulador.vlBruto).toBe(2500);
@@ -103,6 +102,173 @@ describe("incrementarImposto", () => {
         incrementarImposto(origem, acumulador);
 
         expect(acumulador.vlLiquido).toBe(1350);
+    });
+
+    test("Deve estourar um erro caso os tamanhos das faixas de origem e acumulador sejam diferentes", () => {
+
+        const acumulador: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 1000,
+            faixas: [{ vlFinal: 0, deducao: 0 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0
+        };
+
+        const origem: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 350,
+            faixas: [{ vlFinal: 0, deducao: 0 }, { vlFinal: 0, deducao: 0 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0,
+        };
+
+        expect(() => incrementarImposto(origem, acumulador)).toThrow();
+    });
+
+    test("Deve estourar um erro caso alguma aliquota de quaisquer faixas não exista no outro imposto", () => {
+
+        const acumulador: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 1000,
+            faixas: [{ vlFinal: 0, deducao: 0, aliquota: 0.14 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0
+        };
+
+        const origem: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 350,
+            faixas: [{ vlFinal: 0, deducao: 0 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0,
+        };
+
+        expect(() => incrementarImposto(origem, acumulador)).toThrow();
+    });
+
+    test("Deve estourar um erro caso algum vlFinal de quaisquer faixas não exista no outro imposto", () => {
+
+        const acumulador: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 1000,
+            faixas: [{ vlFinal: 100, deducao: 0, aliquota: 0 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0
+        };
+
+        const origem: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 350,
+            faixas: [{ vlFinal: 50, deducao: 0, aliquota: 0 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0,
+        };
+
+        expect(() => incrementarImposto(origem, acumulador)).toThrow();
+    });
+
+    test("Deve estourar um erro caso algum vlFinal de quaisquer faixas não exista no outro imposto", () => {
+
+        const acumulador: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 1000,
+            faixas: [{ vlInicial: 40, vlFinal: 0, deducao: 0, aliquota: 0 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0
+        };
+
+        const origem: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 350,
+            faixas: [{ vlInicial: 100, vlFinal: 0, deducao: 0, aliquota: 0 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0,
+        };
+
+        expect(() => incrementarImposto(origem, acumulador)).toThrow();
+    });
+
+    test("Deve somar os campos deducao de origem e acumulador", () => {
+
+        const acumulador: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 0,
+            faixas: [{ vlInicial: 0, vlFinal: 0, deducao: 100, aliquota: 1 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0
+        };
+
+        const origem: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 0,
+            faixas: [{ vlInicial: 0, vlFinal: 0, deducao: 50, aliquota: 1 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0,
+        };
+
+        incrementarImposto(origem, acumulador);
+
+        expect(acumulador.faixas[0].deducao).toBe(150);
+    });
+
+    test("Deve somar os campos vlBaseFaixa de origem e acumulador", () => {
+
+        const acumulador: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 0,
+            faixas: [{ vlInicial: 0, vlFinal: 0, deducao: 0, aliquota: 1, vlBaseFaixa: 5 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0
+        };
+
+        const origem: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 0,
+            faixas: [{ vlInicial: 0, vlFinal: 0, deducao: 0, aliquota: 1, vlBaseFaixa: 7 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0,
+        };
+
+        incrementarImposto(origem, acumulador);
+
+        expect(acumulador.faixas[0].vlBaseFaixa).toBe(12);
+    });
+
+    test("Deve somar os campos vlBaseFaixa de origem e acumulador, considerando origem.faixas[0].vlBaseFaixa com valor null", () => {
+
+        const acumulador: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 0,
+            faixas: [{ vlInicial: 0, vlFinal: 0, deducao: 0, aliquota: 1, vlBaseFaixa: 5 }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0
+        };
+
+        const origem: Imposto = {
+            vlBruto: 0,
+            vlImposto: 0,
+            vlLiquido: 0,
+            faixas: [{ vlInicial: 0, vlFinal: 0, deducao: 0, aliquota: 1, vlBaseFaixa: null }],
+            aliquotaEfetiva: 0,
+            vlBaseDeCalculo: 0,
+        };
+
+        incrementarImposto(origem, acumulador);
+
+        expect(acumulador.faixas[0].vlBaseFaixa).toBe(5);
     });
 
 });

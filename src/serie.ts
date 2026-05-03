@@ -1,12 +1,12 @@
 import { calcularINSS, vigenciaFaixasInss } from "./inss";
-import { calcularIRPF, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR } from "./irpf";
+import { calcularIRPF, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR, vigenciaIrpfDescontoSimplificado } from "./irpf";
 import { DadosDoMes, PartialDadosDoMes } from "./tipos/dados-do-mes";
 import { ImpostoAcumulado } from "./tipos/imposto-acumulado";
 import { InformacaoAdicional } from "./tipos/informacao-adicional";
 import { OpcoesSerie } from "./tipos/opcoes-serie";
 import { Ferias, Meses, TipoRecorrencia } from "./tipos/tipos-basicos";
-import { getAliquotasVigentes } from "./utils/aliquotas";
-import { Contar13, toAno, toMes } from "./utils/datas";
+import { getFaixasVigentes, getValorVigente } from "./utils/aliquotas";
+import { Contar13, incrementaAnoMes, toAno, toMes } from "./utils/datas";
 import { incrementarImposto } from "./utils/impostos";
 import { deducaoMaximaInstrucao } from "./valores";
 
@@ -34,25 +34,25 @@ export function calcularSerie(
 ): ImpostoAcumulado {
 
     const dataAtual = new Date();
-    let anoAtual = toAno(dataAtual.getFullYear());
-    let mesAtual = dataAtual.getMonth() + 1 as Meses;
+    const _mesAtual = (dataAtual.getMonth() + 1) as Meses;
 
     let {
         qtdSeries = 12,
-        vlBrutoMensal,
+        vlBruto = opcoes.vlBruto,
         incluir13 = false,
         incluirFerias = Ferias.Nao,
         percentualFerias = 1 / 3,
-        mesFerias = mesAtual,
+        mesFerias = _mesAtual,
         deducaoSaude = 0,
         deducaoSaudeRecorrencia = TipoRecorrencia.Anual,
         deducaoInstrucao = 0,
         deducaoInstrucaoRecorrencia = TipoRecorrencia.Anual,
-        mesPLR = mesAtual,
+        mesPLR = _mesAtual,
         vlPLR = 0,
         mapasDeFaixas = null,
-        vigenciaAno = anoAtual,
-        vigenciaMes = mesAtual
+        vigenciaAno = toAno(dataAtual.getFullYear()),
+        vigenciaMes = _mesAtual,
+        usarDescontoSimplificadoIRPF = false
     } = opcoes;
 
 
@@ -64,6 +64,7 @@ export function calcularSerie(
         default:
             deducaoSaude = deducaoSaude;
     }
+    deducaoSaude = deducaoSaude.normalizarPrecisao();
 
     switch (deducaoInstrucaoRecorrencia) {
         case TipoRecorrencia.Anual:
@@ -74,13 +75,7 @@ export function calcularSerie(
         default:
             deducaoInstrucao = Math.min(deducaoMaximaInstrucao / 12, deducaoInstrucao)
     }
-
-    if (!!vigenciaAno && !!vigenciaMes) {
-        mapasDeFaixas ??= {};
-        mapasDeFaixas.faixasInss ??= getAliquotasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasInss) ?? new Map();
-        mapasDeFaixas.faixasIrpf ??= getAliquotasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasIrpf) ?? new Map();
-        mapasDeFaixas.faixasIrpfPLR ??= getAliquotasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasIrpfPLR) ?? new Map();
-    }
+    deducaoInstrucao = deducaoInstrucao.normalizarPrecisao();
 
     let itemsSerie: PartialDadosDoMes[] = Array
         .from({ length: qtdSeries }, (_, index) => index)
@@ -88,54 +83,99 @@ export function calcularSerie(
 
     for (let item of itemsSerie) {
 
+        const vigenciaAnoMesItem = incrementaAnoMes({ Ano: vigenciaAno, Mes: vigenciaMes }, item.indice!);
+
+
+        if (vigenciaAno || vigenciaMes) {
+            mapasDeFaixas = {};
+            mapasDeFaixas.faixasInss = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasInss) ?? new Map();
+            mapasDeFaixas.faixasIrpf = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasIrpf) ?? new Map();
+            mapasDeFaixas.faixasIrpfPLR = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasIrpfPLR) ?? new Map();
+            mapasDeFaixas.vlIrpfDescontoSimplificado = getValorVigente(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaIrpfDescontoSimplificado) ?? 0;
+        }
+
+
         let informacoesAdicionais = new Set<InformacaoAdicional>();
         informacoesAdicionais.add(InformacaoAdicional.Salario);
 
         item.mes = toMes(item.indice!)
 
-        item.vlSalarioBruto = vlBrutoMensal;
+        item.vlBruto = vlBruto;
 
         if (incluirFerias === Ferias.Sim && item.mes === mesFerias) {
             // Inclui ferias desde o primeiro ano
-            item.vlSalarioBruto += vlBrutoMensal * percentualFerias;
+            item.vlBruto += vlBruto * percentualFerias;
             informacoesAdicionais.add(InformacaoAdicional.Ferias);
         } else if (incluirFerias === Ferias.IgnorarPrimeiroAno && item.indice! >= 12 && item.mes === mesFerias) {
             // Inclui ferias somente a partir do segundo ano (periodo aquisitivo)
-            item.vlSalarioBruto += vlBrutoMensal * percentualFerias;
+            item.vlBruto += vlBruto * percentualFerias;
             informacoesAdicionais.add(InformacaoAdicional.Ferias);
         }
+        item.vlBruto = item.vlBruto.normalizarPrecisao();
 
 
-        item.inss = calcularINSS(item.vlSalarioBruto ?? 0, item.vlSalarioBruto ?? 0, mapasDeFaixas?.faixasInss);
+        item.inss = calcularINSS(item.vlBruto, {
+            vlBaseDeCalculo: item.vlBruto,
+            // aliquotasTetoFaixas: mapasDeFaixas?.faixasInss ?? null
+            vigenciaAno: vigenciaAnoMesItem.Ano,
+            vigenciaMes: vigenciaAnoMesItem.Mes
+        });
+
         item.vlDeducoes = item.inss.vlImposto + deducaoSaude + deducaoInstrucao;
-        item.irpf = calcularIRPF(item.vlSalarioBruto ?? 0, (item.vlSalarioBruto ?? 0) - item.vlDeducoes, true, mapasDeFaixas?.faixasIrpf);
+        if (usarDescontoSimplificadoIRPF) {
+            item.vlDeducoes = (mapasDeFaixas?.vlIrpfDescontoSimplificado ?? 0);
+            informacoesAdicionais.add(InformacaoAdicional.DescontoSimplificadoIRPF);
+        }
+        item.vlDeducoes = item.vlDeducoes.normalizarPrecisao();
+
+        item.irpf = calcularIRPF(item.vlBruto ?? 0, {
+            vlBaseDeCalculo: (item.vlBruto ?? 0) - item.vlDeducoes,
+            usarIsencao5k7k: true,
+            // aliquotasTetoFaixas: mapasDeFaixas?.faixasIrpf ?? null
+            vigenciaAno: vigenciaAnoMesItem.Ano,
+            vigenciaMes: vigenciaAnoMesItem.Mes
+        });
 
         if (item.mes === mesPLR && vlPLR > 0) {
-            item.irpfPLR = calcularIRPF(vlPLR, vlPLR, false, mapasDeFaixas!.faixasIrpfPLR);
+            item.irpfPLR = calcularIRPF(vlPLR, {
+                vlBaseDeCalculo: vlPLR,
+                usarIsencao5k7k: false,
+                // aliquotasTetoFaixas: mapasDeFaixas?.faixasIrpfPLR ?? null
+                vigenciaAno: vigenciaAnoMesItem.Ano,
+                vigenciaMes: vigenciaAnoMesItem.Mes
+            });
             informacoesAdicionais.add(InformacaoAdicional.PLR);
         }
-        item.vlSalarioBruto = (item.vlSalarioBruto ?? 0) + (item.irpfPLR?.vlBruto ?? 0);
-        item.vlSalarioLiquido = item.vlSalarioBruto - item.inss.vlImposto - item.irpf.vlImposto - (item.irpfPLR?.vlImposto ?? 0)
+        item.vlBruto += item.irpfPLR?.vlBruto ?? 0;
+        item.vlBruto = item.vlBruto.normalizarPrecisao();
+        item.vlLiquido = item.vlBruto - item.inss.vlImposto - item.irpf.vlImposto - (item.irpfPLR?.vlImposto ?? 0)
+        item.vlLiquido = item.vlLiquido.normalizarPrecisao();
 
 
 
         if (incluir13 && item.mes === Meses.Dezembro) {
             informacoesAdicionais.add(InformacaoAdicional.DecimoTerceiro);
             const decimoTerceiro = calcularSerie({
-                vlBrutoMensal,
+                vlBruto,
                 qtdSeries: 1,
                 incluir13: false,
                 incluirFerias: Ferias.Nao,
-                mapasDeFaixas,
-                vigenciaAno,
-                vigenciaMes
+                // mapasDeFaixas,
+                vigenciaAno: vigenciaAnoMesItem.Ano,
+                vigenciaMes: vigenciaAnoMesItem.Mes
             });
 
             const mes13 = decimoTerceiro.meses[0]!;
 
-            item.vlSalarioBruto += mes13.vlSalarioBruto;
-            item.vlSalarioLiquido += mes13.vlSalarioLiquido;
+            item.vlBruto += mes13.vlBruto;
+            item.vlBruto = item.vlBruto.normalizarPrecisao();
+
+            item.vlLiquido += mes13.vlLiquido;
+            item.vlLiquido = item.vlLiquido.normalizarPrecisao();
+
             item.vlDeducoes += mes13.vlDeducoes;
+            item.vlDeducoes = item.vlDeducoes.normalizarPrecisao();
+
             incrementarImposto(mes13.inss, item.inss);
             incrementarImposto(mes13.irpf, item.irpf);
 
@@ -150,20 +190,25 @@ export function calcularSerie(
     let anual: ImpostoAcumulado = {
         meses: impostosMensais,
         vlLiquidoTotal: impostosMensais
-            .map(mes => mes.vlSalarioLiquido)
-            .reduce((a, b) => a + b, 0),
+            .map(mes => mes.vlLiquido)
+            .reduce((a, b) => a + b, 0)
+            .normalizarPrecisao(),
         vlBrutoTotal: impostosMensais
-            .map(mes => mes.vlSalarioBruto)
-            .reduce((a, b) => a + b, 0),
+            .map(mes => mes.vlBruto)
+            .reduce((a, b) => a + b, 0)
+            .normalizarPrecisao(),
         vlImpostoInssTotal: impostosMensais
             .map(mes => mes.inss.vlImposto)
-            .reduce((a, b) => a + b, 0),
+            .reduce((a, b) => a + b, 0)
+            .normalizarPrecisao(),
         vlImpostoIrpfTotal: impostosMensais
             .map(mes => mes.irpf.vlImposto + (mes.irpfPLR?.vlImposto ?? 0))
-            .reduce((a, b) => a + b, 0),
+            .reduce((a, b) => a + b, 0)
+            .normalizarPrecisao(),
         vlImpostoIrpfPLRTotal: impostosMensais
             .map(mes => mes.irpfPLR?.vlImposto ?? 0)
-            .reduce((a, b) => a + b, 0),
+            .reduce((a, b) => a + b, 0)
+            .normalizarPrecisao(),
         pAliquotaIrpfPLREfetiva: 0,
         vlImpostoTotal: 0,
         pAliquotaInssEfetiva: 0,
@@ -171,6 +216,8 @@ export function calcularSerie(
         pAliquotaEfetivaTotal: 0
     };
     anual.vlImpostoTotal = anual.vlImpostoInssTotal + anual.vlImpostoIrpfTotal + anual.vlImpostoIrpfPLRTotal;
+    anual.vlImpostoTotal = anual.vlImpostoTotal.normalizarPrecisao();
+
     anual.pAliquotaInssEfetiva = anual.vlImpostoInssTotal / anual.vlBrutoTotal;
     anual.pAliquotaIrpfEfetiva = anual.vlImpostoIrpfTotal / anual.vlBrutoTotal;
     anual.pAliquotaIrpfPLREfetiva = anual.vlImpostoIrpfPLRTotal / anual.vlBrutoTotal;

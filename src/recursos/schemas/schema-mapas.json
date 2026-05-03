@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://raw.githubusercontent.com/salgueiroso/impostos-brasil/refs/heads/main/src/recursos/schemas/schema-mapas-aliquotas.json",
+    "$id": "https://raw.githubusercontent.com/salgueiroso/impostos-brasil/refs/heads/main/src/recursos/schemas/schema-mapas.json",
     "title": "Mapa de aliquotas",
-    "description": "Representa um mapa de aliquotas de impostos",
+    "description": "Define a estrutura de dados para o mapeamento histórico de alíquotas, faixas tributárias e valores de referência legal.",
     "type": "object",
     "additionalProperties": false,
     "required": [
@@ -13,6 +13,7 @@
             "type": "string"
         },
         "MapaVigencia": {
+            "description": "Lista cronológica de registros tributários vinculados a períodos de vigência específicos.",
             "type": "array",
             "items": {
                 "$ref": "#/$defs/mapa"
@@ -23,19 +24,20 @@
     },
     "$defs": {
         "chave": {
+            "description": "Identificador de competência que define o início da validade de uma tabela.",
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "Ano": {
                     "type": "integer",
                     "minimum": 2010,
-                    "description": "Ano de vigencia"
+                    "description": "Ano civil da vigência (ex: 2025)."
                 },
                 "Mes": {
                     "type": "integer",
                     "minimum": 1,
                     "maximum": 12,
-                    "description": "Mes de vigencia"
+                    "description": "Mês da competência (1 a 12)."
                 }
             },
             "required": [
@@ -43,15 +45,22 @@
                 "Mes"
             ]
         },
+        "deducao": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Valor monetário de dedução ou parcela fixa a ser subtraída."
+        },
         "faixa": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "Aliquota": {
                     "type": "number",
-                    "minimum": 0
+                    "minimum": 0,
+                    "description": "Alíquota nominal da faixa em formato decimal (ex: 0.075 representa 7.5%)."
                 },
                 "ValorTeto": {
+                    "description": "Limite superior de incidência da faixa. Utilize 'Infinity' para a faixa final sem teto.",
                     "oneOf": [
                         {
                             "type": "number",
@@ -77,19 +86,30 @@
                 "Fonte": {
                     "type": "string",
                     "format": "uri",
-                    "pattern": "^https?://.+"
+                    "pattern": "^https?://.+",
+                    "description": "URL de referência oficial (ex: site do Planalto ou Receita Federal) que valida os dados."
                 },
                 "Chave": {
+                    "description": "Período de competência inicial da vigência.",
                     "$ref": "#/$defs/chave"
                 },
                 "Valor": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/faixa"
-                    },
-                    "minItems": 1,
-                    "uniqueItems": true,
-                    "description": "Faixas de aliquotas"
+                    "description": "Conteúdo tributário do período, podendo ser um valor escalar (dedução) ou uma tabela de faixas.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/deducao",
+                            "description": "Valor da deducao"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/faixa"
+                            },
+                            "minItems": 1,
+                            "uniqueItems": true,
+                            "description": "Conjunto de faixas progressivas aplicáveis."
+                        }
+                    ]
                 }
             },
             "required": [

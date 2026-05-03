@@ -1,3 +1,4 @@
+import './utils/extensoes';
 export * from './tipos';
 export * from './utils';
 export * from './exemplo';

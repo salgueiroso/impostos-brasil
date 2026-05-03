@@ -1,4 +1,5 @@
 import { AliquotasTetoFaixas } from "./tipos-basicos";
+import { OpcoesSerie } from "./opcoes-serie";
 
 /**
  * Define o conjunto de tabelas de alíquotas e faixas progressivas customizadas.
@@ -28,4 +29,13 @@ export interface OpcoesMapasFaixas {
      * @default Tabelas vigentes para o período informado em {@link OpcoesSerie}.
      */
     faixasIrpfPLR?: AliquotasTetoFaixas
+
+    /**
+     * Valor monetário fixo para o desconto simplificado do IRPF.
+     * 
+     * Esta propriedade permite sobrepor o valor padrão de dedução simplificada definido 
+     * nas tabelas oficiais para fins de simulação ou ajustes específicos.
+     * @default Valor vigente em `irpf-desconto-simplificado.json`.
+     */
+    vlIrpfDescontoSimplificado?: number
 }

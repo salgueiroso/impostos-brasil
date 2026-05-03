@@ -44,12 +44,12 @@ export interface DadosDoMes {
     /**
      * O rendimento bruto total recebido no mês (Salário + Férias + 13º + PLR).
      */
-    vlSalarioBruto: number;
+    vlBruto: number;
 
     /**
      * O valor final a ser recebido pelo contribuinte após todas as retenções de impostos.
      */
-    vlSalarioLiquido: number;
+    vlLiquido: number;
 
     /**
      * Conjunto de sinalizadores que descrevem eventos específicos ocorridos no mês (ex: Férias, PLR).
