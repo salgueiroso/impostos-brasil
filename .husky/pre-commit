@@ -1,3 +1,5 @@
+
+cd pacote
 npm --no-git-tag-version version patch
 npm i
 git add package.json

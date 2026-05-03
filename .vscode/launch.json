@@ -18,7 +18,7 @@
                 "${workspaceFolder}/src/exemplo.ts"
             ],
             "sourceMaps": true,
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}/pacote"
         }
     ]
 }

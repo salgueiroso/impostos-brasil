@@ -44,8 +44,10 @@ jobs:
           cache: "npm"
       - name: Run npm ci
         run: npm ci
+        working-directory: ./pacote
       - name: Run tests
         run: npm test
+        working-directory: ./pacote
 
       - name: Test Report
         uses: dorny/test-reporter@v3
@@ -54,6 +56,7 @@ jobs:
           name: Testes (os ${{matrix.os}})(node v${{ matrix.node-version }}) - Resultados
           path: reports/junit.xml
           reporter: jest-junit
+          working-directory: ./pacote
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v6
@@ -65,6 +68,7 @@ jobs:
           files: ./coverage/lcov.info
           report_type: coverage
           verbose: true
+          working-directory: ./pacote
 
       - name: Upload test results to Codecov
         uses: codecov/codecov-action@v6
@@ -76,6 +80,7 @@ jobs:
           files: ./reports/junit.xml
           report_type: test_results
           verbose: true
+          working-directory: ./pacote
 
   Build:
     needs: [ Test ]
@@ -94,22 +99,26 @@ jobs:
           cache: "npm"
       - name: Run npm ci
         run: npm ci
+        working-directory: ./pacote
       - name: Run build
         run: npm run build
+        working-directory: ./pacote
       - name: Run npm pack
         run: npm pack
+        working-directory: ./pacote
       - name: Extract package
         run: tar -xvf *.tgz
+        working-directory: ./pacote
       - name: Archive build
         uses: actions/upload-artifact@v7
         with:
           name: package
-          path: "./package"
+          path: "./pacote/package"
       - name: Archive docs
         uses: actions/upload-artifact@v7
         with:
           name: docs
-          path: "./docs"
+          path: "./pacote/docs"
 
   check-npm-version:
     runs-on: ubuntu-latest
@@ -125,10 +134,12 @@ jobs:
 
       - name: Obter versão do package.json
         id: version
+        working-directory: ./pacote
         run: |
           echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Verificar se a versão já existe no NPM
+        working-directory: ./pacote
         run: |
           echo "Verificando se a versão $VERSION já está publicada..."
           if npm view $(node -p "require('./package.json').name")@$VERSION version > /dev/null 2>&1; then
