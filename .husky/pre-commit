@@ -4,3 +4,4 @@ npm --no-git-tag-version version patch
 npm i
 git add package.json
 git add package-lock.json
+pwd
