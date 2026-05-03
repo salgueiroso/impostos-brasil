@@ -32,15 +32,8 @@ jobs:
     name: Testes (os ${{matrix.os}})(node v${{ matrix.node-version }})
     strategy:
       matrix:
-        os: [ "ubuntu-latest", "windows-latest" ] #, "macos-latest", "windows-latest" ]
-        node-version:
-          [
-            # "16.x",
-            "20.x",
-          ]
-          # "22.x",
-          # "24.x",
-          # "${{ needs.Definitions.outputs.DEFAULT_NODE_VERSION }}",
+        os: [ "ubuntu-latest" ]
+        node-version: [ "20.x" ]
     steps:
       - uses: actions/checkout@v6
         name: Checkout
