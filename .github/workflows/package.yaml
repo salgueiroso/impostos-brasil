@@ -99,6 +99,11 @@ jobs:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
           cache: "npm"
           cache-dependency-path: "./pacote/package-lock.json"
+      - name: Copy package required files
+        run: |
+          cp -f ./README.md ./pacote/README.md
+          cp -f ./LICENSE ./pacote/LICENSE
+
       - name: Run npm ci
         run: npm ci
         working-directory: ./pacote
