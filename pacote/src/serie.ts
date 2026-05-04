@@ -85,6 +85,7 @@ export function calcularSerie(
 
         const vigenciaAnoMesItem = incrementaAnoMes({ Ano: vigenciaAno, Mes: vigenciaMes }, item.indice!);
 
+        item.anoMes = vigenciaAnoMesItem;
 
         if (vigenciaAno || vigenciaMes) {
             mapasDeFaixas = {};
@@ -98,15 +99,13 @@ export function calcularSerie(
         let informacoesAdicionais = new Set<InformacaoAdicional>();
         informacoesAdicionais.add(InformacaoAdicional.Salario);
 
-        item.mes = toMes(item.indice!)
-
         item.vlBruto = vlBruto;
 
-        if (incluirFerias === Ferias.Sim && item.mes === mesFerias) {
+        if (incluirFerias === Ferias.Sim && item.anoMes.Mes === mesFerias) {
             // Inclui ferias desde o primeiro ano
             item.vlBruto += vlBruto * percentualFerias;
             informacoesAdicionais.add(InformacaoAdicional.Ferias);
-        } else if (incluirFerias === Ferias.IgnorarPrimeiroAno && item.indice! >= 12 && item.mes === mesFerias) {
+        } else if (incluirFerias === Ferias.IgnorarPrimeiroAno && item.indice! >= 12 && item.anoMes.Mes === mesFerias) {
             // Inclui ferias somente a partir do segundo ano (periodo aquisitivo)
             item.vlBruto += vlBruto * percentualFerias;
             informacoesAdicionais.add(InformacaoAdicional.Ferias);
@@ -136,7 +135,7 @@ export function calcularSerie(
             vigenciaMes: vigenciaAnoMesItem.Mes
         });
 
-        if (item.mes === mesPLR && vlPLR > 0) {
+        if (item.anoMes.Mes === mesPLR && vlPLR > 0) {
             item.irpfPLR = calcularIRPF(vlPLR, {
                 vlBaseDeCalculo: vlPLR,
                 usarIsencao5k7k: false,
@@ -153,7 +152,7 @@ export function calcularSerie(
 
 
 
-        if (incluir13 && item.mes === Meses.Dezembro) {
+        if (incluir13 && item.anoMes.Mes === Meses.Dezembro) {
             informacoesAdicionais.add(InformacaoAdicional.DecimoTerceiro);
             const decimoTerceiro = calcularSerie({
                 vlBruto,
@@ -207,6 +206,10 @@ export function calcularSerie(
             .normalizarPrecisao(),
         vlImpostoIrpfPLRTotal: impostosMensais
             .map(mes => mes.irpfPLR?.vlImposto ?? 0)
+            .reduce((a, b) => a + b, 0)
+            .normalizarPrecisao(),
+        vlDeducoesTotal: impostosMensais
+            .map(mes => mes.vlDeducoes)
             .reduce((a, b) => a + b, 0)
             .normalizarPrecisao(),
         pAliquotaIrpfPLREfetiva: 0,

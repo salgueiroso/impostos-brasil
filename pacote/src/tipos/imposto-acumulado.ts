@@ -64,4 +64,9 @@ export interface ImpostoAcumulado {
      * Carga tributária real total do período (vlImpostoTotal / vlBrutoTotal).
      */
     pAliquotaEfetivaTotal: number;
+
+    /**
+     * Somatório de todas as deduções no período
+     */
+    vlDeducoesTotal: number;
 }

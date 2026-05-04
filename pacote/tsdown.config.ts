@@ -3,34 +3,29 @@ import { defineConfig } from "tsdown";
 export default defineConfig({
   entry: ["src/index.ts"],
   format: ["cjs", "esm", "iife"],
-  dts: true, // Generate declaration file (.d.ts)
+  dts: true,
   sourcemap: true,
   clean: true,
-
-
-
-
-  // Minificação — no tsdown aceita booleano ou opções granulares
+  target: "es2016", // ← compatibilidade explícita
+  globalName: "ImpostosBrasil",
   minify: true,
-
-  // Tree-shaking nativo do rolldown (já ativo por padrão, mas explícito)
-  // treeshake: true,
-  treeshake: {
-    // Função com controle granular
-    moduleSideEffects: (id, external) => {
-      if (id.includes("extensoes")) return true;
-      if (external) return false;
-      return true;
+  // controle de comentários via outputOptions do rolldown
+  outputOptions: {
+    comments: {
+      legal: false
     }
   },
 
-  // Target do ambiente — false desativa transformação de sintaxe
-  // Defina explicitamente se quiser garantir compatibilidade:
-  target: false, // ou "node18", "chrome90", etc.
+  treeshake: {
+    moduleSideEffects: (id) => {
+      if (id.includes("extensoes")) return true;
+      if (id.includes("extensions")) return true;
+      return true; // ← conservador: mantém tudo
+    },
+    propertyReadSideEffects: false,
+    unknownGlobalSideEffects: false,
+    annotations: true
+  },
 
-
-  // Para o formato iife, defina o nome global
-  globalName: "ImpostosBrasil",// Configuração para remover consoles
   unbundle: false,
-
 });

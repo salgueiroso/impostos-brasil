@@ -52,7 +52,7 @@ export function exemplo() {
     console.log(`Imposto Periodo: ${resultadoAnual.vlImpostoTotal.toBRL()}`);
 
     for (let mes of resultadoAnual.meses) {
-        console.log(`Mês ${Meses[mes.mes]} (${mes.indice}):`);
+        console.log(`Mês ${Meses[mes.anoMes.Mes]} (${mes.indice}):`);
         console.log(`  Informacoes: ${mes.informacoesAdicionais.join(', ')}`);
         console.log(`  Salário Bruto: ${mes.vlBruto.toBRL()}`);
         console.log(`  INSS: ${mes.inss.vlImposto.toBRL()}`);

@@ -1,6 +1,6 @@
 {
   "name": "impostos-brasil",
-  "version": "1.4.9",
+  "version": "1.4.8",
   "description": "Esta biblioteca simplifica os calculos dos impostos INSS e IR do Brasil",
   "author": "Acacio Salgueiro",
   "license": "MIT",
@@ -18,14 +18,11 @@
   "bugs": {
     "url": "https://github.com/salgueiroso/impostos-brasil/issues"
   },
+  "sideEffects": false,
   "homepage": "https://github.com/salgueiroso/impostos-brasil",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.cts",
-  "sideEffects": [
-    "./dist/index.cjs",
-    "./dist/index.mjs"
-  ],
   "exports": {
     ".": {
       "import": {
@@ -72,7 +69,7 @@
     "clean": "rm -Rf /tmp/node_modules ./node_modules ./dist ./reports ./coverage",
     "clean:git": "git clean -fdx",
     "prepack": "npm run build",
-    "postpack": "tar -xzvf impostos-brasil-*.tgz -C ./dist/",
+    "postpack": "tar -xzvf impostos-brasil-*.tgz",
     "preparep": "cd ../ && [ -d .git ] && husky || true"
   },
   "devDependencies": {

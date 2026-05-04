@@ -139,7 +139,7 @@ export function calcularIRPF(
 
     imposto.aliquotaEfetiva = imposto.vlImposto / vlBruto;
     imposto.vlBruto = vlBruto;
-    imposto.vlBaseDeCalculo = vlBruto;
+    imposto.vlBaseDeCalculo = vlBaseDeCalculo;
     imposto.vlLiquido = (imposto.vlBruto - imposto.vlImposto).normalizarPrecisao();
 
 

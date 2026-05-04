@@ -43,11 +43,11 @@ export enum Meses {
  */
 export enum Ferias {
     /** Não inclui pagamento de férias no período. */
-    Nao = 1,
+    Nao = 'Nao',
     /** Ignora o pagamento no primeiro ano da série, simulando o período aquisitivo. */
-    IgnorarPrimeiroAno = 2,
+    IgnorarPrimeiroAno = 'IgnorarPrimeiroAno',
     /** Aplica o pagamento de férias (1/3 constitucional) no mês definido. */
-    Sim = 3
+    Sim = 'Sim'
 }
 
 /**

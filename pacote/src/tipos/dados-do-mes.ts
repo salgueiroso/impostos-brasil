@@ -1,6 +1,6 @@
 import { Imposto } from "./imposto";
 import { InformacaoAdicional } from "./informacao-adicional";
-import { Meses } from "./tipos-basicos";
+import { AnoMes, Meses } from "./tipos-basicos";
 
 /**
  * Representa o resultado detalhado dos cálculos financeiros de um único mês dentro de uma série.
@@ -27,9 +27,9 @@ export interface DadosDoMes {
     inss: Imposto;
 
     /**
-     * O mês de referência do cálculo.
+     * Ano e mês de referencia deste calculo
      */
-    mes: Meses;
+    anoMes: AnoMes;
 
     /**
      * Posição sequencial do mês dentro da série temporal (começando em 0).
