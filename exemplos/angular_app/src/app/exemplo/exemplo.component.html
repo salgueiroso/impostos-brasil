@@ -1,0 +1,306 @@
+<form [formGroup]="formulario" (ngSubmit)="calcular()" class="p-6 bg-white rounded-xl shadow space-y-6">
+
+    <!-- Grid principal -->
+    <div class="grid grid-cols-12 gap-4">
+
+        <!-- Salário Bruto -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="salarioBrutoMensal" class="text-sm font-medium text-gray-700">Salário Bruto Mensal</label>
+            <input id="salarioBrutoMensal" type="text" formControlName="salarioBrutoMensal" mask="separator.2"
+                thousandSeparator="." decimalMarker="," prefix="R$ " [allowNegativeNumbers]="false"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Qtd. Meses -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="quantidadeMeses" class="text-sm font-medium text-gray-700">Qtd. Meses</label>
+            <input id="quantidadeMeses" type="number" formControlName="quantidadeMeses" [min]="1"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Vigência Ano -->
+        <div class="col-span-4 flex flex-col gap-1">
+            <label for="vigenciaAno" class="text-sm font-medium text-gray-700">Ano de Vigência Inicial</label>
+            <input id="vigenciaAno" type="number" formControlName="vigenciaAno" [min]="anoMinimo()"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Vigência Mês -->
+        <div class="col-span-4 flex flex-col gap-1">
+            <label for="vigenciaMes" class="text-sm font-medium text-gray-700">Mês de Vigência Inicial</label>
+            <select id="vigenciaMes" formControlName="vigenciaMes"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @for (item of meses(); track item.value) {
+                <option [value]="item.value">{{ item.label }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Separador: Férias -->
+        <div class="col-span-12">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Férias</p>
+            <hr class="mt-1 border-gray-200" />
+        </div>
+
+        <!-- Tipo de Férias -->
+        <div class="col-span-4 flex flex-col gap-1">
+            <label for="incluirFerias" class="text-sm font-medium text-gray-700">Incluir Férias</label>
+            <select id="incluirFerias" formControlName="incluirFerias"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @for (item of tiposFerias(); track item.value) {
+                <option [value]="item.value">{{ item.label }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Percentual Férias -->
+        <div class="col-span-4 flex flex-col gap-1">
+            <label for="percentualFerias" class="text-sm font-medium text-gray-700">Adicional de Férias (%)</label>
+            <input id="percentualFerias" type="text" formControlName="percentualFerias" mask="percent" suffix="%"
+                thousandSeparator="." decimalMarker=","
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Mês das Férias -->
+        <div class="col-span-4 flex flex-col gap-1">
+            <label for="mesFerias" class="text-sm font-medium text-gray-700">Mês das Férias</label>
+            <select id="mesFerias" formControlName="mesFerias"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @for (item of meses(); track item.value) {
+                <option [value]="item.value">{{ item.label }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Separador: Deduções -->
+        <div class="col-span-12">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Deduções</p>
+            <hr class="mt-1 border-gray-200" />
+        </div>
+
+        <!-- Dedução Saúde -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="deducaoSaude" class="text-sm font-medium text-gray-700">Dedução de Saúde</label>
+            <input id="deducaoSaude" type="text" formControlName="deducaoSaude" mask="separator.2" thousandSeparator="."
+                decimalMarker="," prefix="R$ " [allowNegativeNumbers]="false"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Recorrência Saúde -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="deducaoSaudeRecorrencia" class="text-sm font-medium text-gray-700">Recorrência</label>
+            <select id="deducaoSaudeRecorrencia" formControlName="deducaoSaudeRecorrencia"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @for (item of tiposRecorrencia(); track item.value) {
+                <option [value]="item.value">{{ item.label }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Dedução Instrução -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="deducaoInstrucao" class="text-sm font-medium text-gray-700">Dedução de Instrução</label>
+            <input id="deducaoInstrucao" type="text" formControlName="deducaoInstrucao" mask="separator.2"
+                thousandSeparator="." decimalMarker="," prefix="R$ " [allowNegativeNumbers]="false"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Recorrência Instrução -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="deducaoInstrucaoRecorrencia" class="text-sm font-medium text-gray-700">Recorrência</label>
+            <select id="deducaoInstrucaoRecorrencia" formControlName="deducaoInstrucaoRecorrencia"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @for (item of tiposRecorrencia(); track item.value) {
+                <option [value]="item.value">{{ item.label }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Separador: PLR -->
+        <div class="col-span-12">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">PLR</p>
+            <hr class="mt-1 border-gray-200" />
+        </div>
+
+        <!-- Valor PLR -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="vlPLR" class="text-sm font-medium text-gray-700">Valor PLR</label>
+            <input id="vlPLR" type="text" formControlName="vlPLR" mask="separator.2" thousandSeparator="."
+                decimalMarker="," prefix="R$ " [allowNegativeNumbers]="false"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Mês PLR -->
+        <div class="col-span-6 flex flex-col gap-1">
+            <label for="mesPLR" class="text-sm font-medium text-gray-700">Mês do PLR</label>
+            <select id="mesPLR" formControlName="mesPLR"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @for (item of meses(); track item.value) {
+                <option [value]="item.value">{{ item.label }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Separador: Opções -->
+        <div class="col-span-12">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Opções</p>
+            <hr class="mt-1 border-gray-200" />
+        </div>
+
+        <!-- Calcular 13º -->
+        <div class="col-span-6 flex items-center gap-3">
+            <input id="incluir13" type="checkbox" formControlName="incluir13"
+                class="w-4 h-4 accent-blue-600 cursor-pointer" />
+            <label for="incluir13" class="text-sm font-medium text-gray-700 cursor-pointer">Calcular 13º</label>
+        </div>
+
+        <!-- Desconto Simplificado IRPF -->
+        <div class="col-span-6 flex items-center gap-3">
+            <input id="usarDescontoSimplificadoIRPF" type="checkbox" formControlName="usarDescontoSimplificadoIRPF"
+                class="w-4 h-4 accent-blue-600 cursor-pointer" />
+            <label for="usarDescontoSimplificadoIRPF" class="text-sm font-medium text-gray-700 cursor-pointer">
+                Usar desconto simplificado no IRPF
+            </label>
+        </div>
+
+    </div>
+
+    <!-- Botão -->
+    <div class="flex justify-end">
+        <button type="submit" [disabled]="!formularioValido()"
+            class="px-6 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+            Calcular
+        </button>
+    </div>
+
+</form>
+
+<!-- Resultado -->
+@if (resultado(); as r) {
+
+<div class="mt-6 bg-white rounded-xl shadow p-6 space-y-4" #resultadoRef>
+
+    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Resultado</p>
+    <hr class="border-gray-200" />
+
+    <div class="grid grid-cols-12 gap-4">
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Total Bruto</span>
+            <span class="text-sm font-semibold text-gray-700">{{ r.vlBrutoTotal| currency}}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Total INSS</span>
+            <span class="text-sm font-semibold text-red-600">{{ r.vlImpostoInssTotal| currency}}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Total IRPF</span>
+            <span class="text-sm font-semibold text-red-600">{{ r.vlImpostoIrpfTotal | currency}}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Total IRPF PLR</span>
+            <span class="text-sm font-semibold text-red-600">{{ r.vlImpostoIrpfPLRTotal | currency}}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Total Líquido</span>
+            <span class="text-sm font-semibold text-green-700">{{ r.vlLiquidoTotal | currency}}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Total Deduções</span>
+            <span class="text-sm font-semibold text-red-600">{{ r.vlImpostoTotal| currency}}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Alíquota Efetiva IRPF</span>
+            <span class="text-sm font-semibold text-gray-700">{{ r.pAliquotaIrpfEfetiva | percent:'1.1-2' }}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Alíquota Efetiva IRPF PLR</span>
+            <span class="text-sm font-semibold text-gray-700">{{ r.pAliquotaIrpfPLREfetiva | percent:'1.1-2' }}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Alíquota Efetiva INSS</span>
+            <span class="text-sm font-semibold text-gray-700">{{ r.pAliquotaInssEfetiva | percent:'1.1-2' }}</span>
+        </div>
+
+        <div class="col-span-2 flex flex-col gap-1">
+            <span class="text-xs text-gray-400 uppercase tracking-wider">Alíquota Efetiva Global</span>
+            <span class="text-sm font-semibold text-gray-700">{{ r.pAliquotaEfetivaTotal| percent:'1.1-2' }}</span>
+        </div>
+
+    </div>
+
+    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider pt-4">Detalhes por Mês</p>
+    <hr class="border-gray-200" />
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left border-collapse">
+            <thead class="bg-gray-100 text-gray-600 text-xs uppercase tracking-wider">
+                <tr>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap">Mês/Ano</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Salário Bruto</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">INSS</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Base IRPF</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">IRPF</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Deduções</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Líquido</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (serie of r.meses; track serie.indice) {
+                <tr class="odd:bg-white even:bg-gray-50 hover:bg-blue-50 transition-colors">
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap font-medium text-gray-700">
+                        {{ serie.anoMes.Ano }}/{{ serie.anoMes.Mes }}
+                    </td>
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-gray-700">
+                        {{ serie.vlBruto | currency }}
+                    </td>
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-red-600">
+                        {{ serie.inss.vlImposto| currency }}
+                    </td>
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-gray-700">
+                        {{ serie.irpf.vlBaseDeCalculo| currency }}
+                    </td>
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-red-600">
+                        {{ serie.irpf.vlImposto| currency }}
+                    </td>
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-red-600">
+                        {{ serie.vlDeducoes| currency }}
+                    </td>
+                    <td
+                        class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right font-semibold text-green-700">
+                        {{ serie.vlLiquido | currency }}
+                    </td>
+                </tr>
+                }
+            </tbody>
+            <tfoot class="bg-gray-100 text-xs font-semibold text-gray-600">
+                <tr>
+                    <td class="px-4 py-3 border border-gray-200">Total</td>
+                    <td class="px-4 py-3 border border-gray-200 text-right text-gray-700">{{ r.vlBrutoTotal| currency }}
+                    </td>
+                    <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlImpostoInssTotal |
+                        currency }}
+                    </td>
+                    <td class="px-4 py-3 border border-gray-200">NA</td>
+                    <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlImpostoIrpfTotal |
+                        currency }}
+                    </td>
+                    <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlDeducoesTotal | currency
+                        }}</td>
+                    <td class="px-4 py-3 border border-gray-200 text-right text-green-700">{{ r.vlLiquidoTotal |
+                        currency
+                        }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+}
