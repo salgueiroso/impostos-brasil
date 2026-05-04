@@ -1,3 +1,4 @@
 {
-    "json.validate.enable": true
+    "json.validate.enable": true,
+    "jest.rootPath": "pacote"
 }
