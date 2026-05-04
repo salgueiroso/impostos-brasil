@@ -1,0 +1,21 @@
+{
+  "name": "exemplo-uso",
+  "version": "1.0.0",
+  "description": "Exemplo de uso do pacote impostos-brasil",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "cd ../pacote/ && npm install",
+    "prebuild": "cd ../pacote/ && npm pack",
+    "build": "echo build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "impostos-brasil": "file:../pacote/dist/package/"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsdown": "^0.21.10",
+    "typescript": "^6.0.3"
+  }
+}
