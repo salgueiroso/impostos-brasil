@@ -31,6 +31,7 @@ jobs:
       id-token: write
     name: Testes (os ${{matrix.os}})(node v${{ matrix.node-version }})
     strategy:
+      max-parallel: 1
       matrix:
         os: [ "ubuntu-latest" ]
         node-version: [ "20.x" ]
@@ -139,6 +140,7 @@ jobs:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
           cache: "npm"
           cache-dependency-path: "./pacote/package-lock.json"
+          package-manager-cache: false
 
       - name: Obter versão do package.json
         id: version
@@ -175,7 +177,7 @@ jobs:
         name: Setup Node.js
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
-          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
       - run: find .
         name: List package files
       - name: Run npm publish
