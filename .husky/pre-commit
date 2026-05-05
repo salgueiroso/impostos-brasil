@@ -1,7 +1,7 @@
 
 cd pacote
 npm --no-git-tag-version version patch
-npm i
+# npm update --package-lock-only
 git add package.json
 git add package-lock.json
 pwd

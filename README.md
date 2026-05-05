@@ -292,6 +292,11 @@ npm test
 
 Os testes cobrem `calcularINSS`, `calcularIRPF`, `calcularSerie` e todos os utilitários de alíquotas, datas, formatações e JSON.
 
+## 🚀 Roadmap
+- [ ] Calculo do IRPF considerando o deconto simplificado
+- [ ] Inclusão de novos exemplos
+
+
 ## ⚖️ Aviso Legal e Isenção de Responsabilidade
 
 Esta ferramenta é fornecida apenas para fins informativos e de simulação. Os cálculos gerados por esta biblioteca **não devem ser utilizados para fins legais, contábeis ou oficiais**.
