@@ -29,9 +29,13 @@ npm install impostos-brasil
 
 > **Requisitos:** Node.js `>=22` e npm `>=10`.
 
-## 📚 Documentação da API
+## Links úteis
+| Descrição | Link |
+|---|---|
+| **Repositório:** | https://github.com/salgueiroso/impostos-brasil |
+| **Documentação da API:** | https://salgueiroso.github.io/impostos-brasil/ |
+| **Pacote NPM:** | https://www.npmjs.com/package/impostos-brasil |
 
-- https://salgueiroso.github.io/impostos-brasil/
 
 ## 💻 Exemplos de Uso
 
