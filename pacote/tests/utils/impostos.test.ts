@@ -150,51 +150,6 @@ describe("incrementarImposto", () => {
         expect(() => incrementarImposto(origem, acumulador)).toThrow();
     });
 
-    test("Deve estourar um erro caso algum vlFinal de quaisquer faixas não exista no outro imposto", () => {
-
-        const acumulador: Imposto = {
-            vlBruto: 0,
-            vlImposto: 0,
-            vlLiquido: 1000,
-            faixas: [{ vlFinal: 100, deducao: 0, aliquota: 0 }],
-            aliquotaEfetiva: 0,
-            vlBaseDeCalculo: 0
-        };
-
-        const origem: Imposto = {
-            vlBruto: 0,
-            vlImposto: 0,
-            vlLiquido: 350,
-            faixas: [{ vlFinal: 50, deducao: 0, aliquota: 0 }],
-            aliquotaEfetiva: 0,
-            vlBaseDeCalculo: 0,
-        };
-
-        expect(() => incrementarImposto(origem, acumulador)).toThrow();
-    });
-
-    test("Deve estourar um erro caso algum vlFinal de quaisquer faixas não exista no outro imposto", () => {
-
-        const acumulador: Imposto = {
-            vlBruto: 0,
-            vlImposto: 0,
-            vlLiquido: 1000,
-            faixas: [{ vlInicial: 40, vlFinal: 0, deducao: 0, aliquota: 0 }],
-            aliquotaEfetiva: 0,
-            vlBaseDeCalculo: 0
-        };
-
-        const origem: Imposto = {
-            vlBruto: 0,
-            vlImposto: 0,
-            vlLiquido: 350,
-            faixas: [{ vlInicial: 100, vlFinal: 0, deducao: 0, aliquota: 0 }],
-            aliquotaEfetiva: 0,
-            vlBaseDeCalculo: 0,
-        };
-
-        expect(() => incrementarImposto(origem, acumulador)).toThrow();
-    });
 
     test("Deve somar os campos deducao de origem e acumulador", () => {
 

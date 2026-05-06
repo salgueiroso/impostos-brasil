@@ -6,7 +6,7 @@ import { InformacaoAdicional } from "./tipos/informacao-adicional";
 import { OpcoesSerie } from "./tipos/opcoes-serie";
 import { Ferias, Meses, TipoRecorrencia } from "./tipos/tipos-basicos";
 import { getFaixasVigentes, getValorVigente } from "./utils/aliquotas";
-import { Contar13, incrementaAnoMes, toAno, toMes } from "./utils/datas";
+import { Contar13, contarMesesContabeisEntre, incrementaAnoMes, toAno, toMes } from "./utils/datas";
 import { incrementarImposto } from "./utils/impostos";
 import { deducaoMaximaInstrucao } from "./valores";
 
@@ -154,8 +154,16 @@ export function calcularSerie(
 
         if (incluir13 && item.anoMes.Mes === Meses.Dezembro) {
             informacoesAdicionais.add(InformacaoAdicional.DecimoTerceiro);
+
+            const mesesContabeis = contarMesesContabeisEntre({ Ano: vigenciaAno, Mes: vigenciaMes }, vigenciaAnoMesItem);
+
+            const vlBrutoDecimoTerceiro = mesesContabeis < 12
+                ? ((vlBruto / 12) * mesesContabeis).normalizarPrecisao()
+                : vlBruto;
+
+
             const decimoTerceiro = calcularSerie({
-                vlBruto,
+                vlBruto: vlBrutoDecimoTerceiro,
                 qtdSeries: 1,
                 incluir13: false,
                 incluirFerias: Ferias.Nao,

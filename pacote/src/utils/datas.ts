@@ -108,3 +108,28 @@ export function incrementaAnoMes(anoMes: AnoMes, qtdMeses: number): AnoMes {
         Mes: (anoMesData.getMonth() + 1) as Meses
     };
 }
+
+
+/**
+ * Calcula a quantidade de meses (competências) entre duas datas, considerando o intervalo inclusive.
+ * 
+ * Esta função é utilizada primordialmente para calcular a proporcionalidade de verbas como o 
+ * 13º salário e férias dentro de uma série temporal, onde cada mês no intervalo conta como 
+ * um período integral (ex: de Janeiro a Dezembro do mesmo ano resulta em 12 meses).
+ * 
+ * @param inicio - A competência inicial de referência.
+ * @param final - A competência final de referência.
+ * @returns O número absoluto de meses contidos no período.
+ * 
+ * @example
+ * contarMesesContabeisEntre({ Ano: 2025, Mes: 1 }, { Ano: 2025, Mes: 12 }); // 12
+ */
+export function contarMesesContabeisEntre(inicio: AnoMes, final: AnoMes): number {
+    const dtInicio = new Date(inicio.Ano, inicio.Mes - 1);
+    const dtFinal = new Date(final.Ano, final.Mes - 1);
+
+    const meses = (dtFinal.getFullYear() - dtInicio.getFullYear()) * 12 + (dtFinal.getMonth() - dtInicio.getMonth() + 1);
+
+
+    return Math.abs(meses);
+}
