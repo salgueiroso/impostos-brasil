@@ -251,6 +251,7 @@
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">IRPF</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Deduções</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Líquido</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Eventos</th>
                 </tr>
             </thead>
             <tbody>
@@ -277,6 +278,13 @@
                     <td
                         class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right font-semibold text-green-700">
                         {{ serie.vlLiquido | currency }}
+                    </td>
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap">
+                        @for(flag of serie.informacoesAdicionais; track flag; let last = $last){
+                        <span class="px-0 py-0 text-sm font-medium text-blue-700">
+                            {{flag}}
+                        </span>@if (!last) {+}
+                        }
                     </td>
                 </tr>
                 }

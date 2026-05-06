@@ -102,24 +102,27 @@ export class ExemploComponent {
     const usarDescontoSimplificadoIRPF = v.usarDescontoSimplificadoIRPF ?? true;
 
 
-
-    this.resultado.set(calcularSerie({
-      vlBruto,
-      qtdSeries,
-      incluir13,
-      incluirFerias,
-      percentualFerias,
-      mesFerias,
-      deducaoSaude,
-      deducaoSaudeRecorrencia,
-      deducaoInstrucao,
-      deducaoInstrucaoRecorrencia,
-      mesPLR,
-      vlPLR,
-      vigenciaAno,
-      vigenciaMes,
-      usarDescontoSimplificadoIRPF
-    }));
+    try {
+      this.resultado.set(calcularSerie({
+        vlBruto,
+        qtdSeries,
+        incluir13,
+        incluirFerias,
+        percentualFerias,
+        mesFerias,
+        deducaoSaude,
+        deducaoSaudeRecorrencia,
+        deducaoInstrucao,
+        deducaoInstrucaoRecorrencia,
+        mesPLR,
+        vlPLR,
+        vigenciaAno,
+        vigenciaMes,
+        usarDescontoSimplificadoIRPF
+      }));
+    } catch (e) {
+      alert(e);
+    }
   }
 
   scrollToSection(id: string) {
