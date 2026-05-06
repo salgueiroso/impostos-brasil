@@ -1,3 +1,4 @@
+set -e
 
 cd pacote
 npm --no-git-tag-version version patch
