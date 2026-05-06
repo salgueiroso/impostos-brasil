@@ -127,10 +127,9 @@ export function calcularSerie(
         }
         item.vlDeducoes = item.vlDeducoes.normalizarPrecisao();
 
-        item.irpf = calcularIRPF(item.vlBruto ?? 0, {
-            vlBaseDeCalculo: (item.vlBruto ?? 0) - item.vlDeducoes,
+        item.irpf = calcularIRPF(item.vlBruto!, {
+            vlBaseDeCalculo: item.vlBruto! - item.vlDeducoes,
             usarIsencao5k7k: true,
-            // aliquotasTetoFaixas: mapasDeFaixas?.faixasIrpf ?? null
             vigenciaAno: vigenciaAnoMesItem.Ano,
             vigenciaMes: vigenciaAnoMesItem.Mes
         });

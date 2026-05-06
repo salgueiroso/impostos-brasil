@@ -31,7 +31,7 @@ export interface OpcoesMapasFaixas {
     faixasIrpfPLR?: AliquotasTetoFaixas
 
     /**
-     * Valor monetário fixo para o desconto simplificado do IRPF.
+     * Valor monetário fixo para o desconto simplificado do IRPF vigente no periodo.
      * 
      * Esta propriedade permite sobrepor o valor padrão de dedução simplificada definido 
      * nas tabelas oficiais para fins de simulação ou ajustes específicos.
