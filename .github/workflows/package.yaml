@@ -129,7 +129,7 @@ jobs:
           path: "./pacote/docs"
 
   BuildExemplo:
-    needs: [ Test ]
+    needs: [ Build ]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -138,6 +138,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         name: Checkout
+      - uses: actions/download-artifact@v8
+        with:
+          name: package
+          path: ./pacote/dist/package
       - uses: actions/setup-node@v6
         name: Setup Node.js
         with:
@@ -145,8 +149,8 @@ jobs:
           cache: "npm"
           cache-dependency-path: "./exemplos/angular_app/package-lock.json"
 
-      - name: Run npm ci
-        run: npm ci
+      - name: Run npm install
+        run: npm install
         working-directory: ./exemplos/angular_app
       - name: Run build
         run: |
@@ -156,30 +160,28 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: angular_app
-          path: "./exemplos/angular_app/"
+          path: "./exemplos/angular_app/dist/angular-app/"
 
   check-npm-version:
     runs-on: ubuntu-latest
     needs: [ Build ]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v8
+        with:
+          name: package
 
       - uses: actions/setup-node@v6
         name: Setup Node.js
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
-          cache: "npm"
-          cache-dependency-path: "./pacote/package-lock.json"
           package-manager-cache: false
 
       - name: Obter versão do package.json
         id: version
-        working-directory: ./pacote
         run: |
           echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Verificar se a versão já existe no NPM
-        working-directory: ./pacote
         run: |
           echo "Verificando se a versão $VERSION já está publicada..."
           if npm view $(node -p "require('./package.json').name")@$VERSION version > /dev/null 2>&1; then
