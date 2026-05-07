@@ -154,7 +154,7 @@ jobs:
         working-directory: ./exemplos/angular_app
       - name: Run build
         run: |
-          npm run build -- --output-path docs-angular --base-href /impostos-brasil/angular_app/
+          npm run build -- --base-href /impostos-brasil/angular_app/
         working-directory: ./exemplos/angular_app
       - name: Archive docs
         uses: actions/upload-artifact@v7
@@ -192,7 +192,7 @@ jobs:
           fi
 
   Deploy-NPM:
-    needs: [ check-npm-version ]
+    needs: [ check-npm-version, BuildExemplo ]
     runs-on: ubuntu-latest
     environment:
       name: npm
