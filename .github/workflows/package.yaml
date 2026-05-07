@@ -233,11 +233,15 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: docs
-          path: ./docs
+          path: ./
+      - run: find .
+        name: List package files
       - uses: actions/download-artifact@v8
         with:
           name: angular_app
-          path: ./docs/angular_app/
+          path: ./angular_app/
+      - run: find .
+        name: List package files
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
