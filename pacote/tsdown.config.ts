@@ -8,7 +8,7 @@ export default defineConfig({
   clean: true,
   target: "es2016", // ← compatibilidade explícita
   globalName: "ImpostosBrasil",
-  minify: true,
+  minify: false,
   // controle de comentários via outputOptions do rolldown
   outputOptions: {
     comments: {
@@ -20,7 +20,7 @@ export default defineConfig({
     moduleSideEffects: (id) => {
       if (id.includes("extensoes")) return true;
       if (id.includes("extensions")) return true;
-      return true; // ← conservador: mantém tudo
+      return false; // ← conservador: mantém tudo
     },
     propertyReadSideEffects: false,
     unknownGlobalSideEffects: false,
