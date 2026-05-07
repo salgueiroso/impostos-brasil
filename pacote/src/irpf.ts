@@ -7,9 +7,10 @@ import { Imposto } from "./tipos/imposto";
 import { AliquotasTetoFaixas, Ano, Meses } from "./tipos/tipos-basicos";
 import { carregarDoJson } from "./utils/json";
 import { toAno } from "./utils/datas";
-import { getFaixasVigentes } from "./utils/aliquotas";
+import { getFaixasVigentes, getValorVigente } from "./utils/aliquotas";
 import { ParametroInvalido } from "./tipos/erros";
 import { varName } from "./utils/helper";
+import { InformacaoAdicional } from "./tipos";
 
 /**
  * Mapa global indexado por vigência (Ano/Mês) contendo as alíquotas e faixas do IRPF mensal.
@@ -67,8 +68,11 @@ export function calcularIRPF(
         vlBaseDeCalculo?: number | null,
         usarIsencao5k7k?: boolean | null,
         aliquotasTetoFaixas?: AliquotasTetoFaixas | null,
+        usarDescontoSimplificadoIRPF?: boolean | null,
+        vlDescontoSimplificado?: number | null,
         vigenciaAno?: Ano,
-        vigenciaMes?: Meses
+        vigenciaMes?: Meses,
+        marcador?: Set<InformacaoAdicional> | null
     }
 ): Imposto {
 
@@ -80,17 +84,31 @@ export function calcularIRPF(
     let {
         vlBaseDeCalculo = null,
         usarIsencao5k7k = true,
+        usarDescontoSimplificadoIRPF = false,
+        vlDescontoSimplificado = null,
         aliquotasTetoFaixas = null,
         vigenciaAno = toAno(dataAtual.getFullYear()),
-        vigenciaMes = (dataAtual.getMonth() + 1) as Meses
+        vigenciaMes = (dataAtual.getMonth() + 1) as Meses,
+        marcador = null
     } = opcoes ?? {};
 
     vlBruto = vlBruto.normalizarPrecisao();
     vlBaseDeCalculo = vlBaseDeCalculo?.normalizarPrecisao() ?? null;
     vlBaseDeCalculo ??= vlBruto;
 
+
     if (vlBaseDeCalculo > vlBruto)
         throw new ParametroInvalido(varName({ vlBaseDeCalculo }), "Base de calculo não pode ser maior que o valor bruto");
+
+    if (usarDescontoSimplificadoIRPF == true) {
+        vlDescontoSimplificado ??= getValorVigente(vigenciaAno, vigenciaMes, vigenciaIrpfDescontoSimplificado) ?? 0;
+        const vlDeducaoPadrao = vlBruto - vlBaseDeCalculo;
+        if (vlDescontoSimplificado > vlDeducaoPadrao) {
+            vlBaseDeCalculo = vlBruto - vlDescontoSimplificado;
+            marcador?.add(InformacaoAdicional.DescontoSimplificadoIRPF);
+        }
+    }
+
 
     aliquotasTetoFaixas ??= getFaixasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasIrpf) ?? new Map();
 
@@ -129,11 +147,14 @@ export function calcularIRPF(
     if (usarIsencao5k7k && vlBruto <= 5000) {
 
         imposto.vlImposto = 0;
+        marcador?.add(InformacaoAdicional.IsencaoAte5000Isento);
 
-    } else if (usarIsencao5k7k && vlBruto <= 7350) {
+
+    } else if (usarIsencao5k7k && vlBruto > 5000 && vlBruto <= 7350) {
 
         imposto.vlImposto -= 978.62 - (0.133145 * vlBruto)
         imposto.vlImposto = Math.max(0, imposto.vlImposto).normalizarPrecisao();
+        marcador?.add(InformacaoAdicional.IsencaoEntre5000e7350Parcial);
 
     }
 

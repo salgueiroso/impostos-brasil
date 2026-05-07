@@ -54,7 +54,8 @@ export class ExemploComponent {
     vlPLR: new FormControl('', [Validators.min(0)]),
     vigenciaAno: new FormControl(this.anoAtual(), [Validators.required, Validators.min(getAnoMinimo())]),
     vigenciaMes: new FormControl(this.mesAtual(), [Validators.required]),
-    usarDescontoSimplificadoIRPF: new FormControl(false)
+    usarDescontoSimplificadoIRPF: new FormControl(true),
+    usarIsencao5k7k: new FormControl(true)
   });
 
   readonly formularioValido = toSignal(
@@ -99,7 +100,9 @@ export class ExemploComponent {
     const vlPLR = Number(v.vlPLR ?? 0);
     const vigenciaAno = Number(v.vigenciaAno ?? this.anoAtual());
     const vigenciaMes = Number(v.vigenciaMes ?? this.mesAtual()) as Meses;
-    const usarDescontoSimplificadoIRPF = v.usarDescontoSimplificadoIRPF ?? true;
+    const usarDescontoSimplificadoIRPF = v.usarDescontoSimplificadoIRPF ?? false;
+    const usarIsencao5k7k = v.usarIsencao5k7k ?? false;
+
 
 
     try {
@@ -118,7 +121,8 @@ export class ExemploComponent {
         vlPLR,
         vigenciaAno,
         vigenciaMes,
-        usarDescontoSimplificadoIRPF
+        usarDescontoSimplificadoIRPF,
+        usarIsencao5k7k
       }));
     } catch (e) {
       alert(e);

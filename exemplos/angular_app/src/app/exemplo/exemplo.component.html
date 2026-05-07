@@ -148,18 +148,27 @@
         </div>
 
         <!-- Calcular 13º -->
-        <div class="col-span-6 flex items-center gap-3">
+        <div class="col-span-4 flex items-center gap-3">
             <input id="incluir13" type="checkbox" formControlName="incluir13"
                 class="w-4 h-4 accent-blue-600 cursor-pointer" />
             <label for="incluir13" class="text-sm font-medium text-gray-700 cursor-pointer">Calcular 13º</label>
         </div>
 
         <!-- Desconto Simplificado IRPF -->
-        <div class="col-span-6 flex items-center gap-3">
+        <div class="col-span-4 flex items-center gap-3">
             <input id="usarDescontoSimplificadoIRPF" type="checkbox" formControlName="usarDescontoSimplificadoIRPF"
                 class="w-4 h-4 accent-blue-600 cursor-pointer" />
             <label for="usarDescontoSimplificadoIRPF" class="text-sm font-medium text-gray-700 cursor-pointer">
                 Usar desconto simplificado no IRPF
+            </label>
+        </div>
+
+        <!-- Isencao 5k7k -->
+        <div class="col-span-4 flex items-center gap-3">
+            <input id="usarIsencao5k7k" type="checkbox" formControlName="usarIsencao5k7k"
+                class="w-4 h-4 accent-blue-600 cursor-pointer" />
+            <label for="usarIsencao5k7k" class="text-sm font-medium text-gray-700 cursor-pointer">
+                Usar isenção entre R$5.000,00 e R$7.350,00
             </label>
         </div>
 
@@ -247,9 +256,9 @@
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap">Mês/Ano</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Salário Bruto</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">INSS</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Deduções</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Base IRPF</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">IRPF</th>
-                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Deduções</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Líquido</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-center">Eventos</th>
                 </tr>
@@ -266,14 +275,14 @@
                     <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-red-600">
                         {{ serie.inss.vlImposto| currency }}
                     </td>
+                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-red-600">
+                        {{ serie.vlDeducoes| currency }}
+                    </td>
                     <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-gray-700">
                         {{ serie.irpf.vlBaseDeCalculo| currency }}
                     </td>
                     <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-red-600">
                         {{ serie.irpf.vlImposto| currency }}
-                    </td>
-                    <td class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right text-red-600">
-                        {{ serie.vlDeducoes| currency }}
                     </td>
                     <td
                         class="px-4 py-2 border border-gray-200 whitespace-nowrap text-right font-semibold text-green-700">
@@ -297,12 +306,12 @@
                     <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlImpostoInssTotal |
                         currency }}
                     </td>
+                    <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlDeducoesTotal | currency
+                        }}</td>
                     <td class="px-4 py-3 border border-gray-200">&nbsp;</td>
                     <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlImpostoIrpfTotal |
                         currency }}
                     </td>
-                    <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlDeducoesTotal | currency
-                        }}</td>
                     <td class="px-4 py-3 border border-gray-200 text-right text-green-700">{{ r.vlLiquidoTotal |
                         currency
                         }}</td>

@@ -52,7 +52,8 @@ export function calcularSerie(
         mapasDeFaixas = null,
         vigenciaAno = toAno(dataAtual.getFullYear()),
         vigenciaMes = _mesAtual,
-        usarDescontoSimplificadoIRPF = false
+        usarDescontoSimplificadoIRPF = false,
+        usarIsencao5k7k = true
     } = opcoes;
 
 
@@ -95,7 +96,6 @@ export function calcularSerie(
             mapasDeFaixas.vlIrpfDescontoSimplificado = getValorVigente(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaIrpfDescontoSimplificado) ?? 0;
         }
 
-
         let informacoesAdicionais = new Set<InformacaoAdicional>();
         informacoesAdicionais.add(InformacaoAdicional.Salario);
 
@@ -112,33 +112,33 @@ export function calcularSerie(
         }
         item.vlBruto = item.vlBruto.normalizarPrecisao();
 
-
         item.inss = calcularINSS(item.vlBruto, {
             vlBaseDeCalculo: item.vlBruto,
-            // aliquotasTetoFaixas: mapasDeFaixas?.faixasInss ?? null
             vigenciaAno: vigenciaAnoMesItem.Ano,
             vigenciaMes: vigenciaAnoMesItem.Mes
         });
 
         item.vlDeducoes = item.inss.vlImposto + deducaoSaude + deducaoInstrucao;
-        if (usarDescontoSimplificadoIRPF) {
-            item.vlDeducoes = (mapasDeFaixas?.vlIrpfDescontoSimplificado ?? 0);
-            informacoesAdicionais.add(InformacaoAdicional.DescontoSimplificadoIRPF);
-        }
-        item.vlDeducoes = item.vlDeducoes.normalizarPrecisao();
+
+        const vlIrpfDescontoSimplificado = mapasDeFaixas?.vlIrpfDescontoSimplificado ?? 0;
+
+        const vlBaseDeCalculoIRPF = item.vlBruto - item.vlDeducoes;
 
         item.irpf = calcularIRPF(item.vlBruto!, {
-            vlBaseDeCalculo: item.vlBruto! - item.vlDeducoes,
-            usarIsencao5k7k: true,
+            vlBaseDeCalculo: vlBaseDeCalculoIRPF,
+            usarIsencao5k7k,
+            usarDescontoSimplificadoIRPF,
+            vlDescontoSimplificado: vlIrpfDescontoSimplificado,
             vigenciaAno: vigenciaAnoMesItem.Ano,
-            vigenciaMes: vigenciaAnoMesItem.Mes
+            vigenciaMes: vigenciaAnoMesItem.Mes,
+            marcador: informacoesAdicionais
         });
 
         if (item.anoMes.Mes === mesPLR && vlPLR > 0) {
             item.irpfPLR = calcularIRPF(vlPLR, {
                 vlBaseDeCalculo: vlPLR,
                 usarIsencao5k7k: false,
-                // aliquotasTetoFaixas: mapasDeFaixas?.faixasIrpfPLR ?? null
+                usarDescontoSimplificadoIRPF: false,
                 vigenciaAno: vigenciaAnoMesItem.Ano,
                 vigenciaMes: vigenciaAnoMesItem.Mes
             });
@@ -166,9 +166,10 @@ export function calcularSerie(
                 qtdSeries: 1,
                 incluir13: false,
                 incluirFerias: Ferias.Nao,
-                // mapasDeFaixas,
                 vigenciaAno: vigenciaAnoMesItem.Ano,
-                vigenciaMes: vigenciaAnoMesItem.Mes
+                vigenciaMes: vigenciaAnoMesItem.Mes,
+                usarDescontoSimplificadoIRPF,
+                usarIsencao5k7k
             });
 
             const mes13 = decimoTerceiro.meses[0]!;
