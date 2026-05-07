@@ -33,6 +33,7 @@ npm install impostos-brasil
 | Descrição | Link |
 |---|---|
 | **Repositório:** | https://github.com/salgueiroso/impostos-brasil |
+| **Exemplo Angular:** | https://salgueiroso.github.io/impostos-brasil/angular_app |
 | **Documentação da API:** | https://salgueiroso.github.io/impostos-brasil/ |
 | **Pacote NPM:** | https://www.npmjs.com/package/impostos-brasil |
 

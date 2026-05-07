@@ -128,6 +128,36 @@ jobs:
           name: docs
           path: "./pacote/docs"
 
+  BuildExemplo:
+    needs: [ Test ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v6
+        name: Checkout
+      - uses: actions/setup-node@v6
+        name: Setup Node.js
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "./exemplos/angular_app/package-lock.json"
+
+      - name: Run npm ci
+        run: npm ci
+        working-directory: ./exemplos/angular_app
+      - name: Run build
+        run: |
+          npm run build -- --output-path docs-angular --base-href /impostos-brasil/angular_app/
+        working-directory: ./exemplos/angular_app
+      - name: Archive docs
+        uses: actions/upload-artifact@v7
+        with:
+          name: angular_app
+          path: "./exemplos/angular_app/"
+
   check-npm-version:
     runs-on: ubuntu-latest
     needs: [ Build ]
@@ -184,7 +214,7 @@ jobs:
         run: npm publish --provenance --access public --ignore-scripts
 
   Deploy-docs:
-    needs: [ Deploy-NPM ]
+    needs: [ Deploy-NPM, BuildExemplo ]
     environment:
       name: Documentacao
       url: ${{ steps.deployment.outputs.page_url }}
@@ -201,6 +231,12 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: docs
+          path: ./docs
+      - uses: actions/download-artifact@v8
+        with:
+          name: angular_app
+          path: ./docs/angular_app/
+
       - name: Setup Pages
         uses: actions/configure-pages@v6
       - name: Upload artifact
