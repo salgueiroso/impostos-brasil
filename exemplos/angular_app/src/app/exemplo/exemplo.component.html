@@ -251,7 +251,7 @@
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">IRPF</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Deduções</th>
                     <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Líquido</th>
-                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-right">Eventos</th>
+                    <th class="px-4 py-3 border border-gray-200 whitespace-nowrap text-center">Eventos</th>
                 </tr>
             </thead>
             <tbody>
@@ -297,7 +297,7 @@
                     <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlImpostoInssTotal |
                         currency }}
                     </td>
-                    <td class="px-4 py-3 border border-gray-200">NA</td>
+                    <td class="px-4 py-3 border border-gray-200">&nbsp;</td>
                     <td class="px-4 py-3 border border-gray-200 text-right text-red-600">{{ r.vlImpostoIrpfTotal |
                         currency }}
                     </td>
@@ -306,6 +306,8 @@
                     <td class="px-4 py-3 border border-gray-200 text-right text-green-700">{{ r.vlLiquidoTotal |
                         currency
                         }}</td>
+
+                    <td class="px-4 py-3 border border-gray-200">&nbsp;</td>
                 </tr>
             </tfoot>
         </table>
