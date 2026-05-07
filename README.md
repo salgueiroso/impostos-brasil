@@ -297,7 +297,8 @@ npm test
 Os testes cobrem `calcularINSS`, `calcularIRPF`, `calcularSerie` e todos os utilitários de alíquotas, datas, formatações e JSON.
 
 ## 🚀 Roadmap
-- [ ] Calculo do IRPF considerando o deconto simplificado
+- [x] Calculo do 13 proporcional ao periodo trabalhado
+- [x] Calculo do IRPF considerando o deconto simplificado
 - [ ] Inclusão de novos exemplos
 
 
