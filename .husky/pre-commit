@@ -1,8 +1,25 @@
+#!/bin/sh
+
 set -e
 
-cd pacote
-npm --no-git-tag-version version patch
-# npm update --package-lock-only
-git add package.json
-git add package-lock.json
-pwd
+# Pega a versão que está no HEAD (último commit)
+VERSION_HEAD=$(git show HEAD:pacote/package.json 2>/dev/null | node -pe "JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')).version" 2>/dev/null)
+
+# Pega a versão que está staged (prestes a ser commitada)
+VERSION_STAGED=$(git show :pacote/package.json 2>/dev/null | node -pe "JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')).version" 2>/dev/null)
+
+echo "Version HEAD:   $VERSION_HEAD"
+echo "Version Staged: $VERSION_STAGED"
+
+# Executa npm version patch apenas se o version foi alterado
+if [ "$VERSION_HEAD" != "$VERSION_STAGED" ]; then
+  echo "✅ version alterado — pulando npm version patch."
+else
+  echo "ℹ️ version não alterado — executando npm version patch..."
+  cd pacote
+  npm --no-git-tag-version version patch
+  # npm update --package-lock-only
+  git add package.json
+  git add package-lock.json
+fi
+
