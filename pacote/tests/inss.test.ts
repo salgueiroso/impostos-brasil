@@ -6,76 +6,23 @@ import { precisao } from '../src/valores';
 
 describe("calcularINSS", () => {
 
-    test("Um salário de R$ 1621,00, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$121,574", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
+    test.each([
+        { salario: 1621, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 121.574 },
+        { salario: 2261.92, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 179.256 },
+        { salario: 2902.84, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 236.939 },
+        { salario: 3628.56, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 324.025 },
+        { salario: 4354.27, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 411.11 },
+        { salario: 6414.91, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 699.598 },
+        { salario: 8475.55, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 988.089 },
+        { salario: 10737.78, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 988.089 },
+        { salario: 13000.00, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 988.089 }
+    ])("Um salário de R$ $salario, vigente em $mes de $ano, deve gerar um imposto de INSS no valor de R$ $imposto", ({ salario, mes, ano, imposto }) => {
 
-        const resultado = calcularINSS(1621, { aliquotasTetoFaixas: aliquotasINSS });
+        const mesEnum = Meses[mes as keyof typeof Meses];
 
-        expect(resultado.vlImposto).toBeCloseTo(121.574, precisao);
-    });
+        const resultado = calcularINSS(salario, { vigenciaAno: ano, vigenciaMes: mesEnum });
 
-    test("Um salário de R$ 2261,92, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$179,256", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(2261.92, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(179.256, precisao);
-    });
-
-    test("Um salário de R$2902,84, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$236,94", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(2902.84, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(236.939, precisao);
-    });
-
-    test("Um salário de R$3628,56, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$324,03", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(3628.56, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(324.025, precisao);
-    });
-
-    test("Um salário de R$4354,27 , vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$411.11", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(4354.27, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(411.110, precisao);
-    });
-
-    test("Um salário de R$6414,91, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$699,60 ", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(6414.91, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(699.598, precisao);
-    });
-
-    test("Um salário de R$8475,55, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$988,09", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(8475.55, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(988.089, precisao);
-    });
-
-    test("Um salário de R$10737,78, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$988,10", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(10737.78, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(988.089, precisao);
-    });
-
-    test("Um salário de R$13000,00, vigente em janeiro de 2016, deve gerar um imposto de INSS no valor de R$ 179,256", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-
-        const resultado = calcularINSS(13000.00, { aliquotasTetoFaixas: aliquotasINSS });
-
-        expect(resultado.vlImposto).toBeCloseTo(988.089, precisao);
+        expect(resultado.vlImposto).toBeCloseTo(imposto, precisao);
     });
 
 });

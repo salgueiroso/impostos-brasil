@@ -6,10 +6,10 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  target: "es2016", // ← compatibilidade explícita
+  target: "es2016",
   globalName: "ImpostosBrasil",
   minify: false,
-  // controle de comentários via outputOptions do rolldown
+
   outputOptions: {
     comments: {
       legal: false
@@ -20,7 +20,7 @@ export default defineConfig({
     moduleSideEffects: (id) => {
       if (id.includes("extensoes")) return true;
       if (id.includes("extensions")) return true;
-      return false; // ← conservador: mantém tudo
+      return false;
     },
     propertyReadSideEffects: false,
     unknownGlobalSideEffects: false,

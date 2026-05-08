@@ -7,24 +7,32 @@ import { precisao } from '../src/valores';
 
 describe("calcularIRPF", () => {
 
-    test("Um salário de R$ 1621,00, vigente em janeiro de 2026, deve gerar um imposto de IRPF no valor de R$0,00", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-        const aliquotasIRPF = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasIrpf);
+    test.each([
+        { salario: 1621, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 0 },
+        { salario: 2261.92, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 0 },
+        { salario: 2902.84, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 0 },
+        { salario: 3628.56, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 0 },
+        { salario: 4354.27, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 0 },
+        { salario: 6414.91, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 538.48 },
+        { salario: 8475.55, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 1150.328 },
+        { salario: 10737.78, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 1772.442 },
+        { salario: 13000.00, mes: Meses[Meses.Janeiro], ano: 2026, imposto: 2394.552 }
+    ])("Um salário de R$ $salario, vigente em $mes de $ano, deve gerar um imposto de IRPF no valor de R$ $imposto", ({ salario, mes, ano, imposto }) => {
 
-        const resultadoINSS = calcularINSS(1621, { aliquotasTetoFaixas: aliquotasINSS });
-        const resultadoIRPF = calcularIRPF(1621, { vlBaseDeCalculo: resultadoINSS.vlLiquido, usarIsencao5k7k: true, aliquotasTetoFaixas: aliquotasIRPF });
+        const mesEnum = Meses[mes as keyof typeof Meses];
 
-        expect(resultadoIRPF.vlImposto).toBeCloseTo(0, precisao);
-    });
+        const resultadoINSS = calcularINSS(salario, {
+            vigenciaAno: ano,
+            vigenciaMes: mesEnum
+        });
 
-    test("Um salário de R$ 2261,92, vigente em janeiro de 2026, deve gerar um imposto de IRPF no valor de R$0,00", () => {
-        const aliquotasINSS = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasInss);
-        const aliquotasIRPF = getFaixasVigentes(2026, Meses.Janeiro, vigenciaFaixasIrpf);
+        const resultadoIRPF = calcularIRPF(salario, {
+            vlBaseDeCalculo: resultadoINSS.vlLiquido,
+            vigenciaAno: ano,
+            vigenciaMes: mesEnum
+        });
 
-        const resultadoINSS = calcularINSS(2261.92, { aliquotasTetoFaixas: aliquotasINSS });
-        const resultadoIRPF = calcularIRPF(2261.92, { vlBaseDeCalculo: resultadoINSS.vlLiquido, usarIsencao5k7k: true, aliquotasTetoFaixas: aliquotasIRPF });
-
-        expect(resultadoIRPF.vlImposto).toBeCloseTo(0, precisao);
+        expect(resultadoIRPF.vlImposto).toBeCloseTo(imposto, precisao);
     });
 
 });

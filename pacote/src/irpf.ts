@@ -84,7 +84,7 @@ export function calcularIRPF(
     let {
         vlBaseDeCalculo = null,
         usarIsencao5k7k = true,
-        usarDescontoSimplificadoIRPF = false,
+        usarDescontoSimplificadoIRPF = true,
         vlDescontoSimplificado = null,
         aliquotasTetoFaixas = null,
         vigenciaAno = toAno(dataAtual.getFullYear()),
