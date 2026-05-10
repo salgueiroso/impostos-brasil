@@ -1,4 +1,9 @@
 {
     "json.validate.enable": true,
-    "jest.rootPath": "pacote"
+    "jest.rootPath": "pacote",
+    // "jest.runMode": {
+    //     "type": "on-demand",
+    //     "testFileOnly": true,
+    //     "coverage": true
+    // }
 }

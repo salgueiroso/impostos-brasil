@@ -1,5 +1,5 @@
 import { AliquotasTetoFaixas } from "./tipos-basicos";
-import { OpcoesSerie } from "./opcoes-serie";
+import { OpcoesSerie } from "./opcoes";
 
 /**
  * Define o conjunto de tabelas de alíquotas e faixas progressivas customizadas.
@@ -38,4 +38,7 @@ export interface OpcoesMapasFaixas {
      * @default Valor vigente em `irpf-desconto-simplificado.json`.
      */
     vlIrpfDescontoSimplificado?: number
+
+
+    vlIrpfDeducaoDependentes?: number;
 }

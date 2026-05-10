@@ -1,8 +1,9 @@
 
 import { describe, test, expect } from "@jest/globals";
 import { contarDecimais, normalizarPrecisao, toBRL, toPercent } from "../../src/utils/formatacoes";
+import { varsName } from "../../src/utils/helper";
 
-describe('toBRL', () => {
+describe(varsName({ toBRL }), () => {
 
     test.each([
         { entrada: 1123.45, saida: 'R$ 1.123,45' },
@@ -18,7 +19,7 @@ describe('toBRL', () => {
 
 });
 
-describe('toPercent', () => {
+describe(varsName({ toPercent }), () => {
 
     test.each([
         { entrada: 1123.450456, saida: '112.345,045%' },
@@ -34,7 +35,7 @@ describe('toPercent', () => {
 });
 
 
-describe("normalizarPrecisao", () => {
+describe(varsName({ normalizarPrecisao }), () => {
 
     test.each([
         { entrada: 123.4567, decimais: 5, saida: 123.4567 },
@@ -68,7 +69,7 @@ describe("normalizarPrecisao", () => {
 });
 
 
-describe("contarDecimais", () => {
+describe(varsName({ contarDecimais }), () => {
     test.each([
         { entrada: 123, saida: 0 },
         { entrada: 123.4, saida: 1 },

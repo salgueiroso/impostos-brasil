@@ -1,9 +1,10 @@
 import { describe, test, expect } from "@jest/globals";
 import { incrementarImposto } from "../../src/utils/impostos";
 import { Imposto } from "../../src/tipos/imposto";
+import { varsName } from "../../src/utils/helper";
 
 
-describe("incrementarImposto", () => {
+describe(varsName({ incrementarImposto }), () => {
 
     test("Deve retornar 2500 de vlBruto do acumulador se informar vlBruto com valores 1000 no acumulador e 1500 na origem", () => {
 

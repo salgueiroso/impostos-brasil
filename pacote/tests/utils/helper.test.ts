@@ -1,11 +1,11 @@
 import { describe, test, expect } from '@jest/globals';
-import { nameOf, varName } from "../../src/utils/helper";
+import { eVazio, nameOf, varsName } from "../../src/utils/helper";
 import { Imposto } from "../../src/tipos/imposto";
 
 
 
 
-describe("nameOf", () => {
+describe(varsName({ nameOf }), () => {
 
     test("Deve retornar o nome correto da propriedade", () => {
 
@@ -17,20 +17,36 @@ describe("nameOf", () => {
 });
 
 
-describe("varName", () => {
+describe(varsName({ varsName }), () => {
 
     test("Deve retornar o nome correto da variavel", () => {
 
         var vlImposto = 1000;
 
-        const result = varName({ vlImposto });
+        const result = varsName({ vlImposto });
 
         expect(result).toBe("vlImposto");
     });
 
     test("Deve retornar gerar um erro quando nenhum nome for encontrado", () => {
 
-        expect(() => varName({})).toThrow();
+        expect(() => varsName({})).toThrow();
+    });
+
+});
+
+describe(varsName({ eVazio }), () => {
+
+    test.each([
+        null, undefined, "", []
+    ])("Retorna true se o valor for %s", (v) => {
+        expect(eVazio(v)).toBe(true);
+    });
+
+    test.each([
+        1, {}, "texto", [9], true
+    ])("Retorna false se o valor for %s", (v) => {
+        expect(eVazio(v)).toBe(false);
     });
 
 });

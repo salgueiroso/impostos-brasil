@@ -6,5 +6,5 @@ export * from './imposto-acumulado';
 export * from './informacao-adicional';
 export * from './item-mapa-json';
 export * from './opcoes-mapas-faixas';
-export * from './opcoes-serie';
+export * from './opcoes';
 export * from './tipos-basicos';

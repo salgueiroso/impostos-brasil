@@ -1,6 +1,7 @@
 import { MapaVigencia as MapaVigenciaIrpf } from "./recursos/irpf.json";
 import { MapaVigencia as MapaVigenciaIrpfPLR } from "./recursos/irpfPLR.json";
 import { MapaVigencia as MapaVigenciaIrpfDescontoSimplificado } from "./recursos/irpf-desconto-simplificado.json";
+import { MapaVigencia as MapaVigenciaIrpfDeducaoDependenteMensal } from "./recursos/irpf-deducao-dependente-mensal.json";
 import { MapaChaveAnoMes } from "./tipos/ano-mes-aliquotas-faixas-map";
 import { DeducaoFaixa } from "./tipos/deducao-faixa";
 import { Imposto } from "./tipos/imposto";
@@ -9,8 +10,8 @@ import { carregarDoJson } from "./utils/json";
 import { toAno } from "./utils/datas";
 import { getFaixasVigentes, getValorVigente } from "./utils/aliquotas";
 import { ParametroInvalido } from "./tipos/erros";
-import { varName } from "./utils/helper";
-import { InformacaoAdicional } from "./tipos";
+import { nameOf, varsName } from "./utils/helper";
+import { InformacaoAdicional, OpcoesInss, OpcoesIrpf } from "./tipos";
 
 /**
  * Mapa global indexado por vigência (Ano/Mês) contendo as alíquotas e faixas do IRPF mensal.
@@ -38,6 +39,9 @@ export const vigenciaFaixasIrpfPLR: MapaChaveAnoMes<AliquotasTetoFaixas> = carre
  */
 export const vigenciaIrpfDescontoSimplificado: MapaChaveAnoMes<number> = carregarDoJson(MapaVigenciaIrpfDescontoSimplificado);
 
+
+export const vigenciaIrpfDeducaoDependenteMensal: MapaChaveAnoMes<number> = carregarDoJson(MapaVigenciaIrpfDeducaoDependenteMensal);
+
 /**
  * Calcula o Imposto de Renda Pessoa Física (IRPF) utilizando o método de cálculo progressivo mensal.
  * 
@@ -64,22 +68,13 @@ export const vigenciaIrpfDescontoSimplificado: MapaChaveAnoMes<number> = carrega
  */
 export function calcularIRPF(
     vlBruto: number,
-    opcoes?: null | {
-        vlBaseDeCalculo?: number | null,
-        usarIsencao5k7k?: boolean | null,
-        aliquotasTetoFaixas?: AliquotasTetoFaixas | null,
-        usarDescontoSimplificadoIRPF?: boolean | null,
-        vlDescontoSimplificado?: number | null,
-        vigenciaAno?: Ano,
-        vigenciaMes?: Meses,
-        marcador?: Set<InformacaoAdicional> | null
-    }
+    opcoes?: null | OpcoesIrpf
 ): Imposto {
 
     const dataAtual = new Date();
 
     if (opcoes?.aliquotasTetoFaixas && (opcoes.vigenciaAno || opcoes.vigenciaMes))
-        throw new ParametroInvalido("opcoes.aliquotasTetoFaixas", "opcoes.aliquotasTetoFaixas não pode ser utilizado com opcoes.vigenciaAno ou opcoes.vigenciaMes, pois são mutuamente exclusivos.");
+        throw new ParametroInvalido(nameOf<OpcoesIrpf>("aliquotasTetoFaixas"), "opcoes.aliquotasTetoFaixas não pode ser utilizado simultaneamente com opcoes.vigenciaAno ou opcoes.vigenciaMes, pois são mutuamente exclusivos.");
 
     let {
         vlBaseDeCalculo = null,
@@ -96,12 +91,13 @@ export function calcularIRPF(
     vlBaseDeCalculo = vlBaseDeCalculo?.normalizarPrecisao() ?? null;
     vlBaseDeCalculo ??= vlBruto;
 
-
     if (vlBaseDeCalculo > vlBruto)
-        throw new ParametroInvalido(varName({ vlBaseDeCalculo }), "Base de calculo não pode ser maior que o valor bruto");
+        throw new ParametroInvalido(varsName({ vlBaseDeCalculo }), "Base de calculo não pode ser maior que o valor bruto");
+
 
     if (usarDescontoSimplificadoIRPF == true) {
-        vlDescontoSimplificado ??= getValorVigente(vigenciaAno, vigenciaMes, vigenciaIrpfDescontoSimplificado) ?? 0;
+        if (!vlDescontoSimplificado)
+            vlDescontoSimplificado = getValorVigente(vigenciaAno, vigenciaMes, vigenciaIrpfDescontoSimplificado);
         const vlDeducaoPadrao = vlBruto - vlBaseDeCalculo;
         if (vlDescontoSimplificado > vlDeducaoPadrao) {
             vlBaseDeCalculo = vlBruto - vlDescontoSimplificado;
@@ -110,7 +106,8 @@ export function calcularIRPF(
     }
 
 
-    aliquotasTetoFaixas ??= getFaixasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasIrpf) ?? new Map();
+    if (!aliquotasTetoFaixas)
+        aliquotasTetoFaixas = getFaixasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasIrpf);
 
     let vlinicialAtual = 0.0;
 
@@ -125,7 +122,7 @@ export function calcularIRPF(
         dadosFaixa.aliquota = aliquota;
         dadosFaixa.deducao = (dadosFaixa.vlBaseFaixa * dadosFaixa.aliquota).normalizarPrecisao();
         faixas.push(dadosFaixa);
-        vlinicialAtual = dadosFaixa.vlFinal + Number.EPSILON;
+        vlinicialAtual = dadosFaixa.vlFinal + (dadosFaixa.vlFinal * Number.EPSILON);
     }
 
     let imposto: Imposto = {

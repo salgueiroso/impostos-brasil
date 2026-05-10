@@ -4,7 +4,7 @@ import { MapaVigencia as MapaVigenciaIrpf } from "../recursos/irpf.json";
 import { MapaVigencia as MapaVigenciaIrpfPLR } from "../recursos/irpfPLR.json";
 import { MapaVigencia as MapaVigenciaIrpfDescontoSimplificado } from "../recursos/irpf-desconto-simplificado.json";
 import { ParametroInvalido } from "../tipos/erros";
-import { varName } from "./helper";
+import { varsName } from "./helper";
 
 
 
@@ -58,7 +58,7 @@ export function getAnoMinimo(): number {
  */
 export function toAno(valor: number): Ano {
     const minimo = getAnoMinimo();
-    if (valor < minimo) throw new ParametroInvalido(varName({ valor }), `O ano informado deve ser maior ou igual a ${minimo}.`);
+    if (valor < minimo) throw new ParametroInvalido(varsName({ valor }), `O ano informado deve ser maior ou igual a ${minimo}.`);
     return valor as Ano;
 }
 

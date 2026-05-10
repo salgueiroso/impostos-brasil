@@ -7,6 +7,8 @@ import { toAno } from "./utils/datas";
 import { DeducaoFaixa } from "./tipos/deducao-faixa";
 import { getFaixasVigentes } from "./utils/aliquotas";
 import { ParametroInvalido } from "./tipos/erros";
+import { nameOf, varsName } from "./utils";
+import { OpcoesInss } from "./tipos";
 
 /**
  * Mapa global indexado por vigência (Ano/Mês) contendo as alíquotas e faixas do INSS (Previdência Social).
@@ -43,18 +45,13 @@ export const vigenciaFaixasInss: MapaChaveAnoMes<AliquotasTetoFaixas> = carregar
  */
 export function calcularINSS(
     vlBruto: number,
-    opcoes?: null | {
-        vlBaseDeCalculo?: number | null,
-        aliquotasTetoFaixas?: AliquotasTetoFaixas | null,
-        vigenciaAno?: Ano,
-        vigenciaMes?: Meses
-    }
+    opcoes?: null | OpcoesInss
 ): Imposto {
 
     const dataAtual = new Date();
 
     if (opcoes?.aliquotasTetoFaixas && (opcoes.vigenciaAno || opcoes.vigenciaMes))
-        throw new ParametroInvalido("opcoes.aliquotasTetoFaixas", "opcoes.aliquotasTetoFaixas não pode ser utilizado com opcoes.vigenciaAno ou opcoes.vigenciaMes, pois são mutuamente exclusivos.");
+        throw new ParametroInvalido(nameOf<OpcoesInss>("aliquotasTetoFaixas"), "opcoes.aliquotasTetoFaixas não pode ser utilizado simultaneamente com opcoes.vigenciaAno ou opcoes.vigenciaMes, pois são mutuamente exclusivos.");
 
     let {
         vlBaseDeCalculo = null,
@@ -67,7 +64,12 @@ export function calcularINSS(
     vlBaseDeCalculo = vlBaseDeCalculo?.normalizarPrecisao() ?? null;
     vlBaseDeCalculo ??= vlBruto;
 
-    aliquotasTetoFaixas ??= getFaixasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasInss) ?? new Map();
+
+    if (vlBaseDeCalculo > vlBruto)
+        throw new ParametroInvalido(varsName({ vlBaseDeCalculo }), "Base de calculo não pode ser maior que o valor bruto");
+
+    if (!aliquotasTetoFaixas)
+        aliquotasTetoFaixas = getFaixasVigentes(vigenciaAno, vigenciaMes, vigenciaFaixasInss);
 
     let vlinicialAtual = 0.0;
 
@@ -82,7 +84,7 @@ export function calcularINSS(
         dadosFaixa.aliquota = aliquota;
         dadosFaixa.deducao = (dadosFaixa.vlBaseFaixa * dadosFaixa.aliquota).normalizarPrecisao();
         faixas.push(dadosFaixa);
-        vlinicialAtual = dadosFaixa.vlFinal + Number.EPSILON;
+        vlinicialAtual = dadosFaixa.vlFinal + (dadosFaixa.vlFinal * Number.EPSILON);
     }
 
 

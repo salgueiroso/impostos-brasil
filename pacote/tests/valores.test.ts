@@ -1,13 +1,17 @@
 import { describe, test, expect } from '@jest/globals';
 import { deducaoMaximaInstrucao, precisao } from '../src/valores';
+import { varsName } from '../src/utils/helper';
 
-describe("Constantes", () => {
+describe(varsName({ deducaoMaximaInstrucao }), () => {
 
-    test("deducaoMaximaInstrucao tem que ter um valor positivo", () => {
+    test("Tem que ter um valor positivo", () => {
         expect(deducaoMaximaInstrucao).toBeGreaterThan(0);
     });
 
-    test("precisao tem que ter um valor positivo", () => {
+});
+
+describe(varsName({ precisao }), () => {
+    test("Tem que ter um valor positivo", () => {
         expect(precisao).toBeGreaterThan(0);
     });
 

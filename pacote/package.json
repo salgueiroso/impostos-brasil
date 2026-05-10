@@ -1,6 +1,6 @@
 {
   "name": "impostos-brasil",
-  "version": "1.5.10",
+  "version": "1.5.13",
   "description": "Esta biblioteca simplifica os calculos dos impostos INSS e IR do Brasil",
   "author": "Acacio Salgueiro",
   "license": "MIT",
@@ -69,7 +69,7 @@
     "test": "jest --ci --coverage",
     "test:watch": "jest --ci --watchAll --coverage",
     "move:node_modules": "rm -Rf /tmp/node_modules && mv ./node_modules /tmp && ln -s /tmp/node_modules ./node_modules",
-    "clean": "rm -Rf /tmp/node_modules; rm -Rf ./node_modules; rm -Rf ./dist; rm -Rf ./reports; rm -Rf ./coverage; rm -f impostos-brasil-*.tgz",
+    "clean": "rm -Rf /tmp/node_modules; rm -Rf ./node_modules; rm -Rf ./dist; rm -Rf ./reports; rm -Rf ./coverage; rm -f impostos-brasil-*.tgz; rm -Rf ./docs",
     "clean:git": "git clean -fdx",
     "prepack": "(rm impostos-brasil-*.tgz || true) && npm run build",
     "postpack": "tar -xzvf impostos-brasil-*.tgz -C ./dist/",

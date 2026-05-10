@@ -16,6 +16,8 @@ export enum InformacaoAdicional {
     /** Indica o que aplicou desconto simplificado no mes */
     DescontoSimplificadoIRPF = 'DescontoSimplificadoIRPF',
     IsencaoAte5000Isento = 'IsencaoAte5000Isento',
-    IsencaoEntre5000e7350Parcial = 'IsencaoEntre5000e7350Parcial'
+    IsencaoEntre5000e7350Parcial = 'IsencaoEntre5000e7350Parcial',
+    DeducaoDependentes = 'DeducaoDependentes'
+
 
 }

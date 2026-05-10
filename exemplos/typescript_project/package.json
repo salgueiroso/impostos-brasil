@@ -4,8 +4,6 @@
   "description": "Exemplo de uso do pacote impostos-brasil",
   "main": "index.js",
   "scripts": {
-    "preinstall": "cd ../pacote/ && npm install",
-    "prebuild": "cd ../pacote/ && npm pack",
     "build": "echo build"
   },
   "author": "",

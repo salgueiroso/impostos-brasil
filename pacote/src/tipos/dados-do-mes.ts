@@ -1,6 +1,6 @@
 import { Imposto } from "./imposto";
 import { InformacaoAdicional } from "./informacao-adicional";
-import { AnoMes, Meses } from "./tipos-basicos";
+import { AnoMes } from "./tipos-basicos";
 
 /**
  * Representa o resultado detalhado dos cálculos financeiros de um único mês dentro de uma série.
@@ -40,6 +40,8 @@ export interface DadosDoMes {
      * Soma total das deduções aplicadas na base de cálculo do IRPF (INSS, Saúde, Instrução, etc).
      */
     vlDeducoes: number;
+
+    vlDeducoesDependentes: number;
 
     /**
      * O rendimento bruto total recebido no mês (Salário + Férias + 13º + PLR).

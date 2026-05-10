@@ -1,10 +1,12 @@
 import { calcularINSS, vigenciaFaixasInss } from "./inss";
-import { calcularIRPF, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR, vigenciaIrpfDescontoSimplificado } from "./irpf";
+import { calcularIRPF, vigenciaFaixasIrpf, vigenciaFaixasIrpfPLR, vigenciaIrpfDeducaoDependenteMensal, vigenciaIrpfDescontoSimplificado } from "./irpf";
 import { DadosDoMes, PartialDadosDoMes } from "./tipos/dados-do-mes";
+import { ParametroInvalido } from "./tipos/erros";
 import { ImpostoAcumulado } from "./tipos/imposto-acumulado";
 import { InformacaoAdicional } from "./tipos/informacao-adicional";
-import { OpcoesSerie } from "./tipos/opcoes-serie";
+import { OpcoesSerie } from "./tipos/opcoes";
 import { Ferias, Meses, TipoRecorrencia } from "./tipos/tipos-basicos";
+import { varsName } from "./utils";
 import { getFaixasVigentes, getValorVigente } from "./utils/aliquotas";
 import { Contar13, contarMesesContabeisEntre, incrementaAnoMes, toAno, toMes } from "./utils/datas";
 import { incrementarImposto } from "./utils/impostos";
@@ -38,7 +40,7 @@ export function calcularSerie(
 
     let {
         qtdSeries = 12,
-        vlBruto = opcoes.vlBruto,
+        vlBruto,
         incluir13 = false,
         incluirFerias = Ferias.Nao,
         percentualFerias = 1 / 3,
@@ -53,7 +55,8 @@ export function calcularSerie(
         vigenciaAno = toAno(dataAtual.getFullYear()),
         vigenciaMes = _mesAtual,
         usarDescontoSimplificadoIRPF = false,
-        usarIsencao5k7k = true
+        usarIsencao5k7k = true,
+        qtdDependentes = 0
     } = opcoes;
 
 
@@ -62,7 +65,6 @@ export function calcularSerie(
             deducaoSaude = deducaoSaude / 12;
             break;
         case TipoRecorrencia.Mensal:
-        default:
             deducaoSaude = deducaoSaude;
     }
     deducaoSaude = deducaoSaude.normalizarPrecisao();
@@ -73,7 +75,6 @@ export function calcularSerie(
             deducaoInstrucao = deducaoInstrucao / 12;
             break;
         case TipoRecorrencia.Mensal:
-        default:
             deducaoInstrucao = Math.min(deducaoMaximaInstrucao / 12, deducaoInstrucao)
     }
     deducaoInstrucao = deducaoInstrucao.normalizarPrecisao();
@@ -88,13 +89,24 @@ export function calcularSerie(
 
         item.anoMes = vigenciaAnoMesItem;
 
-        if (vigenciaAno || vigenciaMes) {
+        if (!mapasDeFaixas)
             mapasDeFaixas = {};
-            mapasDeFaixas.faixasInss = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasInss) ?? new Map();
-            mapasDeFaixas.faixasIrpf = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasIrpf) ?? new Map();
-            mapasDeFaixas.faixasIrpfPLR = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasIrpfPLR) ?? new Map();
-            mapasDeFaixas.vlIrpfDescontoSimplificado = getValorVigente(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaIrpfDescontoSimplificado) ?? 0;
-        }
+
+        if (!mapasDeFaixas.faixasInss)
+            mapasDeFaixas.faixasInss = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasInss);
+
+        if (!mapasDeFaixas.faixasIrpf)
+            mapasDeFaixas.faixasIrpf = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasIrpf);
+
+        if (!mapasDeFaixas.faixasIrpfPLR)
+            mapasDeFaixas.faixasIrpfPLR = getFaixasVigentes(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaFaixasIrpfPLR);
+
+        if (!mapasDeFaixas.vlIrpfDescontoSimplificado)
+            mapasDeFaixas.vlIrpfDescontoSimplificado = getValorVigente(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaIrpfDescontoSimplificado);
+
+        if (!mapasDeFaixas.vlIrpfDeducaoDependentes)
+            mapasDeFaixas.vlIrpfDeducaoDependentes = getValorVigente(vigenciaAnoMesItem.Ano, vigenciaAnoMesItem.Mes, vigenciaIrpfDeducaoDependenteMensal);
+
 
         let informacoesAdicionais = new Set<InformacaoAdicional>();
         informacoesAdicionais.add(InformacaoAdicional.Salario);
@@ -118,9 +130,18 @@ export function calcularSerie(
             vigenciaMes: vigenciaAnoMesItem.Mes
         });
 
-        item.vlDeducoes = item.inss.vlImposto + deducaoSaude + deducaoInstrucao;
+        if (qtdDependentes > 0) {
+            item.vlDeducoesDependentes = qtdDependentes * mapasDeFaixas.vlIrpfDeducaoDependentes;
+            informacoesAdicionais.add(InformacaoAdicional.DeducaoDependentes);
+        } else if (qtdDependentes < 0) {
+            throw new ParametroInvalido(varsName({ qtdDependentes }), "Quantidade de dependentes não pode ser negativa");
+        } else {
+            item.vlDeducoesDependentes = 0;
+        }
 
-        const vlIrpfDescontoSimplificado = mapasDeFaixas?.vlIrpfDescontoSimplificado ?? 0;
+        item.vlDeducoes = item.inss.vlImposto + deducaoSaude + deducaoInstrucao + item.vlDeducoesDependentes;
+
+        const vlIrpfDescontoSimplificado = mapasDeFaixas.vlIrpfDescontoSimplificado;
 
         const vlBaseDeCalculoIRPF = item.vlBruto - item.vlDeducoes;
 
@@ -169,7 +190,9 @@ export function calcularSerie(
                 vigenciaAno: vigenciaAnoMesItem.Ano,
                 vigenciaMes: vigenciaAnoMesItem.Mes,
                 usarDescontoSimplificadoIRPF,
-                usarIsencao5k7k
+                qtdDependentes,
+                usarIsencao5k7k,
+                mapasDeFaixas: null
             });
 
             const mes13 = decimoTerceiro.meses[0]!;

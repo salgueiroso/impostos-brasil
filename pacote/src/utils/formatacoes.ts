@@ -1,6 +1,6 @@
 import { ParametroInvalido } from "../tipos/erros";
 import { precisao } from "../valores";
-import { varName } from "./helper";
+import { varsName } from "./helper";
 
 /**
  * Converte um valor numérico para uma string formatada no padrão monetário brasileiro (R$).
@@ -90,7 +90,7 @@ export function normalizarPrecisao(value: Number, precisaoLocal?: number | null)
     precisaoLocal ??= precisao;
 
     if (precisaoLocal < 0)
-        throw new ParametroInvalido(varName({ precisaoLocal }), "Este parametro tem que ter valor igual ou maior que zero.");
+        throw new ParametroInvalido(varsName({ precisaoLocal }), "Este parametro tem que ter valor igual ou maior que zero.");
 
 
     const fator = Math.pow(10, precisaoLocal);

@@ -10,7 +10,9 @@
     "target": "es2016",
     // "types": [],
     // For nodejs:
-    // "lib": ["esnext"],
+    "lib": [
+      "es2017"
+    ],
     // "types": ["node"],
     // and npm install -D @types/node
     // Other Outputs

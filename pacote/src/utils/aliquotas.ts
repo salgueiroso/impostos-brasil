@@ -1,6 +1,8 @@
 import { MapaChaveAnoMes } from "../tipos/ano-mes-aliquotas-faixas-map";
+import { ParametroInvalido } from "../tipos/erros";
 import { AliquotasTetoFaixas, Ano, Meses } from "../tipos/tipos-basicos";
 import { toValorCronologico } from "./datas";
+import { varsName } from "./helper";
 
 /**
  * Localiza a configuração tributária (alíquotas, faixas ou valores) vigente para uma determinada data.
@@ -11,13 +13,13 @@ import { toValorCronologico } from "./datas";
  * @param ano - Ano de referência da competência.
  * @param mes - Mês de referência da competência.
  * @param faixas - Instância de {@link MapaChaveAnoMes} contendo o histórico de vigências.
- * @returns O valor ou conjunto de faixas vigentes na data. Retorna `null` se `faixas` não for fornecido.
+ * @returns O valor ou conjunto de faixas vigentes na data. Gera erro se `faixas` não for fornecido.
  * @throws Lança uma exceção se não houver nenhuma configuração válida para a data informada ou períodos anteriores.
  */
-export function getFaixasVigentes<V extends AliquotasTetoFaixas | number = AliquotasTetoFaixas>(ano: Ano, mes: Meses, faixas?: MapaChaveAnoMes<V> | null): V | null {
+export function getFaixasVigentes<V extends AliquotasTetoFaixas | number = AliquotasTetoFaixas>(ano: Ano, mes: Meses, faixas: MapaChaveAnoMes<V>): V {
 
-    if (!faixas) return null;
-
+    if (!faixas)
+        throw new ParametroInvalido(varsName({ faixas }), "Não pode ser null ou undefined");
 
     let keys = Array
         // Ordena ascendente
@@ -30,10 +32,16 @@ export function getFaixasVigentes<V extends AliquotasTetoFaixas | number = Aliqu
         return valido;
     });
 
-    if (!firstLessKey) throw "Ano de vigencia nao configurado";
+    if (!firstLessKey)
+        throw new ParametroInvalido(varsName({ ano, mes }), "Periodo de vigencia inexistente no mapa de faixas fornecido");
 
 
-    return faixas.get(firstLessKey)!;
+    const valor = faixas.get(firstLessKey);
+
+    if (!valor)
+        throw new ParametroInvalido(varsName({ ano, mes }), "Periodo de vigencia existe no mapa de faixas fornecido, mas seu valor é null ou undefined");
+
+    return valor!;
 
 }
 
@@ -48,6 +56,6 @@ export function getFaixasVigentes<V extends AliquotasTetoFaixas | number = Aliqu
  * @param faixas - Mapa cronológico de valores numéricos.
  * @returns O valor numérico vigente ou `null` se o mapa não for fornecido.
  */
-export function getValorVigente(ano: Ano, mes: Meses, faixas?: MapaChaveAnoMes<number> | null): number | null {
-    return getFaixasVigentes<number>(ano, mes, faixas) ?? null;
+export function getValorVigente(ano: Ano, mes: Meses, faixas: MapaChaveAnoMes<number>): number {
+    return getFaixasVigentes<number>(ano, mes, faixas);
 }

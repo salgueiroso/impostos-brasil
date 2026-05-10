@@ -28,12 +28,35 @@ export const nameOf = <T>(name: keyof T) => name;
  * @example
  * ```typescript
  * let vlBruto = 1000;
- * varName({ vlBruto }); // "vlBruto"
+ * varsName({ vlBruto }); // "vlBruto"
  * ```
  */
-export function varName(objeto: any): string {
-    let nome = Object.keys(objeto)[0];
-    if (!nome)
+export function varsName(objeto: Record<string, unknown>): string {
+    const nome = Object
+        .keys(objeto)
+        .join(", ")
+        .trim();
+
+    if (eVazio(nome))
         throw new Error("Objeto sem nome");
+
     return nome;
+}
+
+
+export function eVazio(valor: any): boolean {
+
+    if (valor === null)
+        return true;
+
+    if (valor === undefined)
+        return true;
+
+    if (Array.isArray(valor) && valor.length === 0)
+        return true;
+
+    if (`${valor}`.trim() === "")
+        return true;
+
+    return false;
 }

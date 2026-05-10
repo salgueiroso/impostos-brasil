@@ -1,0 +1,13 @@
+{
+    "$schema": "./schemas/schema-mapas.json",
+    "MapaVigencia": [
+        {
+            "Fonte": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2026#:~:text=Dedu%C3%A7%C3%A3o%20mensal%20por%20dependente%3A%20R%24%20189%2C59",
+            "Chave": {
+                "Ano": 2026,
+                "Mes": 1
+            },
+            "Valor": 189.59
+        }
+    ]
+}

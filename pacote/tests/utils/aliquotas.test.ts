@@ -1,14 +1,20 @@
 import { describe, test, expect } from "@jest/globals";
 import { getFaixasVigentes, getValorVigente } from '../../src/utils/aliquotas';
 import { MapaChaveAnoMes } from "../../src/tipos/ano-mes-aliquotas-faixas-map";
-import { Aliquota, TetoFaixa } from "../../src/tipos/tipos-basicos";
+import { Aliquota, AliquotasTetoFaixas, TetoFaixa } from "../../src/tipos/tipos-basicos";
+import { varsName } from "../../src/utils/helper";
 
 
-describe("getAliquotasVigentes", () => {
+describe(varsName({ getFaixasVigentes }), () => {
 
-    test("Deve retornar null se faixas=null", () => {
-        const resultado = getFaixasVigentes(2026, 1);
-        expect(resultado).toBeNull();
+    test("Deve retornar erro se periodo inexixtente na faixa informada", () => {
+        expect(() => getFaixasVigentes(2026, 1, new MapaChaveAnoMes<AliquotasTetoFaixas>([
+            [{ Ano: 2020, Mes: 1 }, null as unknown as AliquotasTetoFaixas],
+        ]))).toThrow();
+    });
+
+    test("Deve retornar erro se faixas=null", () => {
+        expect(() => getFaixasVigentes(2026, 1, null as unknown as MapaChaveAnoMes<AliquotasTetoFaixas>)).toThrow();
     });
 
     test("Deve estourar um Error se periodo nao está configurado", () => {
@@ -52,11 +58,16 @@ describe("getAliquotasVigentes", () => {
     });
 });
 
-describe("getValorVigente", () => {
+describe(varsName({ getValorVigente }), () => {
 
-    test("Deve retornar null se faixas=null", () => {
-        const resultado = getValorVigente(2026, 1);
-        expect(resultado).toBeNull();
+    test("Deve retornar erro se periodo inexixtente na faixa informada", () => {
+        expect(() => getValorVigente(2026, 1, new MapaChaveAnoMes<number>([
+            [{ Ano: 2020, Mes: 1 }, null as unknown as number]
+        ]))).toThrow();
+    });
+
+    test("Deve retornar erro se faixas=null", () => {
+        expect(() => getValorVigente(2026, 1, null as unknown as MapaChaveAnoMes<number>)).toThrow();
     });
 
     test("Deve estourar um Error se periodo nao está configurado", () => {

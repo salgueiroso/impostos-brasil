@@ -7,18 +7,33 @@ const config: Config = {
         "default",
         "github-actions",
         ["jest-junit", { outputDirectory: "./reports", outputName: "junit.xml" }]
-        // "jest-junit"
     ],
     collectCoverage: true,
     coverageDirectory: "./coverage",
-
     coverageReporters: ["clover", "json", "lcov", "text"],
-    maxConcurrency: 5,
 
+    // define explicitamente quais arquivos entram na cobertura
+    collectCoverageFrom: [
+        "src/**/*.ts",
+        "!src/utils/extensoes.ts", // ignora o arquivo
+        "!src/**/*.d.ts",     // ignora declarações
+        "!src/**/index.ts"       // ignora barrel exports
+    ],
+
+    // limites de cobertura — falha o build se não atingir
+    coverageThreshold: {
+        global: {
+            statements: 100,
+            branches: 100,
+            functions: 100,
+            lines: 100
+        }
+    },
+
+    maxConcurrency: 5,
     setupFiles: [
         "./src/utils/extensoes.ts"
     ]
-
-}
+};
 
 export default config;

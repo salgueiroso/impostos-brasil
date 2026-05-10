@@ -1,5 +1,6 @@
+import { InformacaoAdicional } from "./informacao-adicional";
 import { OpcoesMapasFaixas } from "./opcoes-mapas-faixas";
-import { Ano, Ferias, Meses, TipoRecorrencia } from "./tipos-basicos";
+import { AliquotasTetoFaixas, Ano, Ferias, Meses, TipoRecorrencia } from "./tipos-basicos";
 
 /**
  * Define as configurações e parâmetros de entrada para o motor de cálculo de séries temporais.
@@ -67,6 +68,8 @@ export interface OpcoesSerie {
      */
     deducaoInstrucaoRecorrencia?: TipoRecorrencia;
 
+    qtdDependentes?: number;
+
     /**
      * Mês em que o pagamento da PLR será provisionado.
      * @default Mês atual do sistema {@link Meses}
@@ -104,4 +107,24 @@ export interface OpcoesSerie {
      * Habilita o uso da isenção/desconto entre 5000 e 7350
      */
     usarIsencao5k7k?: boolean;
+}
+
+
+export interface OpcoesInss {
+    vlBaseDeCalculo?: number | null,
+    aliquotasTetoFaixas?: AliquotasTetoFaixas | null,
+    vigenciaAno?: Ano,
+    vigenciaMes?: Meses
+}
+
+
+export interface OpcoesIrpf {
+    vlBaseDeCalculo?: number | null,
+    usarIsencao5k7k?: boolean | null,
+    aliquotasTetoFaixas?: AliquotasTetoFaixas | null,
+    usarDescontoSimplificadoIRPF?: boolean | null,
+    vlDescontoSimplificado?: number | null,
+    vigenciaAno?: Ano,
+    vigenciaMes?: Meses,
+    marcador?: Set<InformacaoAdicional> | null
 }

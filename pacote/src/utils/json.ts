@@ -1,7 +1,9 @@
 import { MapaChaveAnoMes } from "../tipos/ano-mes-aliquotas-faixas-map";
+import { ParametroInvalido } from "../tipos/erros";
 import { ItemMapaJson } from "../tipos/item-mapa-json";
 import { Aliquota, AliquotasTetoFaixas, Meses, TetoFaixa } from "../tipos/tipos-basicos";
 import { toAno } from "./datas";
+import { nameOf, varsName } from "./helper";
 
 
 /**
@@ -41,6 +43,9 @@ export function carregarDoJson<T extends AliquotasTetoFaixas | number = Aliquota
                     ];
                 })
             ) as T;
+        } else {
+            const msg = `A propriedade ${nameOf<ItemMapaJson>("Valor")} pode ser apenas number ou um array. Foi recebido o tipo ${typeof item.Valor} no objeto ${JSON.stringify(item)}`;
+            throw new ParametroInvalido(varsName({ content }), msg);
         }
 
 

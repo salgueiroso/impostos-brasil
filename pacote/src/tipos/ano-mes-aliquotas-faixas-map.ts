@@ -114,11 +114,13 @@ export class MapaChaveAnoMes<V extends AliquotasTetoFaixas | number, K extends A
     /**
      * Gera um iterador que percorre apenas os anos civis únicos presentes nas chaves deste mapa.
      * 
-     * @returns Um iterador de valores do tipo {@link Ano}.
+     * @returns Um iterador que percorre os valores do tipo {@link Ano}.
      */
-    *anos(): MapIterator<Ano> {
+    *anos(): IterableIterator<Ano> {
+        const anosUnicos = new Set<Ano>();
         for (const k of this.mapa.keys()) {
-            yield fromValorCronologico(k).Ano;
+            anosUnicos.add(fromValorCronologico(k).Ano);
         }
+        yield* anosUnicos;
     }
 }
