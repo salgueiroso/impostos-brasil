@@ -13,7 +13,8 @@ O objetivo desta biblioteca é simplificar o cálculo complexo dos principais im
 ### ✨ Diferenciais
 
 - **Cálculo Progressivo:** Implementação precisa do cálculo "fatiado" por faixas, conforme a legislação vigente.
-- **Série Temporal Inteligente:** Projeção de múltiplos meses considerando 13º salário, regras de férias (período aquisitivo) e PLR.
+- **Série Temporal Inteligente:** Projeção de múltiplos meses considerando 13º salário (com cálculo proporcional automático), regras de férias (período aquisitivo) e PLR.
+- **Cálculo Proporcional:** Suporte ao cálculo de 13º proporcional ao período trabalhado/projetado na série.
 - **Gestão de Vigências Cronológicas:** Utiliza um mapa especializado (`MapaChaveAnoMes`) para lidar com tabelas históricas de forma precisa, resolvendo problemas de comparação de objetos por referência.
 - **Regras Modernas:** Suporte à nova lógica de isenção progressiva (isenção total até R$ 5.000 e desconto progressivo até R$ 7.350) e ao desconto simplificado do IRPF.
 - **Extensões de Utilitários:** Métodos integrados ao tipo `Number` para formatação (`toBRL`, `toPercent`) e normalização de precisão financeira (`normalizarPrecisao`).
@@ -67,15 +68,38 @@ const resultado = calcularINSS(5000, {
 
 ### 2. Cálculo de IRPF
 
-O segundo parâmetro é um objeto de opções. Todos os campos são opcionais.
+O segundo parâmetro é um objeto de opções. A biblioteca suporta a regra de isenção progressiva (2025/2026).
 
 ```typescript
 import { calcularIRPF, Meses, toAno } from 'impostos-brasil';
 
 const salarioBruto = 5000;
-const baseCalculo = 4450; // Ex: Salário - INSS
+const baseCalculo = 4450; // Ex: Salário Bruto - INSS
 
 const resultado = calcularIRPF(salarioBruto, {
+    vlBaseDeCalculo: baseCalculo,
+    usarIsencao5k7k: true,        // Habilita isenção total até R$ 5.000 e progressiva até R$ 7.350
+    vigenciaAno: toAno(2025),
+    vigenciaMes: Meses.Janeiro
+});
+
+console.log(`Imposto Retido: ${resultado.vlImposto.toBRL()}`);
+console.log(`Salário Líquido: ${resultado.vlLiquido.toBRL()}`);
+```
+
+#### Desconto Simplificado
+
+Você pode optar pelo desconto simplificado do IRPF, que substitui as deduções legais se for mais vantajoso:
+
+```typescript
+import { calcularIRPF, Meses, toAno } from 'impostos-brasil';
+
+const salarioBruto = 3000;
+const baseCalculo = 2750;
+
+const resultado = calcularIRPF(salarioBruto, {
+    usarDescontoSimplificado: true,
+    vlDeducaoSimplificada: 564.80, // Opcional: injeta valor específico
     vlBaseDeCalculo: baseCalculo,
     usarIsencao5k7k: true,        // padrão: true
     vigenciaAno: toAno(2025),
@@ -189,7 +213,7 @@ Parâmetro de `calcularSerie`:
 | `vlBruto` | `number` | — | **(obrigatório)** Salário bruto mensal base. |
 | `qtdSeries` | `number` | `12` | Quantidade de meses a simular. |
 | `incluir13` | `boolean` | `false` | Inclui o cálculo do 13º salário em dezembro. |
-| `incluirFerias` | `Ferias` | `Ferias.Nao` | Modo de aplicação das férias. |
+| `incluirFerias` | `Ferias` | `Ferias.Nao` | Modo de aplicação das férias (Sim, Não, IgnorarPrimeiroAno). |
 | `percentualFerias` | `number` | `1/3` | Adicional de férias (1/3 constitucional por padrão). |
 | `mesFerias` | `Meses` | mês atual | Mês em que as férias são aplicadas. |
 | `deducaoSaude` | `number` | `0` | Valor das despesas de saúde a deduzir. |
