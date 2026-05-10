@@ -1,6 +1,6 @@
 {
   "name": "impostos-brasil",
-  "version": "1.5.13",
+  "version": "1.5.14",
   "description": "Esta biblioteca simplifica os calculos dos impostos INSS e IR do Brasil",
   "author": "Acacio Salgueiro",
   "license": "MIT",

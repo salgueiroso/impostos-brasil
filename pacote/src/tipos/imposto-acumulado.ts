@@ -69,4 +69,6 @@ export interface ImpostoAcumulado {
      * Somatório de todas as deduções no período
      */
     vlDeducoesTotal: number;
+
+    vlDeducoesDependentes: number;
 }

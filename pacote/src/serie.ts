@@ -8,8 +8,7 @@ import { OpcoesSerie } from "./tipos/opcoes";
 import { Ferias, Meses, TipoRecorrencia } from "./tipos/tipos-basicos";
 import { varsName } from "./utils";
 import { getFaixasVigentes, getValorVigente } from "./utils/aliquotas";
-import { Contar13, contarMesesContabeisEntre, incrementaAnoMes, toAno, toMes } from "./utils/datas";
-import { incrementarImposto } from "./utils/impostos";
+import { contarMesesContabeisEntre, incrementaAnoMes, toAno, toMes } from "./utils/datas";
 import { deducaoMaximaInstrucao } from "./valores";
 
 /**
@@ -54,7 +53,7 @@ export function calcularSerie(
         mapasDeFaixas = null,
         vigenciaAno = toAno(dataAtual.getFullYear()),
         vigenciaMes = _mesAtual,
-        usarDescontoSimplificadoIRPF = false,
+        usarDescontoSimplificadoIRPF = true,
         usarIsencao5k7k = true,
         qtdDependentes = 0
     } = opcoes;
@@ -197,6 +196,9 @@ export function calcularSerie(
 
             const mes13 = decimoTerceiro.meses[0]!;
 
+            item.irpf13 = mes13.irpf;
+            item.inss13 = mes13.inss;
+
             item.vlBruto += mes13.vlBruto;
             item.vlBruto = item.vlBruto.normalizarPrecisao();
 
@@ -206,8 +208,8 @@ export function calcularSerie(
             item.vlDeducoes += mes13.vlDeducoes;
             item.vlDeducoes = item.vlDeducoes.normalizarPrecisao();
 
-            incrementarImposto(mes13.inss, item.inss);
-            incrementarImposto(mes13.irpf, item.irpf);
+            item.vlDeducoesDependentes += mes13.vlDeducoesDependentes;
+            item.vlDeducoesDependentes = item.vlDeducoesDependentes.normalizarPrecisao();
 
         }
 
@@ -228,15 +230,19 @@ export function calcularSerie(
             .reduce((a, b) => a + b, 0)
             .normalizarPrecisao(),
         vlImpostoInssTotal: impostosMensais
-            .map(mes => mes.inss.vlImposto)
+            .map(mes => mes.inss.vlImposto + (mes.inss13?.vlImposto ?? 0))
             .reduce((a, b) => a + b, 0)
             .normalizarPrecisao(),
         vlImpostoIrpfTotal: impostosMensais
-            .map(mes => mes.irpf.vlImposto + (mes.irpfPLR?.vlImposto ?? 0))
+            .map(mes => mes.irpf.vlImposto + (mes.irpfPLR?.vlImposto ?? 0) + (mes.irpf13?.vlImposto ?? 0))
             .reduce((a, b) => a + b, 0)
             .normalizarPrecisao(),
         vlImpostoIrpfPLRTotal: impostosMensais
             .map(mes => mes.irpfPLR?.vlImposto ?? 0)
+            .reduce((a, b) => a + b, 0)
+            .normalizarPrecisao(),
+        vlDeducoesDependentes: impostosMensais
+            .map(mes => mes.vlDeducoesDependentes)
             .reduce((a, b) => a + b, 0)
             .normalizarPrecisao(),
         vlDeducoesTotal: impostosMensais

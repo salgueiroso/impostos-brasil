@@ -21,10 +21,16 @@ export interface DadosDoMes {
      */
     irpfPLR?: Imposto | null
 
+    irpf13?: Imposto | null;
+
+
     /**
      * Detalhamento da contribuição previdenciária (INSS) calculada para o mês.
      */
     inss: Imposto;
+
+    inss13?: Imposto | null;
+
 
     /**
      * Ano e mês de referencia deste calculo
